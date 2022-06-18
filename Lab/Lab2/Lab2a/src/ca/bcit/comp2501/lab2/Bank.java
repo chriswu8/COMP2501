@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * @author Chris Wu and Elijah Marquez
  * @version 1.0
@@ -28,11 +27,20 @@ public class Bank {
     /**
      * @param account is the bank account
      */
-    public void addAccount(BankAccount account) {
+    public void addAccount(final BankAccount account) {
         accounts.put(account.getAccNumber(), account);
 
         Set<String> accountNumber;
         accountNumber = accounts.keySet();
     }
+
+    /**
+     * @param accountNumber is the bank account number
+     */
+    public void removeAccount(final String accountNumber) {
+        accounts.remove(accountNumber);
+    }
+
+    
 
 }
