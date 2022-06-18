@@ -59,5 +59,14 @@ public class Bank {
         return totalCdn;
     }
 
+    /**
+     * @param amountCdn  is the amount of Canadian dollars to be deposited
+     * @param accountNum is the account number that specifies the bank account that is to receive the deposit
+     *
+     */
+    public void depositTo(double amountCdn, String accountNum) {
+        accounts.get(accountNum).deposit(amountCdn);
+    }
+
 
 }
