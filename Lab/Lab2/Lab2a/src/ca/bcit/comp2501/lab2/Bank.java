@@ -41,6 +41,14 @@ public class Bank {
         accounts.remove(accountNumber);
     }
 
-    
+    /**
+     * @return the number of accounts
+     */
+    public int getNumberOfAccounts() {
+        return accounts.size();
+    }
+
+
+
 
 }
