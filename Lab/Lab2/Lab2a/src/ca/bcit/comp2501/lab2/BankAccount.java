@@ -47,22 +47,21 @@ class BankAccount {
     }
 
     /**
-     * @return the current balance (in CAD) of this BankAccount
+     * @return the current balance (in CAD) of this bank account
      */
     public double getBalanceCad() {
         return balanceCad;
     }
 
     /**
-     * @param
-     * @return the accNumber (account #) of this BankAcocunt
+     * @return the account number of this bank account
      */
     public String getAccNumber() {
         return accNumber;
     }
 
     /**
-     * @return this BankAccount member's last name
+     * @return this bank account member's last name
      */
     public String getMemberLastName() {
         return memberLastName;

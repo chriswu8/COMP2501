@@ -3,7 +3,6 @@ package ca.bcit.comp2501.lab2;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.text.DecimalFormat;
 
 /**
  * @author Chris Wu and Elijah Marquez
@@ -71,16 +70,22 @@ public class Bank {
     /**
      * Prints all customer data and total balance in all accounts
      */
-    public void printAllCustomer() {
-        DecimalFormat fmt = new DecimalFormat("0.##");
+    public void printAllCustomerData() {
 
         for (String accountNumber : accountNumbers) {
+            double balance;
+            balance = accounts.get(accountNumber).getBalanceCad();
+            String BalanceString = String.format("%.02f", balance);
+
             System.out.println("Customer " + accounts.get(accountNumber).getMemberLastName()
-                    + " has " + fmt.format(accounts.get(accountNumber).getBalanceCad()) + " in account "
+                    + " has $" + BalanceString + " in account #"
                     + accounts.get(accountNumber).getAccNumber());
         }
 
-        System.out.println("Total bank balance in all accounts for " + name + " is "
-                + fmt.format(getTotalAccountBalance()));
+        double TotalBalance;
+        TotalBalance = getTotalAccountBalance();
+        String BalanceString = String.format("%.02f", TotalBalance);
+
+        System.out.println("Total bank balance in all accounts for " + name + " is " + BalanceString);
     }
 }
