@@ -14,6 +14,9 @@ public class Bank {
 
     private final Map<String, BankAccount> accounts;
 
+    private double totalCdn;
+    private final Set<String> accountNumbers;
+
     /**
      * The constructor
      *
@@ -22,6 +25,7 @@ public class Bank {
     Bank(final String bankName) {
         name = bankName;
         accounts = new HashMap<>();
+        accountNumbers = accounts.keySet();
     }
 
     /**
@@ -29,9 +33,6 @@ public class Bank {
      */
     public void addAccount(final BankAccount account) {
         accounts.put(account.getAccNumber(), account);
-
-        Set<String> accountNumber;
-        accountNumber = accounts.keySet();
     }
 
     /**
@@ -48,7 +49,15 @@ public class Bank {
         return accounts.size();
     }
 
-
+    /**
+     * @return totalCdn is the total balance of all the accounts
+     */
+    public double getTotalAccountBalance() {
+        for (String accountNumber : accountNumbers) {
+            totalCdn += accounts.get(accountNumber).getBalanceCad();
+        }
+        return totalCdn;
+    }
 
 
 }
