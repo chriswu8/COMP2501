@@ -3,6 +3,7 @@ package ca.bcit.comp2501.lab2;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.text.DecimalFormat;
 
 /**
  * @author Chris Wu and Elijah Marquez
@@ -62,11 +63,24 @@ public class Bank {
     /**
      * @param amountCdn  is the amount of Canadian dollars to be deposited
      * @param accountNum is the account number that specifies the bank account that is to receive the deposit
-     *
      */
     public void depositTo(double amountCdn, String accountNum) {
         accounts.get(accountNum).deposit(amountCdn);
     }
 
+    /**
+     * Prints all customer data and total balance in all accounts
+     */
+    public void printAllCustomer() {
+        DecimalFormat fmt = new DecimalFormat("0.##");
 
+        for (String accountNumber : accountNumbers) {
+            System.out.println("Customer " + accounts.get(accountNumber).getMemberLastName()
+                    + " has " + fmt.format(accounts.get(accountNumber).getBalanceCad()) + " in account "
+                    + accounts.get(accountNumber).getAccNumber());
+        }
+
+        System.out.println("Total bank balance in all accounts for " + name + " is "
+                + fmt.format(getTotalAccountBalance()));
+    }
 }
