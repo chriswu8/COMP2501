@@ -84,7 +84,8 @@ public class Bank {
 
         double TotalBalance;
         TotalBalance = getTotalAccountBalance();
-        String BalanceString = String.format("%.02f", TotalBalance);
+        String BalanceString;
+        BalanceString = String.format("%.02f", TotalBalance);
 
         System.out.println("Total bank balance in all accounts for " + name + " is " + BalanceString);
     }

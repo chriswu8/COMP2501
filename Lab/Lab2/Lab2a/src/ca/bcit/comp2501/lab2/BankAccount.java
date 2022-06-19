@@ -19,7 +19,10 @@ class BankAccount {
     BankAccount(final double balanceCdn, final String accountNumber, final String memberLastName) {
         this.accNumber = accountNumber;
         this.balanceCad = balanceCdn;
-        this.memberLastName = memberLastName;
+
+        String capitalizedLastName = memberLastName.substring(0, 1).toUpperCase()
+                + memberLastName.substring(1);
+        this.memberLastName = capitalizedLastName;
     }
 
     /**
