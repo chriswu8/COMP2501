@@ -1,8 +1,9 @@
 package ca.bcit.comp2501.lab2b;
 
 /**
+ * The Date container class
  * @author Chris Wu
- * @version 1.0
+ * @version 2.0
  */
 public class Date {
     String year;
@@ -15,7 +16,7 @@ public class Date {
      * @param month the month
      * @param day the day
      */
-    public Date(String year, String month, String day) {
+    public Date(final String year, final String month, final String day) {
         this.year = year;
         this.month = month;
         this.day = day;
@@ -25,7 +26,7 @@ public class Date {
      * @return a concatenated String of year, month, and day
      */
     public String getYyMmDd() {
-        return "" + year + "-" + month + "-" + day;
+        return year + "-" + month + "-" + day;
     }
 
     /**
@@ -59,25 +60,22 @@ public class Date {
     /**
      * @param year: the year (as a String) that is to be set
      */
-    public void setYear(String year) {
+    public void setYear(final String year) {
         this.year = year;
     }
 
     /**
      * @param month: the month (as a String) that is to be set
      */
-    public void setMonth(String month) {
+    public void setMonth(final String month) {
         this.month = month;
     }
 
     /**
      * @param day: the day (as a String) that is to be set
      */
-    public void setDay(String day) {
+    public void setDay(final String day) {
         this.day = day;
     }
-
-    // the entry point of the program
-    public static void main(String[] args) {}
 
 }

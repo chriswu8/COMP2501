@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author Chris Wu and Elijah Marquez
+ * @author Chris Wu, Elijah Marquez and Se Hwan Lee
  * @version 1.0
  */
 

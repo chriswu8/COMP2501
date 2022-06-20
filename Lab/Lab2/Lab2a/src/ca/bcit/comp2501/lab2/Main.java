@@ -1,7 +1,7 @@
 package ca.bcit.comp2501.lab2;
 
 /**
- * @author Chris Wu and Elijah Marquez
+ * @author Chris Wu, Elijah Marquez and Se Hwan Lee
  * @version 1.0
  */
 
