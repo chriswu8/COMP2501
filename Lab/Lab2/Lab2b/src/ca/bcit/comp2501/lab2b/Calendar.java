@@ -7,10 +7,12 @@ import java.util.Set;
 
 /**
  * The Calendar container class
+ *
  * @author Chris Wu
  * @version 1.0
  */
-public class Calendar {
+public class Calendar
+{
     private final ArrayList<Integer> years;
     private final String[] months;
     private final ArrayList<Integer> days;
@@ -24,7 +26,8 @@ public class Calendar {
     /**
      * The constructor
      */
-    public Calendar() {
+    public Calendar()
+    {
         years = new ArrayList<>();
         days = new ArrayList<>();
         months = new String[NUMBER_OF_MONTHS];
@@ -35,15 +38,20 @@ public class Calendar {
         populateMonths();
         populateDays();
 
-
-        for (Integer year : years) {
-            if (year != null) {
-                for (int i = 0; i < NUMBER_OF_MONTHS; i++) {
-                    if (months[i] != null) {
+        for (Integer year : years)
+        {
+            if (year != null)
+            {
+                for (int i = 0; i < NUMBER_OF_MONTHS; i++)
+                {
+                    if (months[i] != null)
+                    {
                         Iterator<Integer> it = days.iterator();
-                        while (it.hasNext()) {
+                        while (it.hasNext())
+                        {
                             Integer day = it.next();
-                            if (day != null) {
+                            if (day != null)
+                            {
                                 date = new Date(year.toString(), months[i], day.toString());
                                 storeDate(dates, date);
                             }
@@ -57,8 +65,10 @@ public class Calendar {
     /**
      * Populates the years ArrayList with years from 1910 to 2025
      */
-    public void populateYears() {
-        for (int year = 1910; year <= 2025; year++) {
+    public void populateYears()
+    {
+        for (int year = 1910; year <= 2025; year++)
+        {
             Integer theYear = year;
             years.add(theYear);
         }
@@ -67,9 +77,12 @@ public class Calendar {
     /**
      * Populates the months String array with all months of the year
      */
-    public void populateMonths() {
-        for (int month = 0; month < NUMBER_OF_MONTHS; month++) {
-            switch (month) {
+    public void populateMonths()
+    {
+        for (int month = 0; month < NUMBER_OF_MONTHS; month++)
+        {
+            switch (month)
+            {
                 case 0 -> months[month] = "January";
                 case 1 -> months[month] = "February";
                 case 2 -> months[month] = "March";
@@ -82,7 +95,8 @@ public class Calendar {
                 case 9 -> months[month] = "October";
                 case 10 -> months[month] = "November";
                 case 11 -> months[month] = "December";
-                default -> {
+                default ->
+                {
                 }
             }
         }
@@ -91,19 +105,21 @@ public class Calendar {
     /**
      * Populates the days ArrayList from day 0 to day 30
      */
-    public void populateDays() {
-        for (int day = 0; day < NUMBER_OF_DAYS; day++) {
+    public void populateDays()
+    {
+        for (int day = 0; day < NUMBER_OF_DAYS; day++)
+        {
             Integer theDay = day + 1;
             days.add(theDay);
         }
     }
 
-
     /**
      * @param dates is the collection of dates
      * @param date  is the date to be added to the dates collection
      */
-    public void storeDate(final HashMap dates, final Date date) {
+    public void storeDate(final HashMap dates, final Date date)
+    {
         currentDay++;
         theCurrentDay = currentDay;
         dates.put(theCurrentDay, date);
@@ -112,13 +128,14 @@ public class Calendar {
     /**
      * Prints each Date in the calendar
      */
-    public void printCalendar() {
+    public void printCalendar()
+    {
         Set<Integer> keys;
         keys = dates.keySet();
 
-        for (Integer key : keys) {
+        for (Integer key : keys)
+        {
             System.out.println("" + key + ": " + dates.get(key).getDate());
         }
     }
-
 }
