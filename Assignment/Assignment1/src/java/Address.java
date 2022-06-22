@@ -22,7 +22,7 @@ public class Address
      * @param city         is the city
      */
     public Address(final String unitNumber,
-                   final int streetNumber,
+                   final int    streetNumber,
                    final String streetName,
                    final String postalCode,
                    final String city)
@@ -45,7 +45,7 @@ public class Address
      * @param city         is the city
      */
     public void initialize(final String unitNumber,
-                           final int streetNumber,
+                           final int    streetNumber,
                            final String streetName,
                            final String postalCode,
                            final String city)
@@ -157,18 +157,17 @@ public class Address
     }
 
     /**
-     * @param unitNumber
-     * @param streetNumber
-     * @param streetName
-     * @param postalCode
-     * @param city
+     * @param unitNumber   is the unit number
+     * @param streetNumber is the street number
+     * @param streetName   is the street name
+     * @param postalCode   is the postal code
+     * @param city         is the city
      */
     private void getExpectedExceptionsCity(final String unitNumber,
-                                           final int streetNumber,
+                                           final int    streetNumber,
                                            final String streetName,
                                            final String postalCode,
                                            final String city)
-
     {
         if (city == null)
         {
