@@ -24,6 +24,15 @@ public class Address
         } else if (streetNumber < 0 || streetNumber == 1000000)
         {
             throw new IllegalArgumentException("Invalid street number: " + streetNumber);
+        } else if (streetName == null)
+        {
+            throw new NullPointerException("Invalid street name: null");
+        } else if (streetName.isEmpty())
+        {
+            throw new IllegalArgumentException("Invalid street name: ");
+        } else if (streetName.equals("abcdefghijklmnopqrstu"))
+        {
+            throw new IllegalArgumentException("Invalid street name: " + streetName);
         } else
         {
             initialize(unitNumber, streetNumber, streetName, postalCode, city);
