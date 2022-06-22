@@ -85,25 +85,25 @@ class AddressTest
         });
         assertTrue(ex.getMessage().equals("Invalid street number: 1000000"));
     }
-//
-//    @Test
-//    void getExpectedExceptionsStreetName()
-//    {
-//        NullPointerException ex2 = assertThrows(NullPointerException.class, ()->{
-//            address1 = new Address("1a",777, null, "v7n2m8", "surrey");
-//        });
-//        assertTrue(ex2.getMessage().equals("Invalid street name: null"));
-//
-//        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, ()->{
-//            address1 = new Address("1a",777, "", "v7n2m8", "surrey");
-//        });
-//        assertTrue(ex.getMessage().equals("Invalid street name: "));
-//
-//        ex = assertThrows(IllegalArgumentException.class, ()->{
-//            address1 = new Address("1a",777, "abcdefghijklmnopqrstu", "v7n2m8", "surrey");
-//        });
-//        assertTrue(ex.getMessage().equals("Invalid street name: abcdefghijklmnopqrstu"));
-//    }
+
+    @Test
+    void getExpectedExceptionsStreetName()
+    {
+        NullPointerException ex2 = assertThrows(NullPointerException.class, ()->{
+            address1 = new Address("1a",777, null, "v7n2m8", "surrey");
+        });
+        assertTrue(ex2.getMessage().equals("Invalid street name: null"));
+
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, ()->{
+            address1 = new Address("1a",777, "", "v7n2m8", "surrey");
+        });
+        assertTrue(ex.getMessage().equals("Invalid street name: "));
+
+        ex = assertThrows(IllegalArgumentException.class, ()->{
+            address1 = new Address("1a",777, "abcdefghijklmnopqrstu", "v7n2m8", "surrey");
+        });
+        assertTrue(ex.getMessage().equals("Invalid street name: abcdefghijklmnopqrstu"));
+    }
 //
 //    @Test
 //    void getExpectedExceptionsPostalCode()

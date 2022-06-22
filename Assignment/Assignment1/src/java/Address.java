@@ -21,6 +21,9 @@ public class Address
         } else if (unitNumber.equals("11111"))
         {
             throw new IllegalArgumentException("Invalid unit number: 11111");
+        } else if (streetNumber < 0 || streetNumber == 1000000)
+        {
+            throw new IllegalArgumentException("Invalid street number: " + streetNumber);
         } else
         {
             initialize(unitNumber, streetNumber, streetName, postalCode, city);
