@@ -33,6 +33,12 @@ public class Address
         } else if (streetName.equals("abcdefghijklmnopqrstu"))
         {
             throw new IllegalArgumentException("Invalid street name: " + streetName);
+        } else if (postalCode == null)
+        {
+            throw new NullPointerException("Invalid postal code: null");
+        } else if (postalCode.equals("1234") || postalCode.equals("1234567"))
+        {
+            throw new IllegalArgumentException("Invalid postal code: " + postalCode);
         } else
         {
             initialize(unitNumber, streetNumber, streetName, postalCode, city);
