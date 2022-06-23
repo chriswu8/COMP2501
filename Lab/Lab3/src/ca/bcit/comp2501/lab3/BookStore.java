@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class BookStore
 {
-    private        String      name;
+    private String name;
     private static List<Novel> novels;
 
 
@@ -155,7 +155,7 @@ public class BookStore
         {
             if(novel != null)
             {
-                if(novel.getTitle() != null)
+                if(novel.getTitle() != null && !novel.getTitle().isEmpty())
                 {
                     System.out.println(novel.getTitle().toUpperCase());
                 }
@@ -315,12 +315,14 @@ public class BookStore
     public static void main(final String[] args)
     {
         BookStore bookstore1 = new BookStore(args[0]);
+
+        // Tests
 //        printAllTitles();
 //        printTitlesContaining("the", false);
 //        printTitlesOfLength(13);
 //        printNameStartsEndsWith("aN");
-        System.out.println(bookstore1.getLongest("xyz"));
-        System.out.println(bookstore1.getLongest("AutHor"));
-        System.out.println(bookstore1.getLongest("titlE"));
+//        System.out.println(bookstore1.getLongest("xyz"));
+//        System.out.println(bookstore1.getLongest("AutHor"));
+//        System.out.println(bookstore1.getLongest("titlE"));
     }
 }
