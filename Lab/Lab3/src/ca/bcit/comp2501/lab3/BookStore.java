@@ -200,6 +200,58 @@ public class BookStore
     }
 
     /**
+     * Prints all titles that are of exactly the specified length
+     *
+     * @param length is the specified title length
+     */
+    public static void printTitlesOfLength(final int length)
+    {
+        for(Novel novel : novels)
+        {
+            if(novel != null)
+            {
+                if(novel.getTitle() != null)
+                {
+                    if(novel.getTitle().length() == length)
+                    {
+                        System.out.println(novel.getTitle());
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Prints all author names that either start or end with substring, in lowercase.
+     * The substring match is case insensitive.
+     *
+     * @param substring is the substring
+     */
+    public static void printNameStartsEndsWith(final String substring)
+    {
+        for(Novel novel : novels)
+        {
+            if(novel != null)
+            {
+                if(novel.getAuthor() != null)
+                {
+                    if(novel.getAuthor().toLowerCase().startsWith(substring.toLowerCase())
+                            || novel.getAuthor().toLowerCase().endsWith(substring.toLowerCase()))
+                    {
+                        System.out.println(novel.getAuthor().toLowerCase());
+                    }
+                }
+            }
+        }
+    }
+
+//    public String getLongest(final String property)
+//    {
+//
+//    }
+
+
+    /**
      * The entry point of the program
      *
      * @param args is the command line argument
@@ -208,7 +260,9 @@ public class BookStore
     {
         BookStore bookstore1 = new BookStore(args[0]);
 //        printAllTitles();
-        printTitlesContaining("the", false);
+//        printTitlesContaining("the", false);
+//        printTitlesOfLength(13);
+        printNameStartsEndsWith("aN");
     }
 
 }
