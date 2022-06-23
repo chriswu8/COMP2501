@@ -1,12 +1,10 @@
 package ca.bcit.comp2501.lab3;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.ArrayList;
 
 /**
  * The BookStore class models a bookstore
- *
  * @author Chris Wu and Aaron Wong
  * @version 1.0
  */
@@ -18,7 +16,6 @@ public class BookStore
 
     /**
      * the constructor
-     *
      * @param name is the bookstore's name
      */
     public BookStore(final String name)
@@ -168,7 +165,6 @@ public class BookStore
 
     /**
      * Prints all titles that contain the specified substring
-     *
      * @param substring     is a substring
      * @param caseSensitive is true if the match must include letter casing, and vice versa
      */
@@ -201,7 +197,6 @@ public class BookStore
 
     /**
      * Prints all titles that are of exactly the specified length
-     *
      * @param length is the specified title length
      */
     public static void printTitlesOfLength(final int length)
@@ -224,7 +219,6 @@ public class BookStore
     /**
      * Prints all author names that either start or end with substring, in lowercase.
      * The substring match is case insensitive.
-     *
      * @param substring is the substring
      */
     public static void printNameStartsEndsWith(final String substring)
@@ -245,15 +239,77 @@ public class BookStore
         }
     }
 
-//    public String getLongest(final String property)
-//    {
-//
-//    }
+    /**
+     * Return the longest author name or title, or null depending on the property argument
+     * @param property is either the author or title
+     * @return the longest author name if the property argument is “author” (case insensitive)
+     * @return the longest title if the property argument is “title” (case insensitive)
+     * @return null if the property argument is neither “author” nor “title” (case insensitive)
+     */
+    public String getLongest(final String property)
+    {
+        if(property.equalsIgnoreCase("author"))
+        {
+            return findLongestAuthor();
+        }
 
+        if(property.equalsIgnoreCase("title"))
+        {
+            return findLongestTitle();
+        }
+        return null;
+    }
+
+    /**
+     * @return the longest author name
+     */
+    public String findLongestAuthor()
+    {
+        String longestAuthor;
+        longestAuthor = "init";
+
+        for(Novel novel : novels)
+        {
+            if(novel != null)
+            {
+                if(novel.getAuthor() != null)
+                {
+                    if(longestAuthor.equals("init") || novel.getAuthor().length() > longestAuthor.length())
+                    {
+                        longestAuthor = novel.getAuthor();
+                    }
+                }
+            }
+        }
+        return longestAuthor;
+    }
+
+    /**
+     * @return the longest title
+     */
+    public String findLongestTitle()
+    {
+        String longestTitle;
+        longestTitle = "init";
+
+        for(Novel novel : novels)
+        {
+            if(novel != null)
+            {
+                if(novel.getTitle() != null)
+                {
+                    if(longestTitle.equals("init") || novel.getTitle().length() > longestTitle.length())
+                    {
+                        longestTitle = novel.getTitle();
+                    }
+                }
+            }
+        }
+        return longestTitle;
+    }
 
     /**
      * The entry point of the program
-     *
      * @param args is the command line argument
      */
     public static void main(final String[] args)
@@ -262,7 +318,9 @@ public class BookStore
 //        printAllTitles();
 //        printTitlesContaining("the", false);
 //        printTitlesOfLength(13);
-        printNameStartsEndsWith("aN");
+//        printNameStartsEndsWith("aN");
+        System.out.println(bookstore1.getLongest("xyz"));
+        System.out.println(bookstore1.getLongest("AutHor"));
+        System.out.println(bookstore1.getLongest("titlE"));
     }
-
 }
