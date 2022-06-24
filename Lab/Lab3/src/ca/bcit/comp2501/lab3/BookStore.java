@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class BookStore
 {
-    private String name;
+    private        String      name;
     private static List<Novel> novels;
 
 
@@ -30,9 +30,11 @@ public class BookStore
 
         novels = new ArrayList<>();
         populateArrayList();
-
     }
 
+    /**
+     * Populates the novels ArrayList
+     */
     private void populateArrayList()
     {
         novels.add(null);
@@ -43,13 +45,13 @@ public class BookStore
         novels.add(new Novel("Animal Farm", "George Orwell", "1946"));
         novels.add(new Novel("Appointment in Samarra", "John O'Hara", "1934"));
         novels.add(new Novel(null, null, "0"));
-        novels.add(new Novel(null, "\"author name 1\"", "0"));
+        novels.add(new Novel(null, "author name 1", "0"));
         novels.add(new Novel("", null, "0"));
         novels.add(new Novel(null, "", "0"));
-        novels.add(new Novel("\"title 1\"", null, "0"));
+        novels.add(new Novel("title 1", null, "0"));
         novels.add(new Novel("", "", "0"));
-        novels.add(new Novel("", "\"author name 2\"", "0"));
-        novels.add(new Novel("\"title 2\"", null, "0"));
+        novels.add(new Novel("", "author name 2", "0"));
+        novels.add(new Novel("title 2", null, "0"));
         novels.add(new Novel("Are You There God? It's Me, Margaret.", "Judy Blume", "1970"));
         novels.add(new Novel("The Assistant", "Bernard Malamud", "1957"));
         novels.add(new Novel("At Swim-Two-Birds", "Flann O\'Brien", "1938"));
@@ -316,7 +318,7 @@ public class BookStore
     {
         BookStore bookstore1 = new BookStore(args[0]);
 
-        // Tests
+//        Tests
 //        printAllTitles();
 //        printTitlesContaining("the", false);
 //        printTitlesOfLength(13);
