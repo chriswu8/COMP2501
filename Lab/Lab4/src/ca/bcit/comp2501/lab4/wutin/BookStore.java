@@ -266,7 +266,7 @@ public class BookStore
     public String getLongest(final String property)
     {
         if(!property.equalsIgnoreCase("author")
-                || !property.equalsIgnoreCase("title"))
+                && !property.equalsIgnoreCase("title"))
         {
             throw new IllegalNovelPropertyException("bad property");
         }
@@ -340,21 +340,20 @@ public class BookStore
         BookStore bookstore1;
         bookstore1 = new BookStore(args[0]);
 
-//        === Below Are Tests ===
-
-//        printAllTitles();
-
-//        printTitlesContaining("the", false);
-//        printTitlesContaining("the", true);
-//
-//        printTitlesOfLength(13);
-
-//        System.out.println(bookstore1.getLongest("AutHor"));
-//        System.out.println(bookstore1.getLongest("titlE"));
+        printAllTitles();
 
         try
         {
+            printTitlesContaining("the", false);
+            printTitlesContaining("the", true);
+
+            printTitlesOfLength(13);
+
+            System.out.println(bookstore1.getLongest("AutHor"));
+            System.out.println(bookstore1.getLongest("titlE"));
+
             printNameStartsEndsWith("aN");
+
             printNameStartsEndsWith(null);
             printNameStartsEndsWith("");
             printNameStartsEndsWith("   ");
