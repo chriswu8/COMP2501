@@ -39,7 +39,7 @@ public class Property
     /**
      * @param price is the property's price
      */
-    public void checkPrice(final double price)
+    private void checkPrice(final double price)
     {
         if(price < 0)
         {
@@ -50,7 +50,7 @@ public class Property
     /**
      * @param address is the property's address
      */
-    public void checkAddress(final Address address)
+    private void checkAddress(final Address address)
     {
         if(address == null)
         {
@@ -62,7 +62,7 @@ public class Property
     /**
      * @param numberOfBedrooms is the number of bedrooms that the property has
      */
-    public void checkNumberOfBedrooms(final int numberOfBedrooms)
+    private void checkNumberOfBedrooms(final int numberOfBedrooms)
     {
         if(numberOfBedrooms == 0 || numberOfBedrooms >= 21)
         {
@@ -73,7 +73,7 @@ public class Property
     /**
      * @param type is the property's type (ie. residence, commercial, or retail)
      */
-    public void checkType(final String type)
+    private void checkType(final String type)
     {
         if(type == null)
         {
@@ -94,7 +94,7 @@ public class Property
      * @param type             is the property's type (ie. residence, commercial, or retail)
      * @param propertyId       is the property's identification string
      */
-    public void checkPropertyId(
+    private void checkPropertyId(
             final double price,
             final Address address,
             final int numberOfBedrooms,
