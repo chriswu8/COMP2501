@@ -1,96 +1,96 @@
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.Set;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//class AgencyTest
-//{
-//    private Agency agency;
-//
-//    private Address a1 = new Address("1a", 777, "56th avenue", "v7n2m8", "surrey");
-//    private Property p1 = new Property(499000.00, a1, 2, false, "residence", "abc123");
-//
-//    private Address a2 = new Address(null, 123, "main street", "v7r2g2", "west vancouver");
-//    private Property p2 = new Property(5999999.00, a2, 5, true, "residence", "xyz789");
-//
-//    private Address a3 = new Address(null, 456, "elm street", "90210", "los angeles");
-//    private Property p3 = new Property(2500000.00, a3, 6, true, "residence", "777def");
-//
-//    private Address a4 = new Address("44", 1111, "maple street", "v8y3r5", "vancouver");
-//    private Property p4 = new Property(1000000.00, a4, 1, false, "retail", "876tru");
-//
-//    private Address a5 = new Address("9", 99, "gretzky way", "t6v7h3", "toronto");
-//    private Property p5 = new Property(99999.00, a5, 1, false, "commercial", "9999");
-//
-//    private Address a6 = new Address("b", 711, "country road", "v8h5f5", "maple ridge");
-//    private Property p6 = new Property(740100.00, a6, 3, false, "residence", "mr6789");
-//
-//    private Address a7 = new Address(null, 8785, "pinnacle avenue", "v9u3h3", "north vancouver");
-//    private Property p7 = new Property(15000000.00, a7, 20, true, "residence", "78444a");
-//
-//    private Address a8 = new Address(null, 800, "elm street", "90557", "los angeles");
-//    private Property p8 = new Property(7100000.00, a8, 10, false, "residence", "mmm33");
-//
-//    private Address a9 = new Address(null, 1515,"main street", "v8y7r3", "west vancouver");
-//    private Property p9 = new Property(4000000.00, a9, 2, true, "commercial", "678T");
-//
-//    private Address a10 = new Address("6", 60, "60th street", "v8u9b1", "burnaby");
-//    private Property p10 = new Property(700000.00, a10, 2, true, "retail", "y6yyy");
-//
-//    private Address a11 = new Address("7h", 1500, "railway avenue", "v9v5v4", "richmond");
-//    private Property p11 = new Property(840000.00, a11, 4, false, "commercial", "A1212");
-//
-//    private Address a12 = new Address(null, 333, "elm street", "90111", "los angeles");
-//    private Property p12 = new Property(1600000.00, a12, 3, false, "residence", "9000a");
-//
-//
-//    @BeforeEach
-//    void setUp()
-//    {
-//        agency = new Agency("BCIT Ltd");
-//
-//        agency.addProperty(p1);
-//        agency.addProperty(p2);
-//        agency.addProperty(p3);
-//        agency.addProperty(p4);
-//        agency.addProperty(p5);
-//        agency.addProperty(p6);
-//        agency.addProperty(p7);
-//        agency.addProperty(p8);
-//        agency.addProperty(p9);
-//        agency.addProperty(p10);
-//        agency.addProperty(p11);
-//        agency.addProperty(p12);
-//
-//    }
-//
-//
-//    @AfterEach
-//    void tearDown()
-//    {
-//        agency = null;
-//    }
-//
-//
-//
-//
-//    @Test
-//    void addGetProperty()
-//    {
-//        assertNull(agency.getProperty("x"));
-//
-//        Address a13 = new Address(null, 333, "elm street", "90111", "los angeles");
-//        Property p13 = new Property(1600000.00, a13, 3, false, "residence", "x");
-//
-//        agency.addProperty(p13);
-//
-//        assertSame(p13, agency.getProperty("x"));
-//    }
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class AgencyTest
+{
+    private Agency agency;
+
+    private Address a1 = new Address("1a", 777, "56th avenue", "v7n2m8", "surrey");
+    private Property p1 = new Property(499000.00, a1, 2, false, "residence", "abc123");
+
+    private Address a2 = new Address(null, 123, "main street", "v7r2g2", "west vancouver");
+    private Property p2 = new Property(5999999.00, a2, 5, true, "residence", "xyz789");
+
+    private Address a3 = new Address(null, 456, "elm street", "90210", "los angeles");
+    private Property p3 = new Property(2500000.00, a3, 6, true, "residence", "777def");
+
+    private Address a4 = new Address("44", 1111, "maple street", "v8y3r5", "vancouver");
+    private Property p4 = new Property(1000000.00, a4, 1, false, "retail", "876tru");
+
+    private Address a5 = new Address("9", 99, "gretzky way", "t6v7h3", "toronto");
+    private Property p5 = new Property(99999.00, a5, 1, false, "commercial", "9999");
+
+    private Address a6 = new Address("b", 711, "country road", "v8h5f5", "maple ridge");
+    private Property p6 = new Property(740100.00, a6, 3, false, "residence", "mr6789");
+
+    private Address a7 = new Address(null, 8785, "pinnacle avenue", "v9u3h3", "north vancouver");
+    private Property p7 = new Property(15000000.00, a7, 20, true, "residence", "78444a");
+
+    private Address a8 = new Address(null, 800, "elm street", "90557", "los angeles");
+    private Property p8 = new Property(7100000.00, a8, 10, false, "residence", "mmm33");
+
+    private Address a9 = new Address(null, 1515,"main street", "v8y7r3", "west vancouver");
+    private Property p9 = new Property(4000000.00, a9, 2, true, "commercial", "678T");
+
+    private Address a10 = new Address("6", 60, "60th street", "v8u9b1", "burnaby");
+    private Property p10 = new Property(700000.00, a10, 2, true, "retail", "y6yyy");
+
+    private Address a11 = new Address("7h", 1500, "railway avenue", "v9v5v4", "richmond");
+    private Property p11 = new Property(840000.00, a11, 4, false, "commercial", "A1212");
+
+    private Address a12 = new Address(null, 333, "elm street", "90111", "los angeles");
+    private Property p12 = new Property(1600000.00, a12, 3, false, "residence", "9000a");
+
+
+    @BeforeEach
+    void setUp()
+    {
+        agency = new Agency("BCIT Ltd");
+
+        agency.addProperty(p1);
+        agency.addProperty(p2);
+        agency.addProperty(p3);
+        agency.addProperty(p4);
+        agency.addProperty(p5);
+        agency.addProperty(p6);
+        agency.addProperty(p7);
+        agency.addProperty(p8);
+        agency.addProperty(p9);
+        agency.addProperty(p10);
+        agency.addProperty(p11);
+        agency.addProperty(p12);
+
+    }
+
+
+    @AfterEach
+    void tearDown()
+    {
+        agency = null;
+    }
+
+
+
+
+    @Test
+    void addGetProperty()
+    {
+        assertNull(agency.getProperty("x"));
+
+        Address a13 = new Address(null, 333, "elm street", "90111", "los angeles");
+        Property p13 = new Property(1600000.00, a13, 3, false, "residence", "x");
+
+        agency.addProperty(p13);
+
+        assertSame(p13, agency.getProperty("x"));
+    }
 
 
 //    @Test
@@ -312,4 +312,4 @@
 //        assertTrue(s5found && s6found);
 //
 //    }
-//}
+}
