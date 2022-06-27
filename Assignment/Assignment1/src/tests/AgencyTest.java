@@ -180,7 +180,7 @@ class AgencyTest
 
         assertTrue(found0 && found1 && found2 && found3 && found4);
     }
-//
+
 //    @Test
 //    void getPropertiesOn()
 //    {
@@ -197,9 +197,9 @@ class AgencyTest
 //        assertNull(agency.getPropertiesOn("fake street"));
 //
 //    }
-//
-//
-//
+
+
+
 //    @Test
 //    void getPropertiesWithBedrooms()
 //    {

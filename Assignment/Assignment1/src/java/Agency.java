@@ -4,11 +4,7 @@
  * Version 1.0
  */
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Agency
 {
@@ -75,15 +71,53 @@ public class Agency
         return propertiesWithPools;
     }
 
-    public Property[] getPropertiesBetween(int lowerBoundPrice, int upperBoundPrice)
+    public Property[] getPropertiesBetween(final int lowerBoundPrice, final int upperBoundPrice)
     {
-        int twelve, index;
-        twelve = 12;
-        index = 0;
+        int size;
+        size = properties.size();
 
-        Property[] matches;
-        matches = new Property[twelve];
+        Property[] arr, matches;
+        arr = new Property[size];
 
+        populateArray(lowerBoundPrice, upperBoundPrice, arr);
+
+        size = determineSize(arr);
+        matches = new Property[size];
+
+        populateMatchesArray(arr, matches, size);
+
+        return matches;
+    }
+
+    private Property[] populateMatchesArray(final Property[] arr, final Property[] matches, final int size)
+    {
+        for(int i = 0; i < size; i++)
+        {
+            matches[i] = arr[i];
+        }
+
+        return matches;
+    }
+
+    private int determineSize(final Property[] arr)
+    {
+        int size;
+        size = 0;
+
+        for(int i = 0; i < arr.length; i++)
+        {
+            if(arr[i] != null)
+            {
+                size++;
+            }
+        }
+        return size;
+    }
+
+
+    private void populateArray(final int lowerBoundPrice, final int upperBoundPrice, final Property[] matches)
+    {
+        int         index = 0;
         Set<String> keys;
         keys = properties.keySet();
 
@@ -96,6 +130,12 @@ public class Agency
                 index++;
             }
         }
-        return matches;
+
     }
+
+
+//    public Collection<Object> getPropertiesOn(String elm_street)
+//    {
+//        return ;
+//    }
 }
