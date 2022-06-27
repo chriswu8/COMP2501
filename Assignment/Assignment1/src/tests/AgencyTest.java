@@ -197,37 +197,35 @@ class AgencyTest
     }
 
 
-//    @Test
-//    void getPropertiesWithBedrooms()
-//    {
-//        HashMap<String, Property> expectedMatches = new HashMap<>();
-//
-//        expectedMatches.put(p2.getPropertyId(), p2);
-//        expectedMatches.put(p3.getPropertyId(), p3);
-//        expectedMatches.put(p8.getPropertyId(), p8);
-//        expectedMatches.put(p11.getPropertyId(), p11);
-//
-//        HashMap<String, Property> fromAgency = agency.getPropertiesWithBedrooms(4,12);
-//
-//        assertEquals(expectedMatches.size(), fromAgency.size());
-//
-//
-//        Set<String> propertyIds = expectedMatches.keySet();
-//
-//        // are all four expected properties in the agency?
-//        for(String expectedPropertyId: propertyIds)
-//        {
-//            assertTrue(fromAgency.containsKey(expectedPropertyId));
-//        }
-//
-//
-//
-//        assertNull(agency.getPropertiesWithBedrooms(7, 9));
-//
-//
-//
-//
-//    }
+    @Test
+    void getPropertiesWithBedrooms()
+    {
+        HashMap<String, Property> expectedMatches = new HashMap<>();
+
+        expectedMatches.put(p2.getPropertyId(), p2);
+        expectedMatches.put(p3.getPropertyId(), p3);
+        expectedMatches.put(p8.getPropertyId(), p8);
+        expectedMatches.put(p11.getPropertyId(), p11);
+
+        HashMap<String, Property> fromAgency = agency.getPropertiesWithBedrooms(4, 12);
+
+        System.out.println(expectedMatches);
+        System.out.println(fromAgency);
+
+
+        assertEquals(expectedMatches.size(), fromAgency.size());
+
+        Set<String> propertyIds = expectedMatches.keySet();
+
+        // are all four expected properties in the agency?
+        for(String expectedPropertyId : propertyIds)
+        {
+            assertTrue(fromAgency.containsKey(expectedPropertyId));
+        }
+
+        assertNull(agency.getPropertiesWithBedrooms(7, 9));
+
+    }
 //
 //    @Test
 //    void getPropertiesOfType()

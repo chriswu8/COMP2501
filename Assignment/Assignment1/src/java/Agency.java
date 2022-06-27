@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
@@ -172,6 +171,10 @@ public class Agency
         }
     }
 
+    /**
+     * @param streetName is the street name
+     * @return list of address that is on the specified street name, null if no matching street name found
+     */
     public List<Address> getPropertiesOn(final String streetName)
     {
         List<Address> propertiesOn;
@@ -187,10 +190,41 @@ public class Agency
                 propertiesOn.add(properties.get(key).getAddress());
             }
         }
-        
+
         if(propertiesOn.size() > 0)
         {
             return propertiesOn;
+        } else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * @param minBedrooms is the minimum required number of bedrooms
+     * @param maxBedrooms is the maximum required number of bedrooms
+     * @return hashmap of properties that meets the requirement for min and max number of bedrooms, null if no match
+     */
+    public HashMap<String, Property> getPropertiesWithBedrooms(final int minBedrooms, final int maxBedrooms)
+    {
+        Map<String, Property> propertiesWithBedrooms;
+        propertiesWithBedrooms = new HashMap<>();
+
+        Set<String> keys;
+        keys = properties.keySet();
+
+        for(String key : keys)
+        {
+            if(properties.get(key).getNumberOfBedrooms() >= minBedrooms
+                    && properties.get(key).getNumberOfBedrooms() <= maxBedrooms)
+            {
+                propertiesWithBedrooms.put(properties.get(key).getPropertyId(), properties.get(key));
+            }
+        }
+
+        if(propertiesWithBedrooms.size() > 0)
+        {
+            return (HashMap<String, Property>) propertiesWithBedrooms;
         } else
         {
             return null;
