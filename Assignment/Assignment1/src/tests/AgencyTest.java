@@ -111,12 +111,12 @@ class AgencyTest
 
     }
 
-//    @Test
-//    void getTotalPropertyValues()
-//    {
-//        assertEquals(40079098, agency.getTotalPropertyValues());
-//    }
-//
+    @Test
+    void getTotalPropertyValues()
+    {
+        assertEquals(40079098, agency.getTotalPropertyValues());
+    }
+
 //    @Test
 //    void getPropertiesWithPools()
 //    {

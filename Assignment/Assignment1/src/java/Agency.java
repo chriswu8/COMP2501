@@ -4,40 +4,54 @@
  * Version 1.0
  */
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 
 public class Agency
 {
-    private final String agency;
-    private final Map<String, Property> agencies;
-//    private final Set<String> keys;
+    private final String                agency;
+    private final Map<String, Property> properties;
 
-    
+
     public Agency(String agency)
     {
         this.agency = agency;
 
-        agencies = new HashMap<>();
+        properties = new HashMap<>();
 
-//        keys = agencies.keySet();
     }
 
 
     public void addProperty(Property p1)
     {
-        agencies.put(p1.getPropertyId(), p1);
+        properties.put(p1.getPropertyId(), p1);
     }
 
     public Property getProperty(String x)
     {
-       return agencies.get(x);
+        return properties.get(x);
     }
 
     public void removeProperty(String x)
     {
-        agencies.remove(x);
+        properties.remove(x);
+    }
+
+
+    public int getTotalPropertyValues()
+    {
+        Set<String> keys;
+        keys = properties.keySet();
+
+        double totalPropertyValue;
+        totalPropertyValue = 0;
+
+        for(String key : keys)
+        {
+            totalPropertyValue += properties.get(key).getPriceUsd();
+        }
+
+        return (int)totalPropertyValue;
     }
 }
