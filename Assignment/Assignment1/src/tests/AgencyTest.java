@@ -93,24 +93,24 @@ class AgencyTest
     }
 
 
-//    @Test
-//    void removeProperty()
-//    {
-//        assertNull(agency.getProperty("x"));
-//
-//        Address a13 = new Address(null, 333, "elm street", "90111", "los angeles");
-//        Property p13 = new Property(1600000.00, a13, 3, false, "residence", "x");
-//
-//        agency.addProperty(p13);
-//
-//        assertSame(p13, agency.getProperty("x"));
-//
-//        agency.removeProperty("x");
-//
-//        assertNull(agency.getProperty("x"));
-//
-//    }
-//
+    @Test
+    void removeProperty()
+    {
+        assertNull(agency.getProperty("x"));
+
+        Address a13 = new Address(null, 333, "elm street", "90111", "los angeles");
+        Property p13 = new Property(1600000.00, a13, 3, false, "residence", "x");
+
+        agency.addProperty(p13);
+
+        assertSame(p13, agency.getProperty("x"));
+
+        agency.removeProperty("x");
+
+        assertNull(agency.getProperty("x"));
+
+    }
+
 //    @Test
 //    void getTotalPropertyValues()
 //    {

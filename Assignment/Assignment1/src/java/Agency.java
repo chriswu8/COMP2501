@@ -35,4 +35,9 @@ public class Agency
     {
        return agencies.get(x);
     }
+
+    public void removeProperty(String x)
+    {
+        agencies.remove(x);
+    }
 }
