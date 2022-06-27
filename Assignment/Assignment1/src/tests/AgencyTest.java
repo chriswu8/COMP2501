@@ -181,23 +181,20 @@ class AgencyTest
         assertTrue(found0 && found1 && found2 && found3 && found4);
     }
 
-//    @Test
-//    void getPropertiesOn()
-//    {
-//        ArrayList<Address> propertiesOnElmStreet = new ArrayList<>();
-//        propertiesOnElmStreet.add(p3.getAddress());
-//        propertiesOnElmStreet.add(p8.getAddress());
-//        propertiesOnElmStreet.add(p12.getAddress());
-//
-//
-//        assertTrue(propertiesOnElmStreet.size() == agency.getPropertiesOn("elm street").size() &&
-//                propertiesOnElmStreet.containsAll(agency.getPropertiesOn("elm street")) &&
-//                agency.getPropertiesOn("elm street").containsAll(propertiesOnElmStreet));
-//
-//        assertNull(agency.getPropertiesOn("fake street"));
-//
-//    }
+    @Test
+    void getPropertiesOn()
+    {
+        ArrayList<Address> propertiesOnElmStreet = new ArrayList<>();
+        propertiesOnElmStreet.add(p3.getAddress());
+        propertiesOnElmStreet.add(p8.getAddress());
+        propertiesOnElmStreet.add(p12.getAddress());
 
+        assertTrue(propertiesOnElmStreet.size() == agency.getPropertiesOn("elm street").size() &&
+                           propertiesOnElmStreet.containsAll(agency.getPropertiesOn("elm street")) &&
+                           agency.getPropertiesOn("elm street").containsAll(propertiesOnElmStreet));
+
+        assertNull(agency.getPropertiesOn("fake street"));
+    }
 
 
 //    @Test
