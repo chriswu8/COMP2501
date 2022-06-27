@@ -74,4 +74,28 @@ public class Agency
         }
         return propertiesWithPools;
     }
+
+    public Property[] getPropertiesBetween(int lowerBoundPrice, int upperBoundPrice)
+    {
+        int twelve, index;
+        twelve = 12;
+        index = 0;
+
+        Property[] matches;
+        matches = new Property[twelve];
+
+        Set<String> keys;
+        keys = properties.keySet();
+
+        for(String key : keys)
+        {
+            if(properties.get(key).getPriceUsd() >= lowerBoundPrice
+                    && properties.get(key).getPriceUsd() <= upperBoundPrice)
+            {
+                matches[index] = properties.get(key);
+                index++;
+            }
+        }
+        return matches;
+    }
 }
