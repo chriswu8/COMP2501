@@ -7,6 +7,8 @@
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Agency
 {
@@ -52,6 +54,24 @@ public class Agency
             totalPropertyValue += properties.get(key).getPriceUsd();
         }
 
-        return (int)totalPropertyValue;
+        return (int) totalPropertyValue;
+    }
+
+    public List<Property> getPropertiesWithPools()
+    {
+        List<Property> propertiesWithPools;
+        propertiesWithPools = new ArrayList<>();
+
+        Set<String> keys;
+        keys = properties.keySet();
+
+        for(String key : keys)
+        {
+            if(properties.get(key).hasSwimmingPool())
+            {
+                propertiesWithPools.add(properties.get(key));
+            }
+        }
+        return propertiesWithPools;
     }
 }

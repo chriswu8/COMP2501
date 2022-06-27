@@ -117,27 +117,21 @@ class AgencyTest
         assertEquals(40079098, agency.getTotalPropertyValues());
     }
 
-//    @Test
-//    void getPropertiesWithPools()
-//    {
-//        ArrayList<Property> propertiesWithPools = new ArrayList<>();
-//        propertiesWithPools.add(p2);
-//        propertiesWithPools.add(p3);
-//        propertiesWithPools.add(p7);
-//        propertiesWithPools.add(p9);
-//        propertiesWithPools.add(p10);
-//
-//
-//
-//
-//        assertTrue(propertiesWithPools.size() == agency.getPropertiesWithPools().size() &&
-//                propertiesWithPools.containsAll(agency.getPropertiesWithPools()) &&
-//                agency.getPropertiesWithPools().containsAll(propertiesWithPools));
-//
-//
-//
-//    }
-//
+    @Test
+    void getPropertiesWithPools()
+    {
+        ArrayList<Property> propertiesWithPools = new ArrayList<>();
+        propertiesWithPools.add(p2);
+        propertiesWithPools.add(p3);
+        propertiesWithPools.add(p7);
+        propertiesWithPools.add(p9);
+        propertiesWithPools.add(p10);
+
+        assertTrue(propertiesWithPools.size() == agency.getPropertiesWithPools().size() &&
+                propertiesWithPools.containsAll(agency.getPropertiesWithPools()) &&
+                agency.getPropertiesWithPools().containsAll(propertiesWithPools));
+    }
+
 //    @Test
 //    void getPropertiesBetween()
 //    {
