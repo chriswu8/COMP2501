@@ -54,10 +54,6 @@
 //    {
 //        agency = new Agency("BCIT Ltd");
 //
-//
-//
-//
-//
 //        agency.addProperty(p1);
 //        agency.addProperty(p2);
 //        agency.addProperty(p3);
@@ -95,8 +91,8 @@
 //
 //        assertSame(p13, agency.getProperty("x"));
 //    }
-//
-//
+
+
 //    @Test
 //    void removeProperty()
 //    {
