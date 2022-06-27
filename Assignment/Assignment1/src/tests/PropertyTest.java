@@ -93,62 +93,62 @@ class PropertyTest
         });
         assertTrue(ex.getMessage().equals("Invalid price: -0.01"));
      }
-//
-//    @Test
-//    void getExpectedExceptionsAddress()
-//    {
-//        NullPointerException ex = assertThrows(NullPointerException.class, ()->{
-//            property1 = new Property(499000, null, 1, true, "residence", "11111");
-//        });
-//        assertTrue(ex.getMessage().equals("Invalid address: null"));
-//    }
-//
-//    @Test
-//    void getExpectedExceptionsNumBedrooms()
-//    {
-//        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, ()->{
-//            property1 = new Property(499000, address, 0, true, "residence", "11111");
-//        });
-//        assertTrue(ex.getMessage().equals("Invalid number of bedrooms: 0"));
-//
-//        ex = assertThrows(IllegalArgumentException.class, ()->{
-//            property1 = new Property(499000, address, 21, true, "residence", "11111");
-//        });
-//        assertTrue(ex.getMessage().equals("Invalid number of bedrooms: 21"));
-//    }
-//
-//    @Test
-//    void getExpectedExceptionsPropertyType()
-//    {
-//        NullPointerException ex = assertThrows(NullPointerException.class, ()->{
-//            property1 = new Property(499000, address, 1, true, null, "11111");
-//        });
-//        assertTrue(ex.getMessage().equals("Invalid property type: null"));
-//
-//        IllegalArgumentException ex2 = assertThrows(IllegalArgumentException.class, ()->{
-//            property1 = new Property(499000, address, 2, true, "residencee", "11111");
-//        });
-//        assertTrue(ex2.getMessage().equals("Invalid property type: residencee"));
-//    }
-//
-//    @Test
-//    void getExpectedExceptionsPropertyId()
-//    {
-//        NullPointerException ex = assertThrows(NullPointerException.class, ()->{
-//            property1 = new Property(499000, address, 1, true, "residence", null);
-//        });
-//        assertTrue(ex.getMessage().equals("Invalid property id: null"));
-//
-//
-//        IllegalArgumentException ex2 = assertThrows(IllegalArgumentException.class, ()->{
-//            property1 = new Property(499000, address, 1, true, "residence", "");
-//        });
-//        assertTrue(ex2.getMessage().equals("Invalid property id: "));
-//
-//        ex2 = assertThrows(IllegalArgumentException.class, ()->{
-//            property1 = new Property(499000, address, 1, true, "residence", "1234567");
-//        });
-//        assertTrue(ex2.getMessage().equals("Invalid property id: 1234567"));
-//    }
+
+    @Test
+    void getExpectedExceptionsAddress()
+    {
+        NullPointerException ex = assertThrows(NullPointerException.class, ()->{
+            property1 = new Property(499000, null, 1, true, "residence", "11111");
+        });
+        assertTrue(ex.getMessage().equals("Invalid address: null"));
+    }
+
+    @Test
+    void getExpectedExceptionsNumBedrooms()
+    {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, ()->{
+            property1 = new Property(499000, address, 0, true, "residence", "11111");
+        });
+        assertTrue(ex.getMessage().equals("Invalid number of bedrooms: 0"));
+
+        ex = assertThrows(IllegalArgumentException.class, ()->{
+            property1 = new Property(499000, address, 21, true, "residence", "11111");
+        });
+        assertTrue(ex.getMessage().equals("Invalid number of bedrooms: 21"));
+    }
+
+    @Test
+    void getExpectedExceptionsPropertyType()
+    {
+        NullPointerException ex = assertThrows(NullPointerException.class, ()->{
+            property1 = new Property(499000, address, 1, true, null, "11111");
+        });
+        assertTrue(ex.getMessage().equals("Invalid property type: null"));
+
+        IllegalArgumentException ex2 = assertThrows(IllegalArgumentException.class, ()->{
+            property1 = new Property(499000, address, 2, true, "residencee", "11111");
+        });
+        assertTrue(ex2.getMessage().equals("Invalid property type: residencee"));
+    }
+
+    @Test
+    void getExpectedExceptionsPropertyId()
+    {
+        NullPointerException ex = assertThrows(NullPointerException.class, ()->{
+            property1 = new Property(499000, address, 1, true, "residence", null);
+        });
+        assertTrue(ex.getMessage().equals("Invalid property id: null"));
+
+
+        IllegalArgumentException ex2 = assertThrows(IllegalArgumentException.class, ()->{
+            property1 = new Property(499000, address, 1, true, "residence", "");
+        });
+        assertTrue(ex2.getMessage().equals("Invalid property id: "));
+
+        ex2 = assertThrows(IllegalArgumentException.class, ()->{
+            property1 = new Property(499000, address, 1, true, "residence", "1234567");
+        });
+        assertTrue(ex2.getMessage().equals("Invalid property id: 1234567"));
+    }
 }
 
