@@ -233,6 +233,10 @@ public class Agency
         }
     }
 
+    /**
+     * @param propertyType is the property type
+     * @return an ArrayList of the agency's data of the requested property type
+     */
     public ArrayList<String> getPropertiesOfType(final String propertyType)
     {
         List<String> agencyData, agencyData2;
@@ -264,10 +268,12 @@ public class Agency
             addStringVersion3(propertyType, agencyData2);
             return (ArrayList<String>) agencyData2;
         }
-
-
     }
 
+    /**
+     * @param key        is the the hashmap key
+     * @param agencyData is the list that will have string data added as elements
+     */
     private void addStringVersion1(final String key, final List<String> agencyData)
     {
         String streetNameAdjusted, postalCodeAdjusted, cityAdjusted, bedroomsPlurality, pool;
@@ -285,11 +291,19 @@ public class Agency
                                + String.format("%.0f", properties.get(key).getPriceUsd()) + ".\n");
     }
 
+    /**
+     * @param hasSwimmingPool is whether or not the property has a swimming pool
+     * @return " plus pool" if the property has a swimming pool, else empty string
+     */
     private String determinePool(final boolean hasSwimmingPool)
     {
         return hasSwimmingPool ? " plus pool" : "";
     }
 
+    /**
+     * @param key        is the the hashmap key
+     * @param agencyData is the list that will have string data added as elements
+     */
     private void addStringVersion2(final String key, final List<String> agencyData)
     {
         String streetNameAdjusted, postalCodeAdjusted, cityAdjusted, bedroomsPlurality, pool;
@@ -309,13 +323,17 @@ public class Agency
 
     }
 
+    /**
+     * @param propertyType is the property type
+     * @param agencyData2 is the list that will have string data added as elements
+     * @return an ArrayList of two string elements: 1) capitalized fake fake fake type and 2) <none found>
+     */
     private ArrayList<String> addStringVersion3(String propertyType, List<String> agencyData2)
     {
         agencyData2.add("Type: " + propertyType.toUpperCase());
         agencyData2.add("<none found>");
         return (ArrayList<String>) agencyData2;
     }
-
 
     /**
      * @param originalName is the original string

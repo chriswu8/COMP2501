@@ -273,9 +273,6 @@ class AgencyTest
         ArrayList<String> agencyData2 = agency.getPropertiesOfType("fake fake fake");
         // order doesn't matter, so the numbers don't matter, but the strings must be present
 
-        System.out.println("agencyData: " + agencyData);
-        System.out.println("agencyData2: " + agencyData2);
-
         assertEquals(2, agencyData2.size());
 
         for(String string2 : agencyData2)
