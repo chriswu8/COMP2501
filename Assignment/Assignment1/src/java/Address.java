@@ -20,10 +20,10 @@ public class Address
      * @param city         is the city
      */
     public Address(final String unitNumber,
-            final int streetNumber,
-            final String streetName,
-            final String postalCode,
-            final String city)
+                   final int streetNumber,
+                   final String streetName,
+                   final String postalCode,
+                   final String city)
     {
         getExpectedExceptionsUnitNumber(unitNumber);
         getExpectedExceptionsStreetNumber(streetNumber);
@@ -42,10 +42,10 @@ public class Address
      * @param city         is the city
      */
     public void initialize(final String unitNumber,
-                           final int streetNumber,
-                           final String streetName,
-                           final String postalCode,
-                           final String city)
+            final int streetNumber,
+            final String streetName,
+            final String postalCode,
+            final String city)
     {
         this.unitNumber = unitNumber;
         this.streetNumber = streetNumber;

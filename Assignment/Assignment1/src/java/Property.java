@@ -175,6 +175,10 @@ public class Property
      */
     public void setPriceUsd(final int value)
     {
+        if(value < 0)
+        {
+            throw new IllegalArgumentException("bad value");
+        }
         this.price = value;
     }
 }

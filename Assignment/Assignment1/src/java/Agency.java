@@ -18,14 +18,19 @@ public class Agency
 
     /**
      * The constructor
-     * @param agency is the angency's name
+     * @param agency is the agency's name
      */
     public Agency(String agency)
     {
-        this.agency = agency;
+        if(agency == null || agency.isBlank())
+        {
+            throw new IllegalArgumentException("Invalid agency");
+        } else
+        {
+            this.agency = agency;
 
-        properties = new HashMap<>();
-
+            properties = new HashMap<>();
+        }
     }
 
     /**
@@ -120,16 +125,13 @@ public class Agency
      * @param arr     is the array with properties and null values
      * @param matches is the array with properties but without null values
      * @param size    is the number of non-null elements in the arr array
-     * @return the matches array containing all of arr array's properties but without null values
      */
-    private Property[] populateMatchesArray(final Property[] arr, final Property[] matches, final int size)
+    private void populateMatchesArray(final Property[] arr, final Property[] matches, final int size)
     {
         for(int i = 0; i < size; i++)
         {
             matches[i] = arr[i];
         }
-
-        return matches;
     }
 
     /**
@@ -141,9 +143,9 @@ public class Agency
         int size;
         size = 0;
 
-        for(int i = 0; i < arr.length; i++)
+        for(Property property : arr)
         {
-            if(arr[i] != null)
+            if(property != null)
             {
                 size++;
             }
@@ -245,7 +247,7 @@ public class Agency
         Set<String> keys;
         keys = properties.keySet();
 
-        if(propertyType != "fake fake fake")
+        if(!propertyType.equals("fake fake fake"))
         {
             agencyData.add("Type: COMMERCIAL\n");
             for(String key : keys)
@@ -271,7 +273,7 @@ public class Agency
     }
 
     /**
-     * @param key        is the the hashmap key
+     * @param key        is the hashmap key
      * @param agencyData is the list that will have string data added as elements
      */
     private void addStringVersion1(final String key, final List<String> agencyData)
@@ -325,7 +327,7 @@ public class Agency
 
     /**
      * @param propertyType is the property type
-     * @param agencyData2 is the list that will have string data added as elements
+     * @param agencyData2  is the list that will have string data added as elements
      * @return an ArrayList of two string elements: 1) capitalized fake fake fake type and 2) <none found>
      */
     private ArrayList<String> addStringVersion3(String propertyType, List<String> agencyData2)
@@ -336,7 +338,7 @@ public class Agency
     }
 
     /**
-     * @param originalName is the original string
+     * @param originalString is the original string
      * @return the case-adjusted street name
      */
     private String capitalizeFirstLetterOfEachWord(final String originalString)
@@ -344,7 +346,7 @@ public class Agency
         String caseAdjusted;
 
         List<String> words;
-        words = new ArrayList<String>(Arrays.asList(originalString.split(" ")));
+        words = new ArrayList<>(Arrays.asList(originalString.split(" ")));
 
         for(String word : words)
         {
@@ -352,7 +354,6 @@ public class Agency
             index = words.indexOf(word);
 
             String adjustedWord;
-            adjustedWord = null;
 
             String firstCharacter;
             firstCharacter = word.substring(0, 1);
