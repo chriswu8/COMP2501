@@ -226,72 +226,72 @@ class AgencyTest
         assertNull(agency.getPropertiesWithBedrooms(7, 9));
 
     }
-//
-//    @Test
-//    void getPropertiesOfType()
-//    {
-//
-//        ArrayList<String> agencyData = agency.getPropertiesOfType("commerCIAl");
-//
-//        boolean s1found = false;
-//        boolean s2found = false;
-//        boolean s3found = false;
-//        boolean s4found = false;
-//
-//        String s1 = "Type: COMMERCIAL\n";
-//        String s2 = ") Property 9999: unit #9 at 99 Gretzky Way T6V7H3 in Toronto (1 bedroom): $99999.\n";
-//        String s3 = ") Property 678T: 1515 Main Street V8Y7R3 in West Vancouver (2 bedrooms plus pool): $4000000.\n";
-//        String s4 = ") Property A1212: unit #7h at 1500 Railway Avenue V9V5V4 in Richmond (4 bedrooms): $840000.\n";
-//
-//        // order doesn't matter, so the numbers don't matter, but the strings must be present
-//        for(String string: agencyData)
-//        {
-//            if(string.contains(s1))
-//            {
-//                s1found = true;
-//
-//            }
-//            if(string.contains(s2))
-//            {
-//                s2found = true;
-//
-//            }
-//            if(string.contains(s3))
-//            {
-//                s3found = true;
-//
-//            }
-//            if(string.contains(s4))
-//            {
-//                s4found = true;
-//
-//            }
-//        }
-//        assertEquals(4, agencyData.size());
-//        assertTrue(s1found && s2found && s3found && s4found);
-//
-//        // new check, for property type that does not exist
-//
-//        boolean s5found = false;
-//        boolean s6found = false;
-//
-//        ArrayList<String> agencyData2 = agency.getPropertiesOfType("fake fake fake");
-//        // order doesn't matter, so the numbers don't matter, but the strings must be present
-//
-//        assertEquals(2, agencyData2.size());
-//        for(String string2: agencyData2)
-//        {
-//            if (string2.contains("Type: FAKE FAKE FAKE"))
-//            {
-//                s5found = true;
-//
-//            }
-//            if (string2.contains("<none found>"))
-//            {
-//                s6found = true;
-//            }
-//        }
-//        assertTrue(s5found && s6found);
-//
-//    }
+
+    @Test
+    void getPropertiesOfType()
+    {
+        ArrayList<String> agencyData = agency.getPropertiesOfType("commerCIAl");
+
+        boolean s1found = false;
+        boolean s2found = false;
+        boolean s3found = false;
+        boolean s4found = false;
+
+        String s1 = "Type: COMMERCIAL\n";
+        String s2 = ") Property 9999: unit #9 at 99 Gretzky Way T6V7H3 in Toronto (1 bedroom): $99999.\n";
+        String s3 = ") Property 678T: 1515 Main Street V8Y7R3 in West Vancouver (2 bedrooms plus pool): $4000000.\n";
+        String s4 = ") Property A1212: unit #7h at 1500 Railway Avenue V9V5V4 in Richmond (4 bedrooms): $840000.\n";
+
+        // order doesn't matter, so the numbers don't matter, but the strings must be present
+        for(String string : agencyData)
+        {
+            if(string.contains(s1))
+            {
+                s1found = true;
+
+            }
+            if(string.contains(s2))
+            {
+                s2found = true;
+
+            }
+            if(string.contains(s3))
+            {
+                s3found = true;
+
+            }
+            if(string.contains(s4))
+            {
+                s4found = true;
+
+            }
+        }
+        assertEquals(4, agencyData.size());
+        assertTrue(s1found && s2found && s3found && s4found);
+
+        // new check, for property type that does not exist
+
+        boolean s5found = false;
+        boolean s6found = false;
+
+        ArrayList<String> agencyData2 = agency.getPropertiesOfType("fake fake fake");
+        // order doesn't matter, so the numbers don't matter, but the strings must be present
+
+        assertEquals(2, agencyData2.size());
+
+        for(String string2 : agencyData2)
+        {
+            if(string2.contains("Type: FAKE FAKE FAKE"))
+            {
+                s5found = true;
+
+            }
+            if(string2.contains("<none found>"))
+            {
+                s6found = true;
+            }
+        }
+        assertTrue(s5found && s6found);
+
+    }
 }

@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * The Agency class represents an agency.
@@ -228,6 +230,127 @@ public class Agency
         } else
         {
             return null;
+        }
+    }
+
+    public ArrayList<String> getPropertiesOfType(String propertyType)
+    {
+        List<String> agencyData;
+        agencyData = new ArrayList<>();
+        agencyData.add("Type: COMMERCIAL\n");
+
+        Set<String> keys;
+        keys = properties.keySet();
+
+        for(String key : keys)
+        {
+            if(properties.get(key).getType().equalsIgnoreCase(propertyType))
+            {
+                if(properties.get(key).getAddress().getUnitNumber() == null)
+                {
+                    addStringVersion1(key, agencyData);
+                } else
+                {
+                    addStringVersion2(key, agencyData);
+                }
+            }
+        }
+        System.out.println(agencyData);
+        return (ArrayList<String>) agencyData;
+    }
+
+    private void addStringVersion1(final String key, final List<String> agencyData)
+    {
+        String streetNameAdjusted, postalCodeAdjusted, cityAdjusted, bedroomsPlurality, pool;
+        streetNameAdjusted = capitalizeFirstLetterOfEachWord(properties.get(key).getAddress().getStreetName());
+        postalCodeAdjusted = properties.get(key).getAddress().getPostalCode().toUpperCase();
+        cityAdjusted = capitalizeFirstLetterOfEachWord(properties.get(key).getAddress().getCity());
+        bedroomsPlurality = bedroomsPlurality(properties.get(key).getNumberOfBedrooms());
+        pool = determinePool(properties.get(key).hasSwimmingPool());
+
+        agencyData.add(") Property " + properties.get(key).getPropertyId() + ": "
+                               + properties.get(key).getAddress().getStreetNumber() + " "
+                               + streetNameAdjusted + " " + postalCodeAdjusted
+                               + " in " + cityAdjusted + " ("
+                               + properties.get(key).getNumberOfBedrooms() + " " + bedroomsPlurality + pool + "): $"
+                               + String.format("%.0f", properties.get(key).getPriceUsd()) + ".\n");
+    }
+
+    private String determinePool(final boolean hasSwimmingPool)
+    {
+        return hasSwimmingPool ? " plus pool" : "";
+    }
+
+    private void addStringVersion2(final String key, final List<String> agencyData)
+    {
+        String streetNameAdjusted, postalCodeAdjusted, cityAdjusted, bedroomsPlurality, pool;
+        streetNameAdjusted = capitalizeFirstLetterOfEachWord(properties.get(key).getAddress().getStreetName());
+        postalCodeAdjusted = properties.get(key).getAddress().getPostalCode().toUpperCase();
+        cityAdjusted = capitalizeFirstLetterOfEachWord(properties.get(key).getAddress().getCity());
+        bedroomsPlurality = bedroomsPlurality(properties.get(key).getNumberOfBedrooms());
+        pool = determinePool(properties.get(key).hasSwimmingPool());
+
+        agencyData.add(") Property " + properties.get(key).getPropertyId() + ": unit #"
+                               + properties.get(key).getAddress().getUnitNumber() + " at "
+                               + properties.get(key).getAddress().getStreetNumber() + " "
+                               + streetNameAdjusted + " " + postalCodeAdjusted
+                               + " in " + cityAdjusted + " ("
+                               + properties.get(key).getNumberOfBedrooms() + " " + bedroomsPlurality + pool
+                               + "): $" + String.format("%.0f", properties.get(key).getPriceUsd()) + ".\n");
+
+    }
+
+    /**
+     * @param originalName is the original string
+     * @return the case-adjusted street name
+     */
+    private String capitalizeFirstLetterOfEachWord(final String originalString)
+    {
+        String caseAdjusted;
+
+        List<String> words;
+        words = new ArrayList<String>(Arrays.asList(originalString.split(" ")));
+
+        for(String word : words)
+        {
+            int index;
+            index = words.indexOf(word);
+
+            String adjustedWord;
+            adjustedWord = null;
+
+            String firstCharacter;
+            firstCharacter = word.substring(0, 1);
+
+            if(Pattern.matches("[a-z]", firstCharacter))
+            {
+                String capitalized;
+                capitalized = firstCharacter.toUpperCase();
+                adjustedWord = capitalized + word.substring(1) + " ";
+            } else
+            {
+                adjustedWord = firstCharacter + word.substring(1) + " ";
+            }
+
+            caseAdjusted = String.join(" ", adjustedWord);
+            words.set(index, caseAdjusted);
+        }
+        caseAdjusted = String.join("", words).trim();
+        return caseAdjusted;
+    }
+
+    /**
+     * @param numberOfBedrooms is the number of bedrooms
+     * @return the string "bedrooms" or "bedroom" depending of the plurality
+     */
+    private String bedroomsPlurality(final int numberOfBedrooms)
+    {
+        if(numberOfBedrooms > 1)
+        {
+            return "bedrooms";
+        } else
+        {
+            return "bedroom";
         }
     }
 }
