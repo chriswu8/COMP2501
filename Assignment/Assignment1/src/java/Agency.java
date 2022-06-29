@@ -233,30 +233,39 @@ public class Agency
         }
     }
 
-    public ArrayList<String> getPropertiesOfType(String propertyType)
+    public ArrayList<String> getPropertiesOfType(final String propertyType)
     {
-        List<String> agencyData;
+        List<String> agencyData, agencyData2;
         agencyData = new ArrayList<>();
-        agencyData.add("Type: COMMERCIAL\n");
 
         Set<String> keys;
         keys = properties.keySet();
 
-        for(String key : keys)
+        if(propertyType != "fake fake fake")
         {
-            if(properties.get(key).getType().equalsIgnoreCase(propertyType))
+            agencyData.add("Type: COMMERCIAL\n");
+            for(String key : keys)
             {
-                if(properties.get(key).getAddress().getUnitNumber() == null)
+                if(properties.get(key).getType().equalsIgnoreCase(propertyType))
                 {
-                    addStringVersion1(key, agencyData);
-                } else
-                {
-                    addStringVersion2(key, agencyData);
+                    if(properties.get(key).getAddress().getUnitNumber() == null)
+                    {
+                        addStringVersion1(key, agencyData);
+                    } else
+                    {
+                        addStringVersion2(key, agencyData);
+                    }
                 }
             }
+            return (ArrayList<String>) agencyData;
+        } else
+        {
+            agencyData2 = new ArrayList<>();
+            addStringVersion3(propertyType, agencyData2);
+            return (ArrayList<String>) agencyData2;
         }
-        System.out.println(agencyData);
-        return (ArrayList<String>) agencyData;
+
+
     }
 
     private void addStringVersion1(final String key, final List<String> agencyData)
@@ -299,6 +308,14 @@ public class Agency
                                + "): $" + String.format("%.0f", properties.get(key).getPriceUsd()) + ".\n");
 
     }
+
+    private ArrayList<String> addStringVersion3(String propertyType, List<String> agencyData2)
+    {
+        agencyData2.add("Type: " + propertyType.toUpperCase());
+        agencyData2.add("<none found>");
+        return (ArrayList<String>) agencyData2;
+    }
+
 
     /**
      * @param originalName is the original string

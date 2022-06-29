@@ -209,10 +209,6 @@ class AgencyTest
 
         HashMap<String, Property> fromAgency = agency.getPropertiesWithBedrooms(4, 12);
 
-        System.out.println(expectedMatches);
-        System.out.println(fromAgency);
-
-
         assertEquals(expectedMatches.size(), fromAgency.size());
 
         Set<String> propertyIds = expectedMatches.keySet();
@@ -276,6 +272,9 @@ class AgencyTest
 
         ArrayList<String> agencyData2 = agency.getPropertiesOfType("fake fake fake");
         // order doesn't matter, so the numbers don't matter, but the strings must be present
+
+        System.out.println("agencyData: " + agencyData);
+        System.out.println("agencyData2: " + agencyData2);
 
         assertEquals(2, agencyData2.size());
 
