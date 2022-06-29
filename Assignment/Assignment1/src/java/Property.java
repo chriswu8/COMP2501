@@ -5,7 +5,7 @@
  */
 public class Property
 {
-    private double  price;
+    private double  priceUsd;
     private Address address;
     private int     numberOfBedrooms;
     private boolean hasSwimmingPool;
@@ -21,13 +21,12 @@ public class Property
      * @param type             is the property's type (ie. residence, commercial, or retail)
      * @param propertyId       is the property's identification string
      */
-    public Property(
-            final double price,
-            final Address address,
-            final int numberOfBedrooms,
-            final boolean hasSwimmingPool,
-            final String type,
-            final String propertyId)
+    public Property(final double price,
+                    final Address address,
+                    final int numberOfBedrooms,
+                    final boolean hasSwimmingPool,
+                    final String type,
+                    final String propertyId)
     {
         checkPrice(price);
         checkAddress(address);
@@ -113,7 +112,7 @@ public class Property
             throw new IllegalArgumentException("Invalid property id: 1234567");
         } else
         {
-            this.price = price;
+            this.priceUsd = price;
             this.address = address;
             this.numberOfBedrooms = numberOfBedrooms;
             this.hasSwimmingPool = hasSwimmingPool;
@@ -127,7 +126,7 @@ public class Property
      */
     public double getPriceUsd()
     {
-        return this.price;
+        return this.priceUsd;
     }
 
     /**
@@ -179,6 +178,6 @@ public class Property
         {
             throw new IllegalArgumentException("bad value");
         }
-        this.price = value;
+        this.priceUsd = value;
     }
 }
