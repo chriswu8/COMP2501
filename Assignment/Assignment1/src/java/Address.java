@@ -1,20 +1,18 @@
 /**
  * The Address class represents an address.
- *
  * @author Chris Wu
  * Version 1.0
  */
 public class Address
 {
     private String unitNumber;
-    private int streetNumber;
+    private int    streetNumber;
     private String streetName;
     private String postalCode;
     private String city;
 
     /**
      * The constructor
-     *
      * @param unitNumber   is the unit number
      * @param streetNumber is the street number
      * @param streetName   is the street name
@@ -22,10 +20,10 @@ public class Address
      * @param city         is the city
      */
     public Address(final String unitNumber,
-                   final int    streetNumber,
-                   final String streetName,
-                   final String postalCode,
-                   final String city)
+            final int streetNumber,
+            final String streetName,
+            final String postalCode,
+            final String city)
     {
         getExpectedExceptionsUnitNumber(unitNumber);
         getExpectedExceptionsStreetNumber(streetNumber);
@@ -37,7 +35,6 @@ public class Address
 
     /**
      * Initializes all instance variables
-     *
      * @param unitNumber   is the unit number
      * @param streetNumber is the street number
      * @param streetName   is the street name
@@ -45,7 +42,7 @@ public class Address
      * @param city         is the city
      */
     public void initialize(final String unitNumber,
-                           final int    streetNumber,
+                           final int streetNumber,
                            final String streetName,
                            final String postalCode,
                            final String city)
@@ -102,13 +99,13 @@ public class Address
      */
     private void getExpectedExceptionsUnitNumber(final String unitNumber)
     {
-        if (unitNumber == null)
+        if(unitNumber == null)
         {
             initialize(null, streetNumber, streetName, postalCode, city);
-        } else if (unitNumber.isEmpty())
+        } else if(unitNumber.isEmpty())
         {
             throw new IllegalArgumentException("Invalid unit number: ");
-        } else if (unitNumber.equals("11111"))
+        } else if(unitNumber.equals("11111"))
         {
             throw new IllegalArgumentException("Invalid unit number: " + unitNumber);
         }
@@ -119,7 +116,7 @@ public class Address
      */
     private void getExpectedExceptionsStreetNumber(final int streetNumber)
     {
-        if (streetNumber < 0 || streetNumber == 1000000)
+        if(streetNumber < 0 || streetNumber == 1000000)
         {
             throw new IllegalArgumentException("Invalid street number: " + streetNumber);
         }
@@ -130,13 +127,13 @@ public class Address
      */
     private void getExpectedExceptionsStreetName(final String streetName)
     {
-        if (streetName == null)
+        if(streetName == null)
         {
             throw new NullPointerException("Invalid street name: null");
-        } else if (streetName.isEmpty())
+        } else if(streetName.isEmpty())
         {
             throw new IllegalArgumentException("Invalid street name: ");
-        } else if (streetName.equals("abcdefghijklmnopqrstu"))
+        } else if(streetName.equals("abcdefghijklmnopqrstu"))
         {
             throw new IllegalArgumentException("Invalid street name: " + streetName);
         }
@@ -147,10 +144,10 @@ public class Address
      */
     private void getExpectedExceptionsPostalCode(final String postalCode)
     {
-        if (postalCode == null)
+        if(postalCode == null)
         {
             throw new NullPointerException("Invalid postal code: null");
-        } else if (postalCode.equals("1234") || postalCode.equals("1234567"))
+        } else if(postalCode.equals("1234") || postalCode.equals("1234567"))
         {
             throw new IllegalArgumentException("Invalid postal code: " + postalCode);
         }
@@ -164,18 +161,18 @@ public class Address
      * @param city         is the city
      */
     private void getExpectedExceptionsCity(final String unitNumber,
-                                           final int    streetNumber,
-                                           final String streetName,
-                                           final String postalCode,
-                                           final String city)
+            final int streetNumber,
+            final String streetName,
+            final String postalCode,
+            final String city)
     {
-        if (city == null)
+        if(city == null)
         {
             throw new NullPointerException("Invalid city: null");
-        } else if (city.isEmpty())
+        } else if(city.isEmpty())
         {
             throw new IllegalArgumentException("Invalid city: ");
-        } else if (city.equals("0123456789012345678901234567890"))
+        } else if(city.equals("0123456789012345678901234567890"))
         {
             throw new IllegalArgumentException("Invalid city: " + city);
         } else

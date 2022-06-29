@@ -1,13 +1,16 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The AgencyTest class tests the methods in the Address, Property and Agency classes.
+ * @author BCIT
+ * Version 1.0
+ */
 class AgencyTest
 {
     private Agency agency;
