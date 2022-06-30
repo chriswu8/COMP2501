@@ -215,11 +215,13 @@ public class Person
         if(level != null && !level.isBlank())
         {
             if(level.equalsIgnoreCase("high school")
-                    && level.equalsIgnoreCase("undergraduate")
-                    && level.equalsIgnoreCase("graduate"))
+                    || level.equalsIgnoreCase("undergraduate")
+                    || level.equalsIgnoreCase("graduate"))
             {
                 this.highestEducationLevel = level.toLowerCase();
             }
+        } else {
+            throw new IllegalArgumentException("invalid level");
         }
     }
 
@@ -229,15 +231,9 @@ public class Person
      */
     private boolean isValidEducationLevel(final String educationLevelToVerify)
     {
-        if(educationLevelToVerify.equalsIgnoreCase("high school")
+        return educationLevelToVerify.equalsIgnoreCase("high school")
                 || educationLevelToVerify.equalsIgnoreCase("undergraduate")
-                || educationLevelToVerify.equalsIgnoreCase("graduate"))
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
+                || educationLevelToVerify.equalsIgnoreCase("graduate");
     }
 
     /**
@@ -246,15 +242,9 @@ public class Person
      */
     private boolean isValidMarriageStatus(final String status)
     {
-        if(status.equalsIgnoreCase("yes")
+        return status.equalsIgnoreCase("yes")
                 || status.equalsIgnoreCase("no")
-                || status.equalsIgnoreCase("divorced"))
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
+                || status.equalsIgnoreCase("divorced");
     }
 
     /**
@@ -288,7 +278,7 @@ public class Person
     }
 
     /**
-     * prints the details of this person.
+     * prints the details of this person
      * @param kilograms is true if we want to print this person's weight in kilograms, false if in pounds
      */
     public void printDetails(final boolean kilograms)
@@ -314,7 +304,7 @@ public class Person
     }
 
     /**
-     * prints the details of this person.
+     * prints the details of this person
      * @param kilograms is true if we want to print this person's weight in kilograms, false if in pounds
      * @param uppercase is true if we want to print this person's full name all in uppercase,
      *                  and false if all in lowercase
@@ -379,15 +369,15 @@ public class Person
     /**
      * @param married is "yes", "no" or "divorced"
      * @return "married" if the passed parameter is "yes"
-     * @return "single" if the passed parameter is "no"
-     * @return "divorced" if the passed parameter is "divorced"
+     *         "single" if the passed parameter is "no"
+     *         "divorced" if the passed parameter is "divorced"
      */
     private String maritalStatus(final String married)
     {
-        if(isMarried().equalsIgnoreCase("yes"))
+        if(married.equalsIgnoreCase("yes"))
         {
             return "married";
-        } else if(isMarried().equalsIgnoreCase("no"))
+        } else if(married.equalsIgnoreCase("no"))
         {
             return "single";
         } else
@@ -396,9 +386,8 @@ public class Person
         }
     }
 
-
     /**
-     * The entry point of the program
+     * the entry point of the program
      * @param args is the command line arguments (unused)
      */
     public static void main(String[] args)
