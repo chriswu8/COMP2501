@@ -8,15 +8,16 @@ package ca.bcit.comp2501.wu.haren;
  */
 public class Person
 {
-    private       String firstName;
-    private       String lastName;
-    private final int    birthYear;
-    private       String married;
-    private       int    weightLbs;
-    private       String highestEducationLevel;
+    private             String firstName;
+    private             String lastName;
+    private final       int    birthYear;
+    private             String married;
+    private             int    weightLbs;
+    private             String highestEducationLevel;
+    public static final int    CURRENT_YEAR = 2022;
 
     /**
-     * The Person constructor
+     * The first Person constructor
      * @param firstName             is the person's first name
      * @param lastName              is the person's last name
      * @param birthYear             is the person's birth year
@@ -33,11 +34,81 @@ public class Person
     {
         this.firstName = firstName;
         this.lastName = lastName;
-
         this.birthYear = birthYear;
-        this.married = married;
+
+        if(isValidMarriageStatus(married))
+        {
+            this.married = married.toLowerCase();
+        } else
+        {
+            throw new IllegalArgumentException("invalid marital status");
+        }
+
         this.weightLbs = weightLbs;
-        this.highestEducationLevel = highestEducationLevel;
+
+        if(isValidEducationLevel(highestEducationLevel))
+        {
+            this.highestEducationLevel = highestEducationLevel.toLowerCase();
+        } else
+        {
+            throw new IllegalArgumentException("invalid highest education level");
+        }
+
+    }
+
+    /**
+     * The second Person constructor
+     * @param firstName             is the person's first name
+     * @param lastName              is the person's last name
+     * @param married               is the person's marital status (yes, no, or divorced)
+     * @param weightLbs             is the person's weight in pounds
+     * @param highestEducationLevel is the person's highest education level (high school / undergraduate / graduate)
+     */
+    public Person(final String firstName,
+            final String lastName,
+            final String married,
+            final int weightLbs,
+            final String highestEducationLevel)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthYear = CURRENT_YEAR;
+
+        if(isValidMarriageStatus(married))
+        {
+            this.married = married.toLowerCase();
+        } else
+        {
+            throw new IllegalArgumentException("invalid marital status");
+        }
+
+        this.weightLbs = weightLbs;
+
+        if(isValidEducationLevel(highestEducationLevel))
+        {
+            this.highestEducationLevel = highestEducationLevel.toLowerCase();
+        } else
+        {
+            throw new IllegalArgumentException("invalid highest education level");
+        }
+    }
+
+    /**
+     * The third Person constructor
+     * @param firstName is the person's first name
+     * @param lastName  is the person's last name
+     * @param weightLbs is the person's weight in pounds
+     */
+    public Person(final String firstName,
+            final String lastName,
+            final int weightLbs)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthYear = CURRENT_YEAR;
+        this.married = "no";
+        this.weightLbs = weightLbs;
+        this.highestEducationLevel = "high school";
     }
 
     /**
@@ -133,7 +204,7 @@ public class Person
     {
         if(weightLbs > 0)
         {
-           this.weightLbs = weightLbs;
+            this.weightLbs = weightLbs;
         }
     }
 
@@ -154,8 +225,39 @@ public class Person
         }
     }
 
+    /**
+     * @param educationLevelToVerify is the string to be verified
+     * @return true if the highest education level is only one of the three specified (case-insensitive), else false
+     */
+    private boolean isValidEducationLevel(final String educationLevelToVerify)
+    {
+        if(educationLevelToVerify.equalsIgnoreCase("high school")
+                && educationLevelToVerify.equalsIgnoreCase("undergraduate")
+                && educationLevelToVerify.equalsIgnoreCase("graduate"))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
 
-    
+    /**
+     * @param status is the marital status
+     * @return true if the marital status is only one of the three specified (case-insensitive), else false
+     */
+    private boolean isValidMarriageStatus(final String status)
+    {
+        if(status.equalsIgnoreCase("yes")
+                && status.equalsIgnoreCase("no")
+                && status.equalsIgnoreCase("divorced"))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
 
 
 }
