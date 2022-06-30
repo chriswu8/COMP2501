@@ -14,6 +14,7 @@ public class Person
     private             double weightLbs;
     private             String highestEducationLevel;
     public static final int    CURRENT_YEAR = 2022;
+    public static final double LBS_TO_KG_CONVERSION_FACTOR = 0.45359237;
 
     /**
      * The first Person constructor
@@ -25,11 +26,11 @@ public class Person
      * @param highestEducationLevel is the person's highest education level (high school / undergraduate / graduate)
      */
     public Person(final String firstName,
-            final String lastName,
-            final int birthYear,
-            final String married,
-            final double weightLbs,
-            final String highestEducationLevel)
+                  final String lastName,
+                  final int birthYear,
+                  final String married,
+                  final double weightLbs,
+                  final String highestEducationLevel)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -64,10 +65,10 @@ public class Person
      * @param highestEducationLevel is the person's highest education level (high school / undergraduate / graduate)
      */
     public Person(final String firstName,
-            final String lastName,
-            final String married,
-            final double weightLbs,
-            final String highestEducationLevel)
+                  final String lastName,
+                  final String married,
+                  final double weightLbs,
+                  final String highestEducationLevel)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -99,8 +100,8 @@ public class Person
      * @param weightLbs is the person's weight in pounds
      */
     public Person(final String firstName,
-            final String lastName,
-            final double weightLbs)
+                  final String lastName,
+                  final double weightLbs)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -289,7 +290,7 @@ public class Person
         degreeOrDiploma = degreeOrDiploma(getHighestEducationLevel());
 
         String formattedWeightKg;
-        formattedWeightKg = String.format("%.1f", (getWeightLbs() * 0.45359237));
+        formattedWeightKg = String.format("%.1f", (getWeightLbs() * LBS_TO_KG_CONVERSION_FACTOR));
 
         if(kilograms)
         {
@@ -317,7 +318,7 @@ public class Person
         degreeOrDiploma = degreeOrDiploma(getHighestEducationLevel());
 
         String formattedWeightKg, upperCaseName, lowerCaseName;
-        formattedWeightKg = String.format("%.1f", (getWeightLbs() * 0.45359237));
+        formattedWeightKg = String.format("%.1f", (getWeightLbs() * LBS_TO_KG_CONVERSION_FACTOR));
         upperCaseName = getFirstName().toUpperCase() + " " + getLastName().toUpperCase();
         lowerCaseName = getFirstName().toLowerCase() + " " + getLastName().toLowerCase();
         if(kilograms)
