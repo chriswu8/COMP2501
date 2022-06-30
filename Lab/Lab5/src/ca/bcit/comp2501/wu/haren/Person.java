@@ -1,6 +1,5 @@
 package ca.bcit.comp2501.wu.haren;
 
-
 /**
  * The Person models a person
  * @author Chris Wu and Sam Van Haren
@@ -12,7 +11,7 @@ public class Person
     private             String lastName;
     private final       int    birthYear;
     private             String married;
-    private             int    weightLbs;
+    private             double weightLbs;
     private             String highestEducationLevel;
     public static final int    CURRENT_YEAR = 2022;
 
@@ -29,7 +28,7 @@ public class Person
             final String lastName,
             final int birthYear,
             final String married,
-            final int weightLbs,
+            final double weightLbs,
             final String highestEducationLevel)
     {
         this.firstName = firstName;
@@ -67,7 +66,7 @@ public class Person
     public Person(final String firstName,
             final String lastName,
             final String married,
-            final int weightLbs,
+            final double weightLbs,
             final String highestEducationLevel)
     {
         this.firstName = firstName;
@@ -101,7 +100,7 @@ public class Person
      */
     public Person(final String firstName,
             final String lastName,
-            final int weightLbs)
+            final double weightLbs)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -146,7 +145,7 @@ public class Person
     /**
      * @return the person's weight in pounds
      */
-    public int getWeightLbs()
+    public double getWeightLbs()
     {
         return weightLbs;
     }
@@ -219,7 +218,6 @@ public class Person
                     && level.equalsIgnoreCase("undergraduate")
                     && level.equalsIgnoreCase("graduate"))
             {
-
                 this.highestEducationLevel = level.toLowerCase();
             }
         }
@@ -232,8 +230,8 @@ public class Person
     private boolean isValidEducationLevel(final String educationLevelToVerify)
     {
         if(educationLevelToVerify.equalsIgnoreCase("high school")
-                && educationLevelToVerify.equalsIgnoreCase("undergraduate")
-                && educationLevelToVerify.equalsIgnoreCase("graduate"))
+                || educationLevelToVerify.equalsIgnoreCase("undergraduate")
+                || educationLevelToVerify.equalsIgnoreCase("graduate"))
         {
             return true;
         } else
@@ -249,8 +247,8 @@ public class Person
     private boolean isValidMarriageStatus(final String status)
     {
         if(status.equalsIgnoreCase("yes")
-                && status.equalsIgnoreCase("no")
-                && status.equalsIgnoreCase("divorced"))
+                || status.equalsIgnoreCase("no")
+                || status.equalsIgnoreCase("divorced"))
         {
             return true;
         } else
@@ -259,5 +257,178 @@ public class Person
         }
     }
 
+    /**
+     * prints the details of this person.
+     */
+    public void printDetails()
+    {
+        String article, maritalStatus, degreeOrDiploma;
+        article = article(getHighestEducationLevel());
+        maritalStatus = maritalStatus(isMarried());
+        degreeOrDiploma = degreeOrDiploma(getHighestEducationLevel());
 
+        System.out.printf("%s %s (%s) was born in %d, weighs %.1f pounds, and has %s %s %s!\n",
+                          getFirstName(), getLastName(), maritalStatus, getBirthYear(), getWeightLbs(),
+                          article, getHighestEducationLevel(), degreeOrDiploma);
+    }
+
+    /**
+     * @param highestEducationLevel is this person's highest level of education
+     * @return "diploma" if this person's highest level of education is high school, else "degree"
+     */
+    private String degreeOrDiploma(final String highestEducationLevel)
+    {
+        if(highestEducationLevel.equalsIgnoreCase("high school"))
+        {
+            return "diploma";
+        } else
+        {
+            return "degree";
+        }
+    }
+
+    /**
+     * prints the details of this person.
+     * @param kilograms is true if we want to print this person's weight in kilograms, false if in pounds
+     */
+    public void printDetails(final boolean kilograms)
+    {
+        String article, maritalStatus, degreeOrDiploma;
+        article = article(getHighestEducationLevel());
+        maritalStatus = maritalStatus(isMarried());
+        degreeOrDiploma = degreeOrDiploma(getHighestEducationLevel());
+
+        String formattedWeightKg;
+        formattedWeightKg = String.format("%.1f", (getWeightLbs() * 0.45359237));
+
+        if(kilograms)
+        {
+            System.out.printf("%s %s (%s) was born in %d, weighs %s kilograms, and has %s %s %s!\n",
+                              getFirstName(), getLastName(), maritalStatus, getBirthYear(),
+                              formattedWeightKg, article, getHighestEducationLevel(), degreeOrDiploma);
+        } else
+        {
+            printDetails();
+        }
+
+    }
+
+    /**
+     * prints the details of this person.
+     * @param kilograms is true if we want to print this person's weight in kilograms, false if in pounds
+     * @param uppercase is true if we want to print this person's full name all in uppercase,
+     *                  and false if all in lowercase
+     */
+    public void printDetails(final boolean kilograms, final boolean uppercase)
+    {
+        String article, maritalStatus, degreeOrDiploma;
+        article = article(getHighestEducationLevel());
+        maritalStatus = maritalStatus(isMarried());
+        degreeOrDiploma = degreeOrDiploma(getHighestEducationLevel());
+
+        String formattedWeightKg, upperCaseName, lowerCaseName;
+        formattedWeightKg = String.format("%.1f", (getWeightLbs() * 0.45359237));
+        upperCaseName = getFirstName().toUpperCase() + " " + getLastName().toUpperCase();
+        lowerCaseName = getFirstName().toLowerCase() + " " + getLastName().toLowerCase();
+        if(kilograms)
+        {
+            if(uppercase)
+            {
+                System.out.printf("%s (%s) was born in %d, weighs %s kilograms, and has %s %s %s!\n",
+                                  upperCaseName, maritalStatus, getBirthYear(),
+                                  formattedWeightKg, article, getHighestEducationLevel(), degreeOrDiploma);
+            } else
+            {
+                System.out.printf("%s (%s) was born in %d, weighs %s kilograms, and has %s %s %s!\n",
+                                  lowerCaseName, maritalStatus, getBirthYear(),
+                                  formattedWeightKg, article, getHighestEducationLevel(), degreeOrDiploma);
+            }
+
+        } else
+        {
+            if(uppercase)
+            {
+                System.out.printf("%s (%s) was born in %d, weighs %.1f pounds, and has %s %s %s!\n",
+                                  upperCaseName, maritalStatus, getBirthYear(),
+                                  getWeightLbs(), article, getHighestEducationLevel(), degreeOrDiploma);
+            } else
+            {
+                System.out.printf("%s (%s) was born in %d, weighs %.1f pounds, and has %s %s %s!\n",
+                                  lowerCaseName, maritalStatus, getBirthYear(),
+                                  getWeightLbs(), article, getHighestEducationLevel(), degreeOrDiploma);
+            }
+        }
+    }
+
+    /**
+     * @param proceedingWord is the string that determines the return article
+     * @return "a" when the passed string is "high school" or "graduate", else "an"
+     */
+    private String article(final String proceedingWord)
+    {
+        if(proceedingWord.equalsIgnoreCase("high school")
+                || proceedingWord.equalsIgnoreCase("graduate"))
+        {
+            return "a";
+        } else
+        {
+            return "an";
+        }
+    }
+
+    /**
+     * @param married is "yes", "no" or "divorced"
+     * @return "married" if the passed parameter is "yes"
+     * @return "single" if the passed parameter is "no"
+     * @return "divorced" if the passed parameter is "divorced"
+     */
+    private String maritalStatus(final String married)
+    {
+        if(isMarried().equalsIgnoreCase("yes"))
+        {
+            return "married";
+        } else if(isMarried().equalsIgnoreCase("no"))
+        {
+            return "single";
+        } else
+        {
+            return "divorced";
+        }
+    }
+
+
+    /**
+     * The entry point of the program
+     * @param args is the command line arguments (unused)
+     */
+    public static void main(String[] args)
+    {
+        Person p1;
+        Person p2;
+        Person p3;
+
+        p1 = new Person("Tiger", "Woods", 1975, "divorced", 200, "undergraduate");
+        p1.printDetails();
+        p1.printDetails(true);
+        p1.printDetails(true, true);
+        p1.printDetails(true, false);
+        p1.printDetails(false, true);
+        p1.printDetails(false, false);
+
+        p2 = new Person("Jason", "Wilder", 2000, "no", 180, "graduate");
+        p2.printDetails();
+        p2.printDetails(true);
+        p2.printDetails(true, true);
+        p2.printDetails(true, false);
+        p2.printDetails(false, true);
+        p2.printDetails(false, false);
+
+        p3 = new Person("Santa", "Claus", 1000, "yes", 280, "high school");
+        p3.printDetails();
+        p3.printDetails(true);
+        p3.printDetails(true, true);
+        p3.printDetails(true, false);
+        p3.printDetails(false, true);
+        p3.printDetails(false, false);
+    }
 }
