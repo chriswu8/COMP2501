@@ -30,10 +30,10 @@ b.	What fields would be required?
     --> GAMES_PER_SEASON                                              where GAMES_PER_SEASON > 0
     --> currentGameNumber                                             where currentGameNumber is 0
     --> INITIAL_SCORE_AND_ASSIST                                      where INITIAL_SCORE_AND_ASSIST is 0
-    --> goalsScoredEachGame                                           where goalsScored >= 0
-    --> goalsAssistedEachGame                                         where goalsAssisted >= 0
-    --> goalsScoredThisSeason                                         where goalsScored >= 0
-    --> goalsAssistedThisSeason                                       where goalsAssisted >= 0
+    --> goalsScoredEachGame                                           where goals scored for each game must be greater or equal to 0
+    --> goalsAssistedEachGame                                         where goals assisted for each game must be greater or equal to 0
+    --> goalsScoredThisSeason                                         where goalsScoredThisSeason >= 0
+    --> goalsAssistedThisSeason                                       where goalsAssistedThisSeason >= 0
     --> yearsOfExperience                                             where yearsOfExperience >= 0
     --> teamName                                                      where teamName cannot be null or a blank string
 
@@ -69,7 +69,7 @@ d.	What validations are required?
     --> throws illegalArgumentException for yearsOfExperience < 0
 
 e.	What functions does a player perform?
-    --> public void printPlayerInfo()                                    outputs a string in the format: "Chris Wu: age 99, man-matching, jersey number 25, handler, 5 years experience"
+    --> public void printPlayerInfo()                                    outputs a string in the format: "Johnny Appleseed: age 99, man-matching, jersey number 25, handler, 5 years experience"
                                                                                                          "Team: Angus Fan Club"
                                                                                                          "Goals scored this game:     10"
                                                                                                          "Goals assisted this game:   10"
@@ -82,21 +82,23 @@ e.	What functions does a player perform?
                                                                                                                                                    "We’ve got spirit, yes we do! We’ve got spirit, how about you?
                                                                                                                                                     We’ve got strength, yes we do! We’ve got strength, how about you?
                                                                                                                                                     We’re the champions, we’re on top! When it comes to ultimate we never stop!"
-    --> public void callFoul()                                           outputs a string in the format: "Chris Wu calls foul"
+    --> public void callFoul(final Player firstName,
+                             final Player lastName)                      outputs a string in the format: "Johnny Appleseed calls foul on Adam Smith." and calls the scores() method 50% of the time
     --> public void callTravel(final Player firstName,
-                               final Player lastName)                    outputs a string in the format: "Chris Wu calls travel on Adam Smith."
-    --> public void contestCall()                                        outputs a string in the format: "Chris Wu contests the stoppage call."
+                               final Player lastName)                    outputs a string in the format: "Johnny Appleseed calls travel on Adam Smith."
+    --> public void contestCall(final Player firstName,
+                                final Player lastName)                   outputs a string in the format: "Adam Smith contests the stoppage call."
     --> public void huck(final Player firstName,
-                         final Player lastName)                          outputs a string in the format: "Chris Wu sends the disc deep to Adam Smith!" and calls the scores() method 50% of the time
-    --> public void cut()                                                outputs a string in the format: "Chris Wu makes a sharp cut!"
-    --> public void handlerCut()                                         outputs a string in the format: "Chris Wu makes a handler cut!"
-    --> public void getsOpenForPass()                                    outputs a string in the format: "Chris Wu gets open to receive a throw."
-    --> public void strikeDeep()                                         outputs a string in the format: "Chris Wu makes strikes deep!"
-    --> public void callInjurySubstitute()                               outputs a string in the format: "Chris Wu calls for an injury substitute."
+                         final Player lastName)                          outputs a string in the format: "Johnny Appleseed sends the disc deep to Adam Smith!" and calls the scores() method 50% of the time
+    --> public void cut()                                                outputs a string in the format: "Johnny Appleseed makes a sharp cut!"
+    --> public void handlerCut()                                         outputs a string in the format: "Johnny Appleseed makes a handler cut!"
+    --> public void getsOpenForPass()                                    outputs a string in the format: "Johnny Appleseed gets open to receive a throw."
+    --> public void strikeDeep()                                         outputs a string in the format: "Johnny Appleseed makes strikes deep!"
+    --> public void callInjurySubstitute()                               outputs a string in the format: "Johnny Appleseed calls for an injury substitute."
     --> public void forehandThrow(final Player firstName,
-                                  final Player lastName)                 outputs a string in the format: "Chris Wu makes a forehand throw!" and calls the scores() method 50% of the time
+                                  final Player lastName)                 outputs a string in the format: "Johnny Appleseed makes a forehand throw to Adam Smith!" and calls the scores() method 50% of the time
     --> public void backhandThrow(final Player firstName,
-                                  final Player lastName)                 outputs a string in the format: "Chris Wu makes a backhand throw!" and calls the scores() method 50% of the time
+                                  final Player lastName)                 outputs a string in the format: "Johnny Appleseed makes a backhand throw to Adam Smith!" and calls the scores() method 50% of the time
     --> public void scores(final Player catcherFirstName,
                            final Player catcherLastName)                 outputs a string in the format: "...AND ADAM SMITH SCORES!" and increments this player's goalsAssistedEachGame[currentGameNumber -1] the catcher's goalsScoredEachGame[currentGameNumber -1]
     --> public void setGameMatchingGender(final String genderMatch)      sets the gameMatchingGender to "men" or "women", else throw IllegalArgumentException
@@ -111,30 +113,45 @@ a.	What attributes does a team have?
     --> team name                                         (private final String)
     --> roster                                            (private final ArrayList<Players>)
     --> coach                                             (private final String)
-    --> game location                                     (private final ArrayList<String>)
     --> number of games this season                       (private final int)
-    --> time of game                                      (private final ArrayList<String>)
-    --> spirit points                                     (private final int[])
+    --> game location                                     (private final ArrayList<String>)
+    --> time of games                                     (private final ArrayList<String>)
+    --> spirit points                                     (private final double[])
     --> list of players who are matching against men      (private final Players[])
     --> list of players who are matching against women    (private final Players[])
 
 
 b.	What fields would be required?
     --> teamName                   where teamName cannot be null or a blank string
-    --> roster
+    --> roster                     where the roster must contain greater or equal to 7 players
     --> coach                      where teamName cannot be null or a blank string
-    --> gameLocation
-    --> NUM_OF_GAMES
-    --> gameTimes
-    --> spiritPoints
-    --> matchingAgainstMen
-    --> matchingAgainstWomen
+    --> NUM_OF_GAMES               where NUM_OF_GAMES >= 0
+    --> gameLocation               where gameLocation must contain the same number of string elements as NUM_OF_GAMES
+    --> gameTimes                  where gameTimes must contain the same number of "HH:MM" format strings as NUM_OF_GAMES
+    --> spiritPoints               where spiritPoints must contain the same number of double elements as NUM_OF_GAMES; each element must be less than 0.0 or greater than 10.0
+    --> matchingAgainstMen         where matchingAgainstMen have zero or more players
+    --> matchingAgainstWomen       where matchingAgainstWomen have zero or more players
 
 c.	What constructors are required to create teams?
-    -->
+    --> one that initializes the player's: - teamName
+                                           - roster
+                                           - coach
+                                           - gameLocation
+                                           - gameTimes
+                                           - spiritPoints (all elements to 0.0 initially)
+                                           - matchingAgainstMen
+                                           - matchingAgainstWomen
+
+    --> checks for illegal arguments
 
 d.	What validations are required?
-    -->
+    --> throws an IllegalArgumentException for null or blank strings
+    --> throws an IllegalArgumentException if the roster has fewer than 7 players
+    --> throws an IllegalArgumentException if gameLocation does not contain NUM_OF_GAMES string elements
+    --> throws an IllegalArgumentException if gameTimes does not contain NUM_OF_GAMES string elements
+    --> throws an IllegalArgumentException if gameTimes contains an element that is not in the format of "HH:MM"
+    --> throws an IllegalArgumentException if spiritPoints does not contain NUM_OF_GAMES string elements
+    --> throws an IllegalArgumentException if spiritPoints has element that has a value less than 0.0 or greater than 10.0
 
 e.	What functions does a team perform?
     -->
