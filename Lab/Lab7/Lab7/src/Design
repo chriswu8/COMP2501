@@ -14,7 +14,7 @@ a.	What attributes does a player have?
     --> goals scored this season         (private final int)
     --> goals assisted this season       (private final int)
     --> years of experience              (private final int)
-    --> team name                        (private static final String)
+    --> team name                        (private final String)
 
 
 b.	What fields would be required?
@@ -26,8 +26,7 @@ b.	What fields would be required?
     --> jerseyNumber                                                  where jerseyNumber >= -999 &&
                                                                              jerseyNumber <= 999
     --> role                                                          where role.equals("handler) ||
-                                                                            role.equals("cutter) ||
-                                                                            role.equals("coach")
+                                                                            role.equals("cutter)
     --> GAMES_PER_SEASON                                              where GAMES_PER_SEASON > 0
     --> currentGameNumber                                             where currentGameNumber is 0
     --> INITIAL_SCORE_AND_ASSIST                                      where INITIAL_SCORE_AND_ASSIST is 0
@@ -61,7 +60,7 @@ d.	What validations are required?
     --> throws illegalArgumentException for age less than 17 or greater than 122
     --> throws illegalArgumentException for gameMatchingGender that is neither "men" nor "women"
     --> throws illegalArgumentException for jerseyNumber that exceeds three integer digits long
-    --> throws illegalArgumentException for role that is neither "handler", "cutter" nor "coach"
+    --> throws illegalArgumentException for role that is neither "handler" nor "cutter"
     --> throws illegalArgumentException for GAMES_PER_SEASON < 0
     --> throws illegalArgumentException for currentGameNumber < 1 or currentGameNumber > GAMES_PER_SEASON - 1
     --> throws illegalArgumentException for INITIAL_SCORE_AND_ASSIST != 0
@@ -70,7 +69,8 @@ d.	What validations are required?
     --> throws illegalArgumentException for yearsOfExperience < 0
 
 e.	What functions does a player perform?
-    --> public void printPlayerInfo()                                    outputs a string in the format: "Chris Wu: age 99, man-matching player, jersey number 25, handler, 5 years experience"
+    --> public void printPlayerInfo()                                    outputs a string in the format: "Chris Wu: age 99, man-matching, jersey number 25, handler, 5 years experience"
+                                                                                                         "Team: Angus Fan Club"
                                                                                                          "Goals scored this game:     10"
                                                                                                          "Goals assisted this game:   10"
                                                                                                          "Goals scored this season:   10"
@@ -105,12 +105,30 @@ e.	What functions does a player perform?
 
 
 
+
 •	For teams:
 a.	What attributes does a team have?
-    -->
+    --> team name                                         (private final String)
+    --> roster                                            (private final ArrayList<Players>)
+    --> coach                                             (private final String)
+    --> game location                                     (private final ArrayList<String>)
+    --> number of games this season                       (private final int)
+    --> time of game                                      (private final ArrayList<String>)
+    --> spirit points                                     (private final int[])
+    --> list of players who are matching against men      (private final Players[])
+    --> list of players who are matching against women    (private final Players[])
+
 
 b.	What fields would be required?
-    -->
+    --> teamName                   where teamName cannot be null or a blank string
+    --> roster
+    --> coach                      where teamName cannot be null or a blank string
+    --> gameLocation
+    --> NUM_OF_GAMES
+    --> gameTimes
+    --> spiritPoints
+    --> matchingAgainstMen
+    --> matchingAgainstWomen
 
 c.	What constructors are required to create teams?
     -->
