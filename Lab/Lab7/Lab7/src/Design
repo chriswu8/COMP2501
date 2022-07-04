@@ -1,34 +1,42 @@
 •	For (ultimate frisbee) players:
 a.	What attributes does a player have?
-    --> first name                 (private final String)
-    --> last name                  (private final String)
-    --> age                        (private final int)
-    --> game matching gender       (private final String)
-    --> jersey number              (private final int)
-    --> role                       (private final String)
-    --> goals scored each game     (private final ArrayList<Integer>)
-    --> goals assisted each game   (private final ArrayList<Integer>)
-    --> goals scored this season   (private final int)
-    --> goals assisted this season (private final int)
-    --> years of experience        (private final int)
+    --> first name                       (private final String)
+    --> last name                        (private final String)
+    --> age                              (private final int)
+    --> game matching gender             (private       String)
+    --> jersey number                    (private final int)
+    --> role                             (private final String)
+    --> games per season                 (private static final int)
+    --> current game number              (private static int)
+    --> initial score and assisted value (private static final int)
+    --> goals scored each game           (private final Map<Integer>)
+    --> goals assisted each game         (private final Map<Integer>)
+    --> goals scored this season         (private final int)
+    --> goals assisted this season       (private final int)
+    --> years of experience              (private final int)
+    --> team name                        (private static final String)
 
 
 b.	What fields would be required?
-    --> firstName                                                     where firstName.length() >= 1
-    --> lastName                                                      where lastName.length() >= 1
+    --> firstName                                                     where firstName cannot be null or a blank string
+    --> lastName                                                      where lastName cannot be null or a blank string
     --> age                                                           where age >= 17
     --> gameMatchingGender                                            where gameMatchingGender.equals("men") ||
                                                                             gameMatchingGender.equals("women")
-    --> jerseyNumber (private final int)                              where jerseyNumber >= -999 &&
+    --> jerseyNumber                                                  where jerseyNumber >= -999 &&
                                                                              jerseyNumber <= 999
-    --> role (private final String)                                   where role.equals("handler) ||
+    --> role                                                          where role.equals("handler) ||
                                                                             role.equals("cutter) ||
                                                                             role.equals("coach")
-    --> goalsScoredEachGame (private final arrayList<Integer>)        where goalsScored >= 0
-    --> goalsAssistedEachGame (private final arrayList<Integer>)      where goalsAssisted >= 0
-    --> goalsScoredThisSeason (private final int)                     where goalsScored >= 0
-    --> goalsAssistedThisSeason (private final int)                   where goalsAssisted >= 0
-    --> yearsOfExperience (private final int)                         where yearsOfExperience >= 0
+    --> GAMES_PER_SEASON                                              where GAMES_PER_SEASON > 0
+    --> currentGameNumber                                             where currentGameNumber is 0
+    --> INITIAL_SCORE_AND_ASSIST                                      where INITIAL_SCORE_AND_ASSIST is 0
+    --> goalsScoredEachGame                                           where goalsScored >= 0
+    --> goalsAssistedEachGame                                         where goalsAssisted >= 0
+    --> goalsScoredThisSeason                                         where goalsScored >= 0
+    --> goalsAssistedThisSeason                                       where goalsAssisted >= 0
+    --> yearsOfExperience                                             where yearsOfExperience >= 0
+    --> teamName                                                      where teamName cannot be null or a blank string
 
 c.	What constructors are required to create players?
     --> one that initializes the player's: - firstName
@@ -37,47 +45,64 @@ c.	What constructors are required to create players?
                                            - gameMatchingGender
                                            - jerseyNumber
                                            - role
-                                           - goalsScored
-                                           - goalsScoredThisSeason
-                                           - goalsAssistedThisSeason
+                                           - GAMES_PER_SEASON
+                                           - currentGameNumber
+                                           - INITIAL_SCORE_AND_ASSIST
+                                           - goalsScoredThisGame     (to 0 initially)
+                                           - goalsAssistedThisGame   (to 0 initially)
+                                           - goalsScoredThisSeason   (all to 0 initially)
+                                           - goalsAssistedThisSeason (all to 0 initially)
                                            - yearsOfExperience
+                                           - teamName
     --> checks for illegal arguments
 
 d.	What validations are required?
-    --> throws illegalArgumentException for null or blank Strings
+    --> throws illegalArgumentException for null or blank strings
     --> throws illegalArgumentException for age less than 17 or greater than 122
     --> throws illegalArgumentException for gameMatchingGender that is neither "men" nor "women"
     --> throws illegalArgumentException for jerseyNumber that exceeds three integer digits long
     --> throws illegalArgumentException for role that is neither "handler", "cutter" nor "coach"
-    --> throws illegalArgumentException for goalsAssistedThisSeason < 0 or goalsAssistedThisSeason > 294 (14*21goals)
-    --> throws illegalArgumentException for goalsAssistedThisSeason < 0 or goalsAssistedThisSeason > 294 (14*21assists)
+    --> throws illegalArgumentException for GAMES_PER_SEASON < 0
+    --> throws illegalArgumentException for currentGameNumber < 1 or currentGameNumber > GAMES_PER_SEASON - 1
+    --> throws illegalArgumentException for INITIAL_SCORE_AND_ASSIST != 0
+    --> throws illegalArgumentException for goalsAssistedThisSeason < 0
+    --> throws illegalArgumentException for goalsAssistedThisSeason < 0
     --> throws illegalArgumentException for yearsOfExperience < 0
 
 e.	What functions does a player perform?
-    --> public void printPlayerInfo()                     outputs a string in the format: "Chris Wu: age 99, man-matching player, jersey number 25, handler, 5 years experience"
-                                                                              "Goals scored this game:     10"
-                                                                              "Goals assisted this game:   10"
-                                                                              "Goals scored this season:   10"
-                                                                              "Goals assisted this season: 10"
-    --> public void cheerForTeammates()                   outputs a (randomly selected) cheer (string) for team
-    --> public void callFoul()                            outputs a string in the format: "Chris Wu calls foul"
+    --> public void printPlayerInfo()                                    outputs a string in the format: "Chris Wu: age 99, man-matching player, jersey number 25, handler, 5 years experience"
+                                                                                                         "Goals scored this game:     10"
+                                                                                                         "Goals assisted this game:   10"
+                                                                                                         "Goals scored this season:   10"
+                                                                                                         "Goals assisted this season: 10"
+    --> public void cheerForTeammates()                                  outputs one of the following (randomly selected) cheer (string) for team: "Wohoo, let's go team!"
+                                                                                                                                                   "Yeah! GO TEAM!"
+                                                                                                                                                   "Fire it up teamName!"
+                                                                                                                                                   "Fight team fight!"
+                                                                                                                                                   "We’ve got spirit, yes we do! We’ve got spirit, how about you?
+                                                                                                                                                    We’ve got strength, yes we do! We’ve got strength, how about you?
+                                                                                                                                                    We’re the champions, we’re on top! When it comes to ultimate we never stop!"
+    --> public void callFoul()                                           outputs a string in the format: "Chris Wu calls foul"
     --> public void callTravel(final Player firstName,
-                               final Player lastName)      outputs a string in the format: "Chris Wu calls travel on Adam Smith."
-    --> public void contestCall()                         outputs a string in the format: "Chris Wu contests the stoppage call."
+                               final Player lastName)                    outputs a string in the format: "Chris Wu calls travel on Adam Smith."
+    --> public void contestCall()                                        outputs a string in the format: "Chris Wu contests the stoppage call."
     --> public void huck(final Player firstName,
-                         final Player lastName)            outputs a string in the format: "Chris Wu sends the disc deep to Adam Smith!" and calls the scores() method 50% of the time
-    --> public void cut()                                 outputs a string in the format: "Chris Wu makes a sharp cut!"
-    --> public void handlerCut()                          outputs a string in the format: "Chris Wu makes a handler cut!"
-    --> public void getsOpenForPass()                     outputs a string in the format: "Chris Wu gets open to receive a throw."
-    --> public void strikeDeep()                          outputs a string in the format: "Chris Wu makes strikes deep!"
-    --> public void callInjurySubstitute()                outputs a string in the format: "Chris Wu calls for an injury substitute."
-    --> public void forehandThrow()                       outputs a string in the format: "Chris Wu makes a forehand throw!"
-    --> public void backhandThrow()                       outputs a string in the format: "Chris Wu makes a backhand throw!"
-    --> public void scores(final Player firstName,
-                           final Player lastName)          outputs a string in the format: "Adam Smith scores!" and in
-    --> public void assist(final Player firstName,
-                           final Player lastName)          outputs a string in the format: "Chris Wu throws to David Lin in the
-                                                                               + end-zone for the goal!"
+                         final Player lastName)                          outputs a string in the format: "Chris Wu sends the disc deep to Adam Smith!" and calls the scores() method 50% of the time
+    --> public void cut()                                                outputs a string in the format: "Chris Wu makes a sharp cut!"
+    --> public void handlerCut()                                         outputs a string in the format: "Chris Wu makes a handler cut!"
+    --> public void getsOpenForPass()                                    outputs a string in the format: "Chris Wu gets open to receive a throw."
+    --> public void strikeDeep()                                         outputs a string in the format: "Chris Wu makes strikes deep!"
+    --> public void callInjurySubstitute()                               outputs a string in the format: "Chris Wu calls for an injury substitute."
+    --> public void forehandThrow(final Player firstName,
+                                  final Player lastName)                 outputs a string in the format: "Chris Wu makes a forehand throw!" and calls the scores() method 50% of the time
+    --> public void backhandThrow(final Player firstName,
+                                  final Player lastName)                 outputs a string in the format: "Chris Wu makes a backhand throw!" and calls the scores() method 50% of the time
+    --> public void scores(final Player catcherFirstName,
+                           final Player catcherLastName)                 outputs a string in the format: "...AND ADAM SMITH SCORES!" and increments this player's goalsAssistedEachGame[currentGameNumber -1] the catcher's goalsScoredEachGame[currentGameNumber -1]
+    --> public void setGameMatchingGender(final String genderMatch)      sets the gameMatchingGender to "men" or "women", else throw IllegalArgumentException
+    --> public void setCurrentGameNumber(final int gameNumber)           sets the currentGameNumber to another value that is less or equal to GAMES_PER_SEASON, else throw IllegalArgumentException
+
+
 
 
 •	For teams:
