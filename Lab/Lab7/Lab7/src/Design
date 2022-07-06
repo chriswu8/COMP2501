@@ -4,16 +4,16 @@ a.	What attributes does a player have?
     --> last name                        (private final String)
     --> age                              (private final int)
     --> game matching gender             (private       String)
-    --> jersey                    (private final int)
+    --> jersey                           (private final int)
     --> role                             (private final String)
     --> games per season                 (private static final int)
-    --> current game              (private static int)
+    --> current game                     (private static int)
     --> initial score and assisted value (private static final int)
-    --> goals scored each game           (private final Map<Integer>)
-    --> goals assisted each game         (private final Map<Integer>)
-    --> goals scored this season         (private final int)
-    --> goals assisted this season       (private final int)
-    --> years of experience              (private final int)
+    --> goals scored each game           (private final Map<Integer, Integer>)
+    --> goals assisted each game         (private final Map<Integer, Integer>)
+    --> goals scored this season         (private       int)
+    --> goals assisted this season       (private       int)
+    --> years of experience              (private       int)
     --> team name                        (private final String)
 
 
@@ -27,7 +27,7 @@ b.	What fields would be required?
                                                                              jerseyNumber <= 999
     --> role                                                          where role.equals("handler) ||
                                                                             role.equals("cutter)
-    --> GAMES_PER_SEASON                                              where GAMES_PER_SEASON > 0
+    --> gamesPerSeason                                                where gamesPerSeason > 0
     --> currentGameNumber                                             where currentGameNumber is 0
     --> INITIAL_SCORE_AND_ASSIST                                      where INITIAL_SCORE_AND_ASSIST is 0
     --> goalsScoredEachGame                                           where goals scored for each game must be greater or equal to 0
@@ -44,9 +44,8 @@ c.	What constructors are required to create players?
                                            - gameMatchingGender
                                            - jerseyNumber
                                            - role
-                                           - GAMES_PER_SEASON
+                                           - gamesPerSeason
                                            - currentGameNumber
-                                           - INITIAL_SCORE_AND_ASSIST
                                            - goalsScoredThisGame     (to 0 initially)
                                            - goalsAssistedThisGame   (to 0 initially)
                                            - goalsScoredThisSeason   (all to 0 initially)
@@ -61,8 +60,8 @@ d.	What validations are required?
     --> throws illegalArgumentException for gameMatchingGender that is neither "men" nor "women"
     --> throws illegalArgumentException for jerseyNumber that exceeds three integer digits long
     --> throws illegalArgumentException for role that is neither "handler" nor "cutter"
-    --> throws illegalArgumentException for GAMES_PER_SEASON < 0
-    --> throws illegalArgumentException for currentGameNumber < 1 or currentGameNumber > GAMES_PER_SEASON - 1
+    --> throws illegalArgumentException for gamesPerSeason < 0
+    --> throws illegalArgumentException for currentGameNumber < 1 or currentGameNumber > gamesPerSeason - 1
     --> throws illegalArgumentException for INITIAL_SCORE_AND_ASSIST != 0
     --> throws illegalArgumentException for goalsAssistedThisSeason < 0
     --> throws illegalArgumentException for goalsAssistedThisSeason < 0
@@ -102,7 +101,7 @@ e.	What functions does a player perform?
     --> public void scores(final Player catcherFirstName,
                            final Player catcherLastName)                 outputs a string in the format: "...AND ADAM SMITH SCORES!" and increments this player's goalsAssistedEachGame[currentGameNumber -1] the catcher's goalsScoredEachGame[currentGameNumber -1]
     --> public void setGameMatchingGender(final String genderMatch)      sets the gameMatchingGender to "men" or "women", else throw IllegalArgumentException
-    --> public void setCurrentGameNumber(final int gameNumber)           sets the currentGameNumber to another value that is less or equal to GAMES_PER_SEASON, else throw IllegalArgumentException
+    --> public void setCurrentGameNumber(final int gameNumber)           sets the currentGameNumber to another value that is less or equal to gamesPerSeason, else throw IllegalArgumentException
     --> public String getFullName()                                      returns the concatenated first and last name separated by whitespace
     --> public int getJerseyNumber()                                     returns the jerseyNumber
 
@@ -112,15 +111,17 @@ e.	What functions does a player perform?
 •	For teams:
 a.	What attributes does a team have?
     --> team name                                         (private final String)
-    --> roster                                            (private final ArrayList<Players>)
+    --> roster                                            (private final ArrayList<Player>)
     --> coach                                             (private final String)
     --> number of games this season                       (private final int)
     --> game location                                     (private final ArrayList<String>)
     --> time of games                                     (private final ArrayList<String>)
     --> spirit points                                     (private final double[])
-    --> list of players who are matching against men      (private final Players[])
-    --> list of players who are matching against women    (private final Players[])
-    --> spirit                                            (private       int)
+    --> list of players who are matching against men      (private final ArrayList<Player>)
+    --> list of players who are matching against women    (private final ArrayList<Player>)
+    --> initial double value for spirit                   (private static final double)
+    --> initial int value for win/loss/tie                (private static final int)
+    --> spirit                                            (private       double)
     --> wins                                              (private       int)
     --> losses                                            (private       int)
     --> ties                                              (private       int)
@@ -129,30 +130,33 @@ a.	What attributes does a team have?
 b.	What fields would be required?
     --> teamName                   where teamName cannot be null or a blank string
     --> roster                     where the roster must contain greater or equal to 7 players
-    --> coach                      where teamName cannot be null or a blank string
+    --> coach                      where coach cannot be null or a blank string
     --> NUM_OF_GAMES               where NUM_OF_GAMES >= 0
     --> gameLocation               where gameLocation must contain the same of string elements as NUM_OF_GAMES
     --> gameTimes                  where gameTimes must contain the same of "HH:MM" format strings as NUM_OF_GAMES
     --> spiritPoints               where spiritPoints must contain the same of double elements as NUM_OF_GAMES; each element must be less than 0.0 or greater than 10.0
     --> matchingAgainstMen         where matchingAgainstMen have zero or more players
     --> matchingAgainstWomen       where matchingAgainstWomen have zero or more players
+    --> INITIAL_SPIRIT             where INITIAL_SPIRIT = 0.0
+    --> INITIAL_WIN_LOSS_TIE       where INITIAL_WIN_LOSS_TIE = 0
     --> spirit                     where  0.0 >= spirit >= 10.0
     --> wins                       where wins >= 0
     --> losses                     where losses >= 0
     --> ties                       where ties >= 0
 
 c.	What constructors are required to create teams?
-    --> one that initializes the player's: - teamName
+    --> one that initializes the team's:   - teamName
                                            - roster
                                            - coach
                                            - gameLocation
                                            - gameTimes
-                                           - spiritPoints (all elements to 0.0 initially)
+                                           - spiritPoints (to NUM_OF_GAMES number of elements)
                                            - matchingAgainstMen
                                            - matchingAgainstWomen
-                                           - wins (to 0 initially)
-                                           - losses (to 0 initially)
-                                           - ties (to 0 initially)
+                                           - spirit (to INITIAL_SPIRIT)
+                                           - wins (to INITIAL_WIN_LOSS_TIE)
+                                           - losses (to INITIAL_WIN_LOSS_TIE)
+                                           - ties (to INITIAL_WIN_LOSS_TIE)
 
     --> checks for illegal arguments
 
@@ -167,6 +171,8 @@ d.	What validations are required?
     --> throws an IllegalArgumentException if wins < 0
     --> throws an IllegalArgumentException if losses < 0
     --> throws an IllegalArgumentException if ties < 0
+    --> throws an IllegalArgumentException if INITIAL_SPIRIT != 0.0
+    --> throws an IllegalArgumentException if INITIAL_WIN_LOSS_TIE != 0
 
 e.	What functions does a team perform?
     --> public void printTeamInfo              outputs the string in the format:
@@ -194,6 +200,7 @@ e.	What functions does a team perform?
                                                                      "                        Player16 (jerseyNumber)"
                                                                      "                        Player17 (jerseyNumber)"
                                                                      "==================================="
+    -->  public void addToRoster(final Player player)      adds a player to the roster ArrayList
     -->  public void scrimmage()                           outputs the string: "Team teamName scrimmages."
     -->  public void train()                               outputs the string: "Team teamName trains."
     -->  public void bond()                                outputs the string: "Team teamName went to a restaurant for a team bonding event."
@@ -217,9 +224,64 @@ e.	What functions does a team perform?
 
 
 
-
-
-
 •	For the league:
-a.	Same as above for the league
-    -->
+a.	What attributes does a league have?
+    --> league name                  (private final String)
+    --> rules                        (private final String)
+    --> teams                        (private final HashMap<String, Team>)
+    --> games location               (private static final ArrayList<String>)
+    --> number of games this season  (private static final int)
+    --> initial game number          (private static final int)
+    --> team names                   (private final ArrayList<String>)
+    --> coaches                      (private final ArrayList<String>)
+    --> game times                   (private final ArrayList<String>)
+    --> men matching players         (private       ArrayList<Player>)
+    --> women matching players       (private       ArrayList<Player>)
+
+
+b.	What fields would be required?
+    --> leagueName
+    --> rules
+    --> gamesLocation
+    --> teams
+    --> TOTAL_NUM_GAMES
+    --> INITIAL_GAME_NUMBER (set to 1)
+    --> teamNames
+    --> coaches
+    --> gameTimes
+    --> matchingAgainstMen
+    --> matchingAgainstWomen
+
+
+c.	What constructors are required to create leagues?
+    --> one that initializes: - leagueName
+                              - rules (to "See https://www.vul.ca/content/rules")
+                              - teams
+                              - gamesLocation
+                              - teamNames
+                              - coaches
+                              - gameTimes
+                              - matchingAgainstMen
+                              - matchingAgainstWomen
+
+    --> checks for illegal arguments
+
+
+d.	What validations are required?
+    --> throws an illegalArgumentException if a string is null or blank
+    --> throws an illegalArgumentException if any of the ArrayList<String> formal parameters of the constructor are null
+    --> throws an illegalArgumentException if any of the ArrayList<Player> formal parameters of the constructor are null
+    --> throws an illegalArgumentException if gamesLocation.length > TOTAL_NUM_GAMES
+    --> throws an illegalArgumentException if gameTimes.length > TOTAL_NUM_GAMES
+
+e.	What functions does a league perform?
+    --> public static void main(final String[] args)  creates players, teams and a league called "Vancouver Ultimate League"
+                                                      adds players to team rosters
+                                                      calls and tests all other methods from the Players and Teams classes
+    --> public void setGameLocations()                set the game locations
+    --> public void setTeamNames()                    set the team names
+    --> public void setCoaches()                      set the coaches
+    --> public void setGameTimes()                    set the game time
+    --> public void setMatchingAgainstMen()           populates matchingAgainstMen with men matching players
+    --> public void setMatchingAgainstWomen()         populates setMatchingAgainstWomen with women matching players
+
