@@ -64,17 +64,17 @@ public class Agency
     public int getTotalPropertyValues()
     {
         Set<String> keys;
-        keys = properties.keySet();
+        Double totalPropertyValue;
 
-        double totalPropertyValue;
-        totalPropertyValue = 0;
+        keys = properties.keySet();
+        totalPropertyValue = 0.0;
 
         for(String key : keys)
         {
             totalPropertyValue += properties.get(key).getPriceUsd();
         }
 
-        return (int) totalPropertyValue;
+        return totalPropertyValue.intValue();
     }
 
     /**
@@ -160,8 +160,10 @@ public class Agency
      */
     private void populateArray(final int lowerBoundPrice, final int upperBoundPrice, final Property[] matches)
     {
-        int         index = 0;
+        int         index;
         Set<String> keys;
+
+        index = 0;
         keys = properties.keySet();
 
         for(String key : keys)
@@ -211,7 +213,7 @@ public class Agency
      */
     public HashMap<String, Property> getPropertiesWithBedrooms(final int minBedrooms, final int maxBedrooms)
     {
-        Map<String, Property> propertiesWithBedrooms;
+        HashMap<String, Property> propertiesWithBedrooms;
         propertiesWithBedrooms = new HashMap<>();
 
         Set<String> keys;
@@ -228,7 +230,7 @@ public class Agency
 
         if(propertiesWithBedrooms.size() > 0)
         {
-            return (HashMap<String, Property>) propertiesWithBedrooms;
+            return propertiesWithBedrooms;
         } else
         {
             return null;
@@ -241,7 +243,7 @@ public class Agency
      */
     public ArrayList<String> getPropertiesOfType(final String propertyType)
     {
-        List<String> agencyData, agencyData2;
+        ArrayList<String> agencyData, agencyData2;
         agencyData = new ArrayList<>();
 
         Set<String> keys;
@@ -263,12 +265,12 @@ public class Agency
                     }
                 }
             }
-            return (ArrayList<String>) agencyData;
+            return agencyData;
         } else
         {
             agencyData2 = new ArrayList<>();
             addStringVersion3(propertyType, agencyData2);
-            return (ArrayList<String>) agencyData2;
+            return agencyData2;
         }
     }
 
@@ -377,7 +379,7 @@ public class Agency
 
     /**
      * @param numberOfBedrooms is the number of bedrooms
-     * @return the string "bedrooms" or "bedroom" depending of the plurality
+     * @return the string "bedrooms" or "bedroom" depending on the plurality
      */
     private String bedroomsPlurality(final int numberOfBedrooms)
     {
