@@ -21,10 +21,8 @@ public class Student
     /**
      * This is the Student constructor
      */
-    public Student()
+    public Student(final Scanner myScanner)
     {
-        Scanner myScanner;
-        myScanner = new Scanner(System.in);
         final String  firstName;
         final String  lastName;
         final int     id;
@@ -54,8 +52,6 @@ public class Student
 
         pass = determinePass();
         this.pass = pass;
-
-        myScanner.close();
     }
 
     /**
@@ -91,8 +87,12 @@ public class Student
     {
         final int yearLength = 4;
 
-        if(testString != null && testString.length() == yearLength)
+        if(testString != null)
         {
+            if(testString.length() != yearLength)
+            {
+                throw new IllegalArgumentException("Invalid birth year: must contain four digits.");
+            }
             if(areAllDigits(testString))
             {
                 return Integer.parseInt(testString);
@@ -186,6 +186,14 @@ public class Student
         return true;
     }
 
+    /**
+     * @return the student's id number
+     */
+    public int getId()
+    {
+        return id;
+    }
+
     @Override
     public String toString()
     {
@@ -193,17 +201,5 @@ public class Student
                 + "\nyear of birth: " + this.birthYear
                 + "\npercentage grade: " + this.percentageGrade + "%"
                 + "\npassed: " + pass;
-    }
-
-    /**
-     * This is the entry point of the program.
-     * @param args are the command line arguments (unused)
-     */
-    public static void main(final String[] args)
-    {
-        Student student;
-        student = new Student();
-
-        System.out.println(student);
     }
 }
