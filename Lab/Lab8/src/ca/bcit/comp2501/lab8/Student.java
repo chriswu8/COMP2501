@@ -1,5 +1,6 @@
 package ca.bcit.comp2501.lab8;
 
+import java.security.PublicKey;
 import java.util.Scanner;
 
 /**
@@ -9,14 +10,13 @@ import java.util.Scanner;
  */
 public class Student
 {
-    private final String  firstName;
-    private final String  lastName;
-    private final int     id;
-    private final int     birthYear;
-    private final double  percentageGrade;
-    private final boolean pass;
-
-    private static final int PASSING_GRADE = 60;
+    private final        String  firstName;
+    private final        String  lastName;
+    private final        String  id;
+    private final        int     birthYear;
+    private final        double  percentageGrade;
+    private final        boolean pass;
+    private static final int     PASSING_GRADE = 60;
 
     /**
      * This is the Student constructor
@@ -25,7 +25,7 @@ public class Student
     {
         final String  firstName;
         final String  lastName;
-        final int     id;
+        final String  id;
         final int     birthYear;
         final double  percentageGrade;
         final boolean pass;
@@ -39,7 +39,7 @@ public class Student
         this.lastName = lastName;
 
         System.out.println("What is the student's id number? ");
-        id = checkDigits(myScanner.next());
+        id = checkId(myScanner.next());
         this.id = id;
 
         System.out.println("What is the student's year of birth? ");
@@ -123,18 +123,18 @@ public class Student
      * @param testString is the string that is to be checked for whether all of its characters are all digits
      * @return the parsed test string as an int
      */
-    private int checkDigits(final String testString)
+    private String checkId(final String testString)
     {
         char[] characters = testString.toCharArray();
 
         for(char character : characters)
         {
-            if(!Character.isDigit(character))
+            if(!Character.isDigit(character) || character != 'A')
             {
-                throw new IllegalArgumentException("Invalid value: not all characters are digits.");
+                throw new IllegalArgumentException("Invalid id");
             }
         }
-        return Integer.parseInt(testString);
+        return testString;
     }
 
     /**
@@ -187,9 +187,17 @@ public class Student
     }
 
     /**
+     * @return the minimum grade required to pass
+     */
+    public static int getPassingGrade()
+    {
+        return PASSING_GRADE;
+    }
+
+    /**
      * @return the student's id number
      */
-    public int getId()
+    public String getId()
     {
         return id;
     }

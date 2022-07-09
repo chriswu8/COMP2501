@@ -2,7 +2,8 @@ package ca.bcit.comp2501.lab8;
 
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Set;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * The Lab8Driver class is the driver class
@@ -11,16 +12,20 @@ import java.util.Set;
  */
 public class Lab8Driver
 {
-    private final HashMap<String, Student> students;
+    private final        HashMap<String, Student> students;
+    private static final String                   DELIMITER     = "\\|";
+    private static final int FIRST_NAME_INDEX = 0;
+    private static final int LAST_NAME_INDEX  = 1;
+    private static final int STUDENT_ID_INDEX = 2;
+    private static final int AGE_INDEX        = 3;
+    private static final int GRADE_INDEX      = 4;
 
     public Lab8Driver()
     {
         students = new HashMap<>();
-        Set<String> keys;
-        keys = students.keySet();
     }
 
-    public void readFromPrompt(Scanner scanner)
+    public void readFromPrompt(final Scanner scanner)
     {
         Student student;
         boolean proceed;
@@ -47,20 +52,61 @@ public class Lab8Driver
         } while(proceed);
     }
 
+    public void readFromFile(final Scanner fileScanner)
+    {
+        String line;
+        String formattedOutput;
+
+        while(fileScanner.hasNextLine())
+        {
+            line = fileScanner.nextLine();
+            formattedOutput = formatOutput(line);
+            System.out.println(formattedOutput);
+        }
+
+    }
+
+    private String formatOutput(final String line)
+    {
+        String[] strArray;
+
+        String formattedString;
+
+        strArray = line.split(DELIMITER);
+        formattedString = "Student [firstName=" + strArray[FIRST_NAME_INDEX]
+                + ", lastName=" + strArray[LAST_NAME_INDEX]
+                + ", idNumber=" + strArray[STUDENT_ID_INDEX]
+                + ", ageYears=" + strArray[AGE_INDEX]
+                + ", gradePct=" + strArray[GRADE_INDEX]
+                + ", pass=" + (Double.valueOf(strArray[GRADE_INDEX]) >= Student.getPassingGrade()) + "]";
+
+        return formattedString;
+    }
+
     /**
      * This is the entry point of the program.
      * @param args are the command line arguments (unused)
      */
-    public static void main(final String[] args)
+    public static void main(final String[] args) throws FileNotFoundException
     {
-        Scanner    scanner;
+        Scanner    scanner, fileScanner;
+        File       file;
         Lab8Driver driverObj;
 
         scanner = new Scanner(System.in);
         driverObj = new Lab8Driver();
 
-        driverObj.readFromPrompt(scanner);
+//        driverObj.readFromPrompt(scanner);
 
         scanner.close();
+
+        // ==========================================
+
+        file = new File("student_data.txt");
+        fileScanner = new Scanner(file);
+
+        driverObj.readFromFile(fileScanner);
+
+        fileScanner.close();
     }
 }
