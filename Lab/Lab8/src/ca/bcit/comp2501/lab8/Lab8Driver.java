@@ -88,7 +88,7 @@ public class Lab8Driver
                         + ", idNumber=" + strArray[STUDENT_ID_INDEX]
                         + ", ageYears=" + strArray[AGE_INDEX]
                         + ", gradePct=" + strArray[GRADE_INDEX]
-                        + ", pass=" + (Double.valueOf(strArray[GRADE_INDEX]) >= Student.getPassingGrade())
+                        + ", pass=" + (Double.parseDouble(strArray[GRADE_INDEX]) >= Student.getPassingGrade())
                         + "]";
 
         return formattedString;
@@ -102,14 +102,11 @@ public class Lab8Driver
         Set<String> keys;
         keys = students.keySet();
 
-        if(keys != null)
+        for(String key : keys)
         {
-            for(String key : keys)
+            if(students.get(key) != null)
             {
-                if(students.get(key) != null)
-                {
-                    System.out.println(students.get(key).toString());
-                }
+                System.out.println(students.get(key).toString());
             }
         }
     }
