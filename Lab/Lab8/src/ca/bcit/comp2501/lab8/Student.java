@@ -15,7 +15,9 @@ public class Student
     private final        int     birthYear;
     private final        double  percentageGrade;
     private final        boolean pass;
-    private static final int     PASSING_GRADE = 60;
+    private static final int     PASSING_GRADE               = 60;
+    private static final int     EARLIER_POSSIBLE_BIRTH_YEAR = 1900;
+    private static final int CURRENT_YEAR = 2022;
 
     /**
      * This is the Student constructor
@@ -91,6 +93,10 @@ public class Student
             if(testString.length() != yearLength)
             {
                 throw new IllegalArgumentException("Invalid birth year: must contain four digits.");
+            }
+            if(Integer.parseInt(testString) < EARLIER_POSSIBLE_BIRTH_YEAR || Integer.parseInt(testString) > CURRENT_YEAR)
+            {
+                throw new IllegalArgumentException("Invalid value: This person is not alive.");
             }
             if(areAllDigits(testString))
             {
@@ -205,12 +211,12 @@ public class Student
     /**
      * The toString method returns the information of this student.
      * @return the information of this student.
-     */
-    public String toString()
+     */ public String toString()
     {
-        return this.firstName + " " + this.lastName + "\nid: " + this.id
+        return "\n" + this.firstName + " " + this.lastName
+                + "\nid: " + this.id
                 + "\nyear of birth: " + this.birthYear
                 + "\npercentage grade: " + this.percentageGrade + "%"
-                + "\npassed: " + pass;
+                + "\npassed: " + pass + "\n";
     }
 }

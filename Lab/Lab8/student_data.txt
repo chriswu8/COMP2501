@@ -1,6 +1,6 @@
-Catfish|Sturgeon|A00456123|78|56.7
-Robin|Crow|A00112233|43|73.9
 Pike|Bass|A00953177|22|81.5
+Steed|Mare|A00553954|44|78.7
 Buck|Doe|A00654321|36|69.9
 Sunny|McCloud|A00559633|25|88.8
-Steed|Mare|A00553954|44|78.7
+Robin|Crow|A00112233|43|73.9
+Catfish|Sturgeon|A00456123|78|56.7

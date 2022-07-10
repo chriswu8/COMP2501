@@ -1,6 +1,7 @@
 package ca.bcit.comp2501.lab8;
 
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +13,7 @@ import java.io.FileNotFoundException;
  */
 public class Lab8Driver
 {
-    private        final HashMap<String, Student> students;
+    private final        HashMap<String, Student> students;
     private static final String                   DELIMITER        = "\\|";
     private static final int                      FIRST_NAME_INDEX = 0;
     private static final int                      LAST_NAME_INDEX  = 1;
@@ -60,11 +61,12 @@ public class Lab8Driver
         String line;
         String formattedOutput;
 
+        System.out.println("List of Students created");
+
         while(fileScanner.hasNextLine())
         {
             line = fileScanner.nextLine();
             formattedOutput = formatOutput(line);
-            System.out.println("List of Students created");
             System.out.println(formattedOutput);
         }
     }
@@ -86,9 +88,30 @@ public class Lab8Driver
                         + ", idNumber=" + strArray[STUDENT_ID_INDEX]
                         + ", ageYears=" + strArray[AGE_INDEX]
                         + ", gradePct=" + strArray[GRADE_INDEX]
-                        + ", pass=" + (Double.valueOf(strArray[GRADE_INDEX]) >= Student.getPassingGrade()) + "]";
+                        + ", pass=" + (Double.valueOf(strArray[GRADE_INDEX]) >= Student.getPassingGrade())
+                        + "]";
 
         return formattedString;
+    }
+
+    /**
+     * prints the contents of the HashMap to the console, calling Student.toString() for each Student
+     */
+    public void showStudents()
+    {
+        Set<String> keys;
+        keys = students.keySet();
+
+        if(keys != null)
+        {
+            for(String key : keys)
+            {
+                if(students.get(key) != null)
+                {
+                    System.out.println(students.get(key).toString());
+                }
+            }
+        }
     }
 
     /**
@@ -116,5 +139,9 @@ public class Lab8Driver
         driverObj.readFromFile(fileScanner);
 
         fileScanner.close();
+
+        // ==========================================
+
+        driverObj.showStudents();
     }
 }
