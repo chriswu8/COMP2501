@@ -7,18 +7,18 @@ import java.io.FileNotFoundException;
 
 /**
  * The Lab8Driver class is the driver class
- * @author Chris Wu
+ * @author Chris Wu & Shivneil Prakash
  * @version 1.0
  */
 public class Lab8Driver
 {
-    private final        HashMap<String, Student> students;
-    private static final String                   DELIMITER     = "\\|";
-    private static final int FIRST_NAME_INDEX = 0;
-    private static final int LAST_NAME_INDEX  = 1;
-    private static final int STUDENT_ID_INDEX = 2;
-    private static final int AGE_INDEX        = 3;
-    private static final int GRADE_INDEX      = 4;
+    private        final HashMap<String, Student> students;
+    private static final String                   DELIMITER        = "\\|";
+    private static final int                      FIRST_NAME_INDEX = 0;
+    private static final int                      LAST_NAME_INDEX  = 1;
+    private static final int                      STUDENT_ID_INDEX = 2;
+    private static final int                      AGE_INDEX        = 3;
+    private static final int                      GRADE_INDEX      = 4;
 
     public Lab8Driver()
     {
@@ -47,11 +47,14 @@ public class Lab8Driver
             else
             {
                 proceed = false;
-                System.out.println("Data entry finished!");
+                System.out.println("Data entry finished!\n");
             }
         } while(proceed);
     }
 
+    /**
+     * @param fileScanner is the file scanner
+     */
     public void readFromFile(final Scanner fileScanner)
     {
         String line;
@@ -61,11 +64,15 @@ public class Lab8Driver
         {
             line = fileScanner.nextLine();
             formattedOutput = formatOutput(line);
+            System.out.println("List of Students created");
             System.out.println(formattedOutput);
         }
-
     }
 
+    /**
+     * @param line is a line in read file
+     * @return the formatted string of the student data
+     */
     private String formatOutput(final String line)
     {
         String[] strArray;
@@ -73,12 +80,13 @@ public class Lab8Driver
         String formattedString;
 
         strArray = line.split(DELIMITER);
-        formattedString = "Student [firstName=" + strArray[FIRST_NAME_INDEX]
-                + ", lastName=" + strArray[LAST_NAME_INDEX]
-                + ", idNumber=" + strArray[STUDENT_ID_INDEX]
-                + ", ageYears=" + strArray[AGE_INDEX]
-                + ", gradePct=" + strArray[GRADE_INDEX]
-                + ", pass=" + (Double.valueOf(strArray[GRADE_INDEX]) >= Student.getPassingGrade()) + "]";
+        formattedString =
+                "Student [firstName=" + strArray[FIRST_NAME_INDEX]
+                        + ", lastName=" + strArray[LAST_NAME_INDEX]
+                        + ", idNumber=" + strArray[STUDENT_ID_INDEX]
+                        + ", ageYears=" + strArray[AGE_INDEX]
+                        + ", gradePct=" + strArray[GRADE_INDEX]
+                        + ", pass=" + (Double.valueOf(strArray[GRADE_INDEX]) >= Student.getPassingGrade()) + "]";
 
         return formattedString;
     }
@@ -96,7 +104,7 @@ public class Lab8Driver
         scanner = new Scanner(System.in);
         driverObj = new Lab8Driver();
 
-//        driverObj.readFromPrompt(scanner);
+        driverObj.readFromPrompt(scanner);
 
         scanner.close();
 

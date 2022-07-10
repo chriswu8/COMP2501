@@ -1,11 +1,10 @@
 package ca.bcit.comp2501.lab8;
 
-import java.security.PublicKey;
 import java.util.Scanner;
 
 /**
  * The Student class models a student
- * @author Chris Wu
+ * @author Chris Wu & Shivneil Prakash
  * @version 1.0
  */
 public class Student
@@ -129,7 +128,7 @@ public class Student
 
         for(char character : characters)
         {
-            if(!Character.isDigit(character) || character != 'A')
+            if(!Character.isDigit(character) && character != 'A')
             {
                 throw new IllegalArgumentException("Invalid id");
             }
@@ -203,6 +202,10 @@ public class Student
     }
 
     @Override
+    /**
+     * The toString method returns the information of this student.
+     * @return the information of this student.
+     */
     public String toString()
     {
         return this.firstName + " " + this.lastName + "\nid: " + this.id
