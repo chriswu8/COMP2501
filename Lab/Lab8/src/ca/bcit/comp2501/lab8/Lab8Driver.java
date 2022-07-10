@@ -21,11 +21,17 @@ public class Lab8Driver
     private static final int                      AGE_INDEX        = 3;
     private static final int                      GRADE_INDEX      = 4;
 
+    /**
+     * The Lab8Driver constructor
+     */
     public Lab8Driver()
     {
         students = new HashMap<>();
     }
 
+    /**
+     * @param scanner is the scanner to take user input from the keyboard
+     */
     public void readFromPrompt(final Scanner scanner)
     {
         Student student;
@@ -83,13 +89,9 @@ public class Lab8Driver
 
         strArray = line.split(DELIMITER);
         formattedString =
-                "Student [firstName=" + strArray[FIRST_NAME_INDEX]
-                        + ", lastName=" + strArray[LAST_NAME_INDEX]
-                        + ", idNumber=" + strArray[STUDENT_ID_INDEX]
-                        + ", ageYears=" + strArray[AGE_INDEX]
-                        + ", gradePct=" + strArray[GRADE_INDEX]
-                        + ", pass=" + (Double.parseDouble(strArray[GRADE_INDEX]) >= Student.getPassingGrade())
-                        + "]";
+                "Student [firstName=" + strArray[FIRST_NAME_INDEX] + ", lastName=" + strArray[LAST_NAME_INDEX] + ", " +
+                        "idNumber=" + strArray[STUDENT_ID_INDEX] + ", ageYears=" + strArray[AGE_INDEX] + ", gradePct" +
+                        "=" + strArray[GRADE_INDEX] + ", pass=" + (Double.parseDouble(strArray[GRADE_INDEX]) >= Student.getPassingGrade()) + "]";
 
         return formattedString;
     }
