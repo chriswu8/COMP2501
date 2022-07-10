@@ -211,12 +211,14 @@ public class Student
     /**
      * The toString method returns the information of this student.
      * @return the information of this student.
-     */ public String toString()
+     */
+    public String toString()
     {
-        return "\n" + this.firstName + " " + this.lastName
-                + "\nid: " + this.id
-                + "\nyear of birth: " + this.birthYear
-                + "\npercentage grade: " + this.percentageGrade + "%"
-                + "\npassed: " + pass + "\n";
+        return "Student [firstName=" + this.firstName
+                + ", lastName=" + this.lastName
+                + ", idNumber=" + this.id
+                + ", ageYears=" + (CURRENT_YEAR - this.birthYear)
+                + ", gradePct=" + this.percentageGrade
+                + " pass=" + pass + "]\n";
     }
 }
