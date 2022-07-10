@@ -16,7 +16,7 @@ public class Student
     private final        double  percentageGrade;
     private final        boolean pass;
     private static final int     PASSING_GRADE               = 60;
-    private static final int     EARLIER_POSSIBLE_BIRTH_YEAR = 1900;
+    private static final int     EARLIEST_POSSIBLE_BIRTH_YEAR = 1900;
     private static final int CURRENT_YEAR = 2022;
 
     /**
@@ -94,7 +94,8 @@ public class Student
             {
                 throw new IllegalArgumentException("Invalid birth year: must contain four digits.");
             }
-            if(Integer.parseInt(testString) < EARLIER_POSSIBLE_BIRTH_YEAR || Integer.parseInt(testString) > CURRENT_YEAR)
+            if(Integer.parseInt(testString) < EARLIEST_POSSIBLE_BIRTH_YEAR ||
+                    Integer.parseInt(testString) > CURRENT_YEAR)
             {
                 throw new IllegalArgumentException("Invalid value: This person is not alive.");
             }
