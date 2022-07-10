@@ -15,7 +15,7 @@ public class Student
     private final        int     birthYear;
     private final        double  percentageGrade;
     private final        boolean pass;
-    private static final int     PASSING_GRADE               = 60;
+    private static final int     PASSING_GRADE                = 60;
     private static final int     EARLIEST_POSSIBLE_BIRTH_YEAR = 1900;
     private static final int CURRENT_YEAR = 2022;
 
@@ -127,15 +127,23 @@ public class Student
 
     /**
      * @param testString is the string that is to be checked for whether all of its characters are all digits
-     * @return the parsed test string as an int
+     * @return the test string if valid
      */
     private String checkId(final String testString)
     {
+        int count = 0;
+        final int lettersInId;
+        lettersInId = 1;
+
         char[] characters = testString.toCharArray();
 
         for(char character : characters)
         {
-            if(!Character.isDigit(character) && character != 'A')
+            if(character == 'A')
+            {
+                count++;
+            }
+            if(!Character.isDigit(character) && character != 'A' || count > lettersInId)
             {
                 throw new IllegalArgumentException("Invalid id");
             }
