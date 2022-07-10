@@ -219,6 +219,6 @@ public class Student
                 + ", idNumber=" + this.id
                 + ", ageYears=" + (CURRENT_YEAR - this.birthYear)
                 + ", gradePct=" + this.percentageGrade
-                + " pass=" + pass + "]\n";
+                + " pass=" + pass + "]";
     }
 }
