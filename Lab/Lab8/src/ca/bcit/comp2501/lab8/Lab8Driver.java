@@ -116,13 +116,14 @@ public class Lab8Driver
     /**
      * This is the entry point of the program.
      * @param args are the command line arguments (unused)
+     * @throws FileNotFoundException if the file cannot be found
      */
     public static void main(final String[] args) throws FileNotFoundException
     {
         Scanner    scanner, fileScanner;
         File       file;
-        Lab8Driver driverObj;
 
+        Lab8Driver driverObj;
         scanner = new Scanner(System.in);
         driverObj = new Lab8Driver();
 
@@ -132,15 +133,21 @@ public class Lab8Driver
 
         // ==========================================
 
-        file = new File("student_data.txt");
-        fileScanner = new Scanner(file);
+        try
+        {
+            file = new File("student_dataa.txt");
 
-        driverObj.readFromFile(fileScanner);
+            fileScanner = new Scanner(file);
 
-        fileScanner.close();
+            driverObj.readFromFile(fileScanner);
 
-        // ==========================================
+            fileScanner.close();
 
-        driverObj.showStudents();
+            driverObj.showStudents();
+        }
+        catch(FileNotFoundException e)
+        {
+            System.err.println("File not found!");
+        }
     }
 }
