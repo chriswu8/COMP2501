@@ -1,7 +1,7 @@
 package ca.bcit.comp2501.lab10;
 
 /**
- * The MusicMedia class models a music media library.
+ * The MusicMedia class models a music media.
  * @author Chris Wu
  * @version 1.0
  */
