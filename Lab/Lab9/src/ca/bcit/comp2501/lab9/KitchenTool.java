@@ -7,13 +7,13 @@ package ca.bcit.comp2501.lab9;
  */
 public class KitchenTool
 {
-    protected final      String  color;
-    protected final      int     yearProduced;
-    protected final      int     massInGrams;
-    protected final      boolean isElectricalDevice;
-    private static final int     FIRST_GREGORIAN_YEAR = 1582;
-    private static final int     CURRENT_YEAR         = 2022;
-    private static final int     MIN_MASS             = 0;
+    private final      String  color;
+    private final      int     yearProduced;
+    private final      int     massInGrams;
+    private final      boolean isElectricalDevice;
+    private static final int   FIRST_GREGORIAN_YEAR = 1582;
+    private static final int   CURRENT_YEAR         = 2022;
+    private static final int   MIN_MASS             = 0;
 
 
     /**
@@ -35,6 +35,11 @@ public class KitchenTool
         this.isElectricalDevice = isElectricalDevice;
     }
 
+    /**
+     * @param color the pass color of the kitchen tool
+     * @param yearProduced the production year of the kitchen tool
+     * @param massInGrams the mass of the kitchen tool in grams
+     */
     private void checkParameters(final String color,
                                  final int yearProduced,
                                  final int massInGrams)

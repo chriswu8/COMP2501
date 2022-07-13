@@ -9,6 +9,7 @@ public class Spoon extends KitchenTool
 {
     private final String headShape;
     private final int    handleLengthInCm;
+    private static final int MIN_HANDLE_LENGTH = 0;
 
     /**
      * The Spoon constructor.
@@ -27,8 +28,33 @@ public class Spoon extends KitchenTool
                  final int handleLengthInCm)
     {
         super(color, yearProduced, massInGrams, isElectricalDevice);
+        checkHeadShape(headShape);
+        checkHandleLengthInCm(handleLengthInCm);
         this.headShape = headShape;
         this.handleLengthInCm = handleLengthInCm;
+    }
+
+    /**
+     * @param handleLength is the spoon's handle length
+     */
+    private void checkHandleLengthInCm(final int handleLength)
+    {
+        if(handleLength < MIN_HANDLE_LENGTH)
+        {
+            throw new IllegalArgumentException("Invalid handle length");
+        }
+    }
+
+    /**
+     * @param headShape is the spoon's head shape
+     */
+    private void checkHeadShape(final String headShape)
+    {
+        if(!headShape.equalsIgnoreCase("circular") &&
+               !headShape.equalsIgnoreCase("oval"))
+        {
+            throw new IllegalArgumentException("Invalid spoon shape");
+        }
     }
 
     /**
