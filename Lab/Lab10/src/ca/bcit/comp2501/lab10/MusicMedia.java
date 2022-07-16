@@ -8,7 +8,7 @@ package ca.bcit.comp2501.lab10;
 public class MusicMedia
 {
     private              int    numOfSongs;
-    private              int    totalRuntime;
+    private              int    totalRuntimeInMinutes;
     private final        String artist;
     private final        String songTitle;
     private final        int    year;
@@ -20,23 +20,23 @@ public class MusicMedia
 
     /**
      * The MusicMedia constructor
-     * @param artist       is the musical artist
-     * @param songTitle    is the song title
-     * @param numOfSongs   is the number of songs
-     * @param totalRuntime is the total runtime of the music media library
-     * @param year         is the year
+     * @param artist                is the musical artist
+     * @param songTitle             is the song title
+     * @param numOfSongs            is the number of songs
+     * @param totalRuntimeInMinutes is the total runtime of the music media library in minutes
+     * @param year                  is the year
      */
     public MusicMedia(final String artist,
                       final String songTitle,
                       final int numOfSongs,
-                      final int totalRuntime,
+                      final int totalRuntimeInMinutes,
                       final int year)
     {
-        checkParameters(artist, songTitle, numOfSongs, totalRuntime, year);
+        checkParameters(artist, songTitle, numOfSongs, totalRuntimeInMinutes, year);
         this.artist = artist;
         this.songTitle = songTitle;
         this.numOfSongs = numOfSongs;
-        this.totalRuntime = totalRuntime;
+        this.totalRuntimeInMinutes = totalRuntimeInMinutes;
         this.year = year;
     }
 
@@ -142,9 +142,9 @@ public class MusicMedia
     /**
      * @return the total runtime
      */
-    public int getTotalRuntime()
+    public int getTotalRuntimeInMinutes()
     {
-        return totalRuntime;
+        return totalRuntimeInMinutes;
     }
 
     /**
@@ -166,10 +166,6 @@ public class MusicMedia
     @Override
     public String toString()
     {
-        return "Artist: " + getArtist()
-                + "Song title: " + getSongTitle()
-                + "Number of Songs: " + getNumOfSongs()
-                + "Total runtime: " + getTotalRuntime()
-                + "Year: " + getYear();
+        return "Album [Artist=" + getArtist() + ", title=" + getSongTitle() + ", trackCount=" + getNumOfSongs() + ", totalMinutes=" + getTotalRuntimeInMinutes() + "]";
     }
 }
