@@ -166,6 +166,8 @@ public class MusicMedia
     @Override
     public String toString()
     {
-        return "Album [Artist=" + getArtist() + ", title=" + getSongTitle() + ", trackCount=" + getNumOfSongs() + ", totalMinutes=" + getTotalRuntimeInMinutes() + "]";
+        return "Album [Artist=" + getArtist() + ", title=" + getSongTitle()
+                + ", trackCount=" + getNumOfSongs() + ", totalMinutes="
+                + getTotalRuntimeInMinutes() + "]";
     }
 }

@@ -34,7 +34,7 @@ public class AudioFile extends MusicMedia
     {
         System.out.println("\nThank you for using our Music Library." + "\nYou selected the Audio " +
                                    "File " + getSongTitle() + " by " + getArtist() + ".\nThis is " +
-                                   "in " + fileType + " format, from " + getYear());
+                                   "in " + fileType + " format, from the year " + getYear());
     }
 
     @Override
@@ -42,5 +42,4 @@ public class AudioFile extends MusicMedia
     {
         return "AudioFile [fileType=" + fileType + ", toString()=" + super.toString() + "]";
     }
-
 }
