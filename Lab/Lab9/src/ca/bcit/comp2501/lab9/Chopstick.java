@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab9;
 
 /**
  * The Chopstick class represents a pair of chopsticks.
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class Chopstick extends KitchenTool

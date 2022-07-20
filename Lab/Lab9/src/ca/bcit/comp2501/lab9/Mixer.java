@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab9;
 
 /**
  * The Mixer class represents a hand-held electrical mixer.
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class Mixer extends KitchenTool

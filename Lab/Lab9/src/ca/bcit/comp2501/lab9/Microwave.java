@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab9;
 
 /**
  * The Microwave class represents a microwave.
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class Microwave extends KitchenTool

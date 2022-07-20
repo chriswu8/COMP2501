@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab9;
 
 /**
  * The Spoon class represents a spoon.
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class Spoon extends KitchenTool

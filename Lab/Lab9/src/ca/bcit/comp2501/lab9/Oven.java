@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab9;
 
 /**
  * The Oven class represents a standard cooking oven.
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class Oven extends KitchenTool
