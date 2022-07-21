@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * The MusicLibrary class models a music media library.
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class MusicLibrary

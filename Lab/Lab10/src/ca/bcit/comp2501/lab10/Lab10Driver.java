@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab10;
 
 /**
  * The Lab10Driver class is the driver class for lab 10.
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class Lab10Driver
@@ -36,7 +36,5 @@ public class Lab10Driver
         library.playTitle("Hey Jude");
         library.playTitle("Everybody Knows This Is Nowhere");
         library.playTitle("Ah Leah!");
-
-
     }
 }

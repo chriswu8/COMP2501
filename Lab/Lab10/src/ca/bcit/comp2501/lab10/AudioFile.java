@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab10;
 
 /**
  * The AudioFile class models an audio file
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class AudioFile extends MusicMedia

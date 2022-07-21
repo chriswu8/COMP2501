@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab10;
 
 /**
  * The CompactDisc class models a CD
- * @author Chris Wu
+ * @author Chris Wu & Jack Luo
  * @version 1.0
  */
 public class CompactDisc extends MusicMedia
