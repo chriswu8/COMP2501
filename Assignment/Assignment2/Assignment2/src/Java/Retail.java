@@ -14,8 +14,8 @@ public class Retail extends Property
      * @param address         is the property's address
      * @param type            is the property's type (ie. residence, commercial, or retail)
      * @param propertyId      is the property's identification string
-     * @param squareFootage
-     * @param customerParking
+     * @param squareFootage   is the property's size in square foot
+     * @param customerParking is whether the property has customer parking space
      */
     public Retail(final double price,
                   final Address address,
