@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The AddressReader class reads an address.
+ * The AddressReader class reads and stores addresses.
  * @author Chris Wu
  * @version 1.0
  */
 public class AddressReader
 {
     private static       ArrayList<Address> addresses;
-    private static final long               EMPTY = 0;
+    private static final long               EMPTY     = 0;
+    private static final String             DELIMITER = "\\|";
 
     /**
      * The AddressReader constructor.
@@ -29,8 +30,14 @@ public class AddressReader
      */
     public static ArrayList<Address> readAddressData(final File file) throws FileNotFoundException
     {
-        Scanner scanner;
-        Address address;
+        Scanner   scanner;
+        Address   address;
+        String[]  arr;
+        final int unitNumberIndex   = 0;
+        final int streetNumberIndex = 1;
+        final int streetNameIndex   = 2;
+        final int postalCodeIndex   = 3;
+        final int cityIndex         = 4;
 
         scanner = new Scanner(file);
 
@@ -42,10 +49,18 @@ public class AddressReader
         {
             while(scanner.hasNextLine())
             {
+                arr = scanner.nextLine().split(DELIMITER);
 
-                //address = new Address();
+                address = new Address(arr[unitNumberIndex],
+                                      Integer.parseInt(arr[streetNumberIndex]),
+                                      arr[streetNameIndex],
+                                      arr[postalCodeIndex],
+                                      arr[cityIndex]);
+
+                addresses.add(address);
             }
         }
+        scanner.close();
         return addresses;
     }
 }
