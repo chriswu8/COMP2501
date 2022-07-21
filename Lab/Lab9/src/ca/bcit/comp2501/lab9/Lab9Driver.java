@@ -4,7 +4,7 @@ package ca.bcit.comp2501.lab9;
  * The Lab9Driver class is the driver class that
  * creates instances of all the item types you
  * and invoke all the methods of the Kitchen storage class.
- * @author Chris Wu & Jack Luo
+ * @author Chris Wu & Ee Von Ng
  * @version 1.0
  */
 public class Lab9Driver

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * The Kitchen class represents a kitchen that stores kitchen tools.
- * @author Chris Wu & Jack Luo
+ * @author Chris Wu & Ee Von Ng
  * @version 1.0
  */
 public class Kitchen

@@ -2,7 +2,7 @@ package ca.bcit.comp2501.lab9;
 
 /**
  * The KitchenTools class represents kitchen tools.
- * @author Chris Wu & Jack Luo
+ * @author Chris Wu & Ee Von Ng
  * @version 1.0
  */
 public class KitchenTool
