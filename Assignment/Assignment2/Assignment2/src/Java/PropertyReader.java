@@ -60,33 +60,51 @@ public class PropertyReader
             {
                 arr = scanner.nextLine().split(DELIMITER);
 
-                if(arr[residenceTypeIndex].equals("residence"))
-                {
-                    formattedString = getFormattedString(arr, priceIndex, numberOfBedroomsIndex,
-                                                         swimmingPoolIndex, residenceTypeIndex,
-                                                         residencePropertyIdIndex, strataIndex);
-                    properties.add(formattedString);
-                }
-
-                if(arr[retailTypeIndex].equals("retail"))
-                {
-                    formattedString = getFormattedString(arr, priceIndex, retailTypeIndex,
-                                                         retailPropertyIdIndex, squareFootageIndex,
-                                                         customerParkingIndex);
-                    properties.add(formattedString);
-                }
-
-                if(arr[commercialTypeIndex].equals("commercial"))
-                {
-                    formattedString = getString(arr, priceIndex, commercialTypeIndex,
-                                                commercialPropertyIdIndex, loadingDockIndex,
-                                                highwayAccessIndex);
-                    properties.add(formattedString);
-                }
+                createString(arr, priceIndex, numberOfBedroomsIndex, swimmingPoolIndex, residenceTypeIndex,
+                          residencePropertyIdIndex, strataIndex, retailTypeIndex, retailPropertyIdIndex,
+                          squareFootageIndex, customerParkingIndex, commercialTypeIndex, commercialPropertyIdIndex,
+                          loadingDockIndex, highwayAccessIndex);
             }
         }
         scanner.close();
         return properties;
+    }
+
+    private static void createString(final String[] arr,
+                                     final int priceIndex,
+                                     final int numberOfBedroomsIndex,
+                                     final int swimmingPoolIndex,
+                                     final int residenceTypeIndex,
+                                     final int residencePropertyIdIndex,
+                                     final int strataIndex,
+                                     final int retailTypeIndex,
+                                     final int retailPropertyIdIndex,
+                                     final int squareFootageIndex,
+                                     final int customerParkingIndex,
+                                     final int commercialTypeIndex,
+                                     final int commercialPropertyIdIndex,
+                                     final  int loadingDockIndex,
+                                     final  int highwayAccessIndex)
+    {
+        String formattedString;
+        if(arr[residenceTypeIndex].equals("residence"))
+        {
+            formattedString = getFormattedString(arr, priceIndex, numberOfBedroomsIndex, swimmingPoolIndex,
+                                                 residenceTypeIndex, residencePropertyIdIndex, strataIndex);
+            properties.add(formattedString);
+        }
+
+        if(arr[retailTypeIndex].equals("retail"))
+        {
+            formattedString = getFormattedString(arr, priceIndex, retailTypeIndex, retailPropertyIdIndex, squareFootageIndex, customerParkingIndex);
+            properties.add(formattedString);
+        }
+
+        if(arr[commercialTypeIndex].equals("commercial"))
+        {
+            formattedString = getString(arr, priceIndex, commercialTypeIndex, commercialPropertyIdIndex, loadingDockIndex, highwayAccessIndex);
+            properties.add(formattedString);
+        }
     }
 
     private static String getFormattedString(final String[] arr,
