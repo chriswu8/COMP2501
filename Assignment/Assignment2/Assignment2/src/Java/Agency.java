@@ -15,9 +15,9 @@ public class Agency
 {
     private final        String                name;
     private final        Map<String, Property> properties;
+
     private static final int                   MIN_NAME_LENGTH = 1;
     private static final int                   MAX_NAME_LENGTH = 30;
-
 
     /**
      * The constructor
@@ -208,11 +208,11 @@ public class Agency
 
     /**
      * @param streetName is the street name
-     * @return list of address that is on the specified street name, null if no matching street name found
+     * @return an ArrayList<Address> that are on the specified street name, null if no matching street name found
      */
-    public List<Address> getPropertiesOn(final String streetName)
+    public ArrayList<Address> getPropertiesOn(final String streetName)
     {
-        List<Address> propertiesOn;
+        ArrayList<Address> propertiesOn;
         propertiesOn = new ArrayList<>();
 
         Set<String> keys;
@@ -239,22 +239,29 @@ public class Agency
     /**
      * @param minBedrooms is the minimum required number of bedrooms
      * @param maxBedrooms is the maximum required number of bedrooms
-     * @return hashmap of properties that meets the requirement for min and max number of bedrooms, null if no match
+     * @return hashmap of residences that meets the requirement for min and max number of bedrooms, null if no match
      */
-    public HashMap<String, Property> getPropertiesWithBedrooms(final int minBedrooms,
+    public HashMap<String, Residence> getPropertiesWithBedrooms(final int minBedrooms,
                                                                final int maxBedrooms)
     {
-        HashMap<String, Property> propertiesWithBedrooms;
-        propertiesWithBedrooms = new HashMap<>();
-
+        HashMap<String, Residence> propertiesWithBedrooms;
+        Residence aResidence;
         Set<String> keys;
+
+        propertiesWithBedrooms = new HashMap<>();
         keys = properties.keySet();
 
         for(String key : keys)
         {
-            if(properties.get(key).getNumberOfBedrooms() >= minBedrooms && properties.get(key).getNumberOfBedrooms() <= maxBedrooms)
+            if(properties.get(key) instanceof Residence)
             {
-                propertiesWithBedrooms.put(properties.get(key).getPropertyId(), properties.get(key));
+                aResidence = (Residence) properties.get(key);
+
+                if(aResidence.getNumberOfBedrooms() >= minBedrooms &&
+                        aResidence.getNumberOfBedrooms() <= maxBedrooms)
+                {
+                    propertiesWithBedrooms.put(aResidence.getPropertyId(), aResidence);
+                }
             }
         }
 
