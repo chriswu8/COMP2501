@@ -1,10 +1,7 @@
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Pattern;
 
 /**
  * The Agency class represents an agency.
@@ -13,11 +10,11 @@ import java.util.regex.Pattern;
  */
 public class Agency
 {
-    private final        String                name;
-    private final        Map<String, Property> properties;
+    private final String                name;
+    private final Map<String, Property> properties;
 
-    private static final int                   MIN_NAME_LENGTH = 1;
-    private static final int                   MAX_NAME_LENGTH = 30;
+    private static final int MIN_NAME_LENGTH = 1;
+    private static final int MAX_NAME_LENGTH = 30;
 
     /**
      * The constructor
@@ -242,11 +239,11 @@ public class Agency
      * @return hashmap of residences that meets the requirement for min and max number of bedrooms, null if no match
      */
     public HashMap<String, Residence> getPropertiesWithBedrooms(final int minBedrooms,
-                                                               final int maxBedrooms)
+                                                                final int maxBedrooms)
     {
         HashMap<String, Residence> propertiesWithBedrooms;
-        Residence aResidence;
-        Set<String> keys;
+        Residence                  aResidence;
+        Set<String>                keys;
 
         propertiesWithBedrooms = new HashMap<>();
         keys = properties.keySet();
@@ -257,8 +254,7 @@ public class Agency
             {
                 aResidence = (Residence) properties.get(key);
 
-                if(aResidence.getNumberOfBedrooms() >= minBedrooms &&
-                        aResidence.getNumberOfBedrooms() <= maxBedrooms)
+                if(aResidence.getNumberOfBedrooms() >= minBedrooms && aResidence.getNumberOfBedrooms() <= maxBedrooms)
                 {
                     propertiesWithBedrooms.put(aResidence.getPropertyId(), aResidence);
                 }
@@ -276,153 +272,206 @@ public class Agency
     }
 
     /**
-     * @param propertyType is the property type
-     * @return an ArrayList of the agency's data of the requested property type
+     * @param propertyType is a subtype of property (commercial, residence, or retail)
+     * @return an ArrayList<Property> that holds the subtype specified in the parameter
      */
-    public ArrayList<String> getPropertiesOfType(final String propertyType)
+    public ArrayList<Property> getPropertiesOfType(final String propertyType)
     {
-        ArrayList<String> agencyData, agencyData2;
-        agencyData = new ArrayList<>();
+        ArrayList<Property> propertyList;
 
-        Set<String> keys;
+        propertyList = new ArrayList<>();
+
+        if(propertyType.equalsIgnoreCase("Residence") || propertyType.equalsIgnoreCase("Retail") || propertyType.equalsIgnoreCase("Commercial"))
+        {
+            return propertyList;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Invalid Property");
+        }
+    }
+
+    /**
+     * @return an ArrayList<Commercial> that holds only Commercial properties that have a loading dock available
+     */
+    public ArrayList<Commercial> getPropertiesWithLoadingDock()
+    {
+        ArrayList<Commercial> commercialWithLoadingDock;
+        Set<String>           keys;
+
+        commercialWithLoadingDock = new ArrayList<>();
         keys = properties.keySet();
 
-        if(! propertyType.equals("fake fake fake"))
+        for(String key : keys)
         {
-            agencyData.add("Type: COMMERCIAL\n");
-            for(String key : keys)
+            if(key != null)
             {
-                if(properties.get(key).getType().equalsIgnoreCase(propertyType))
-                {
-                    if(properties.get(key).getAddress().getUnitNumber() == null)
-                    {
-                        addStringVersion1(key, agencyData);
-                    }
-                    else
-                    {
-                        addStringVersion2(key, agencyData);
-                    }
-                }
+                addToArrayListIfItHasLoadingDock(commercialWithLoadingDock, key);
             }
-            return agencyData;
         }
-        else
+        return commercialWithLoadingDock;
+    }
+
+    private void addToArrayListIfItHasLoadingDock(final ArrayList<Commercial> commercialWithLoadingDock,
+                                                  final String key)
+    {
+        Commercial aCommercial;
+
+        if(properties.get(key) instanceof Commercial)
         {
-            agencyData2 = new ArrayList<>();
-            addStringVersion3(propertyType, agencyData2);
-            return agencyData2;
-        }
-    }
+            aCommercial = (Commercial) properties.get(key);
 
-    /**
-     * @param key        is the hashmap key
-     * @param agencyData is the list that will have string data added as elements
-     */
-    private void addStringVersion1(final String key,
-                                   final List<String> agencyData)
-    {
-        String streetNameAdjusted, postalCodeAdjusted, cityAdjusted, bedroomsPlurality, pool;
-        streetNameAdjusted = capitalizeFirstLetterOfEachWord(properties.get(key).getAddress().getStreetName());
-        postalCodeAdjusted = properties.get(key).getAddress().getPostalCode().toUpperCase();
-        cityAdjusted = capitalizeFirstLetterOfEachWord(properties.get(key).getAddress().getCity());
-        bedroomsPlurality = bedroomsPlurality(properties.get(key).getNumberOfBedrooms());
-        pool = determinePool(properties.get(key).hasSwimmingPool());
-
-        agencyData.add(") Property " + properties.get(key).getPropertyId() + ": " + properties.get(key).getAddress().getStreetNumber() + " " + streetNameAdjusted + " " + postalCodeAdjusted + " in " + cityAdjusted + " (" + properties.get(key).getNumberOfBedrooms() + " " + bedroomsPlurality + pool + "): $" + String.format("%.0f", properties.get(key).getPriceUsd()) + ".\n");
-    }
-
-    /**
-     * @param hasSwimmingPool is whether or not the property has a swimming pool
-     * @return " plus pool" if the property has a swimming pool, else empty string
-     */
-    private String determinePool(final boolean hasSwimmingPool)
-    {
-        return hasSwimmingPool ? " plus pool" : "";
-    }
-
-    /**
-     * @param key        is the the hashmap key
-     * @param agencyData is the list that will have string data added as elements
-     */
-    private void addStringVersion2(final String key,
-                                   final List<String> agencyData)
-    {
-        String streetNameAdjusted, postalCodeAdjusted, cityAdjusted, bedroomsPlurality, pool;
-        streetNameAdjusted = capitalizeFirstLetterOfEachWord(properties.get(key).getAddress().getStreetName());
-        postalCodeAdjusted = properties.get(key).getAddress().getPostalCode().toUpperCase();
-        cityAdjusted = capitalizeFirstLetterOfEachWord(properties.get(key).getAddress().getCity());
-        bedroomsPlurality = bedroomsPlurality(properties.get(key).getNumberOfBedrooms());
-        pool = determinePool(properties.get(key).hasSwimmingPool());
-
-        agencyData.add(") Property " + properties.get(key).getPropertyId() + ": unit #" + properties.get(key).getAddress().getUnitNumber() + " at " + properties.get(key).getAddress().getStreetNumber() + " " + streetNameAdjusted + " " + postalCodeAdjusted + " in " + cityAdjusted + " (" + properties.get(key).getNumberOfBedrooms() + " " + bedroomsPlurality + pool + "): $" + String.format("%.0f", properties.get(key).getPriceUsd()) + ".\n");
-
-    }
-
-    /**
-     * @param propertyType is the property type
-     * @param agencyData2  is the list that will have string data added as elements
-     * @return an ArrayList of two string elements: 1) capitalized fake fake fake type and 2) <none found>
-     */
-    private ArrayList<String> addStringVersion3(String propertyType,
-                                                List<String> agencyData2)
-    {
-        agencyData2.add("Type: " + propertyType.toUpperCase());
-        agencyData2.add("<none found>");
-        return (ArrayList<String>) agencyData2;
-    }
-
-    /**
-     * @param originalString is the original string
-     * @return the case-adjusted street name
-     */
-    private String capitalizeFirstLetterOfEachWord(final String originalString)
-    {
-        String caseAdjusted;
-
-        List<String> words;
-        words = new ArrayList<>(Arrays.asList(originalString.split(" ")));
-
-        for(String word : words)
-        {
-            int index;
-            index = words.indexOf(word);
-
-            String adjustedWord;
-
-            String firstCharacter;
-            firstCharacter = word.substring(0, 1);
-
-            if(Pattern.matches("[a-z]", firstCharacter))
+            if(aCommercial.hasLoadingDock())
             {
-                String capitalized;
-                capitalized = firstCharacter.toUpperCase();
-                adjustedWord = capitalized + word.substring(1) + " ";
+                commercialWithLoadingDock.add(aCommercial);
             }
-            else
-            {
-                adjustedWord = firstCharacter + word.substring(1) + " ";
-            }
-
-            caseAdjusted = String.join(" ", adjustedWord);
-            words.set(index, caseAdjusted);
         }
-        caseAdjusted = String.join("", words).trim();
-        return caseAdjusted;
     }
 
     /**
-     * @param numberOfBedrooms is the number of bedrooms
-     * @return the string "bedrooms" or "bedroom" depending on the plurality
+     * @return an ArrayList<Commercial> > that holds only Commercial properties that have highway access
      */
-    private String bedroomsPlurality(final int numberOfBedrooms)
+    public ArrayList<Commercial> getPropertiesWithHighwayAccess()
     {
-        if(numberOfBedrooms > 1)
+        ArrayList<Commercial> commercialWithHighwayAccess;
+        Set<String>           keys;
+
+        commercialWithHighwayAccess = new ArrayList<>();
+        keys = properties.keySet();
+
+        for(String key : keys)
         {
-            return "bedrooms";
+            if(key != null)
+            {
+                addToArrayListIfItHasHighwayAccess(commercialWithHighwayAccess, key);
+            }
         }
-        else
+        return commercialWithHighwayAccess;
+    }
+
+    private void addToArrayListIfItHasHighwayAccess(final ArrayList<Commercial> commercialWithHighwayAccess,
+                                                    final String key)
+    {
+        Commercial aCommercial;
+
+        if(properties.get(key) instanceof Commercial)
         {
-            return "bedroom";
+            aCommercial = (Commercial) properties.get(key);
+
+            if(aCommercial.hasHighwayAccess())
+            {
+                commercialWithHighwayAccess.add(aCommercial);
+            }
+        }
+    }
+
+    /**
+     * @return an ArrayList<Retail> that holds properties where square footage is at least the parameter value.
+     */
+    public ArrayList<Retail> getPropertiesWithSquareFootage(final int squareFootage)
+    {
+        ArrayList<Retail> retailWithRequiredSquareFootage;
+        Set<String>       keys;
+
+        retailWithRequiredSquareFootage = new ArrayList<>();
+        keys = properties.keySet();
+
+        for(String key : keys)
+        {
+            if(key != null)
+            {
+                addToArrayListIfItMeetsRequiredSquareFootage(retailWithRequiredSquareFootage, key, squareFootage);
+            }
+        }
+        return retailWithRequiredSquareFootage;
+    }
+
+    private void addToArrayListIfItMeetsRequiredSquareFootage(ArrayList<Retail> retailWithRequiredSquareFootage,
+                                                              final String key,
+                                                              final int squareFootage)
+    {
+        Retail aRetail;
+
+        if(properties.get(key) instanceof Retail)
+        {
+            aRetail = (Retail) properties.get(key);
+
+            if(aRetail.getSquareFootage() > squareFootage)
+            {
+                retailWithRequiredSquareFootage.add(aRetail);
+            }
+        }
+    }
+
+    /**
+     * @return an ArrayList<Retail> that holds properties where customer parking is available.
+     */
+    public ArrayList<Retail> getPropertiesWithCustomerParking()
+    {
+        ArrayList<Retail> retailWithCustomerParking;
+        Set<String>       keys;
+
+        retailWithCustomerParking = new ArrayList<>();
+        keys = properties.keySet();
+
+        for(String key : keys)
+        {
+            if(key != null)
+            {
+                addToArrayListIfItHasCustomerParking(retailWithCustomerParking, key);
+            }
+        } return retailWithCustomerParking;
+    }
+
+    private void addToArrayListIfItHasCustomerParking(ArrayList<Retail> retailWithCustomerParking,
+                                                      final String key)
+    {
+        Retail aRetail;
+
+        if(properties.get(key) instanceof Retail)
+        {
+            aRetail = (Retail) properties.get(key);
+
+            if(aRetail.hasCustomerParking())
+            {
+                retailWithCustomerParking.add(aRetail);
+            }
+        }
+    }
+
+    /**
+     * @return an ArrayList<Residence> that hold only the Residences that are in a strata.
+     */
+    public ArrayList<Residence> getPropertiesWithStrata()
+    {
+        ArrayList<Residence> residencesInStrata;
+        Set<String>          keys;
+
+        residencesInStrata = new ArrayList<>();
+        keys = properties.keySet();
+
+        for(String key : keys)
+        {
+            if(key != null)
+            {
+                addToArrayListIfInStrata(residencesInStrata, key);
+            }
+        } return residencesInStrata;
+    }
+
+    private void addToArrayListIfInStrata(ArrayList<Residence> residencesInStrata,
+                                          final String key)
+    {
+        Residence aResidence;
+
+        if(properties.get(key) instanceof Residence)
+        {
+            aResidence = (Residence) properties.get(key);
+
+            if(aResidence.getStrata())
+            {
+                residencesInStrata.add(aResidence);
+            }
         }
     }
 }

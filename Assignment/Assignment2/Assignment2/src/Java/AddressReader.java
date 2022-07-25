@@ -43,7 +43,7 @@ public class AddressReader
 
         if(file.length() == EMPTY)
         {
-            System.out.println("File empty");
+            System.err.println("File empty");
         }
         else
         {
