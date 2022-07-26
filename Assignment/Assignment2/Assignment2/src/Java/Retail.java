@@ -51,8 +51,8 @@ public class Retail extends Property
     @Override
     public String toString()
     {
-        return super.toString()
-                + "\nSquare footage: " + squareFootage
-                + "\nHas customer parking: " + customerParking;
+        return "\nRetail [squareFootage=" + squareFootage
+                + ", customer parking=" + customerParking
+                + ", " + super.toString();
     }
 }

@@ -30,7 +30,7 @@ public class Agency
     {
         if(agency == null || agency.isBlank())
         {
-            throw new IllegalArgumentException("Invalid agency");
+            throw new IllegalArgumentException("Invalid agency: cannot be null or blank.");
         }
         else if(agency.length() < MIN_NAME_LENGTH || agency.length() > MAX_NAME_LENGTH)
         {
@@ -38,7 +38,7 @@ public class Agency
         }
         else
         {
-            return name;
+            return agency;
         }
     }
 

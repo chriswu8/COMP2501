@@ -51,8 +51,8 @@ public class Commercial extends Property
     @Override
     public String toString()
     {
-        return super.toString()
-                + "\nHas loading dock: " + hasLoadingDock()
-                + "\nHas highway access: " + hasHighwayAccess();
+        return "\nCommercial [loadingDock=" + hasLoadingDock()
+                + ", highwayAccess=" + hasHighwayAccess()
+                + ", " + super.toString();
     }
 }

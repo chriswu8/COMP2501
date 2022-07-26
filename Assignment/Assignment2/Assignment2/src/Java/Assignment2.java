@@ -66,7 +66,7 @@ public class Assignment2
         addressReader = new AddressReader();
         propertyReader = new PropertyReader();
 
-        addresses = addressReader.readAddressData(addressData); // arraylist of address
+        addresses = addressReader.readAddressData(addressData);
 
         properties = propertyReader.readPropertyData(propertyData);
 
@@ -140,7 +140,7 @@ public class Assignment2
     public void doSearches()
     {
         Scanner scanner;
-        Boolean programRunning;
+        boolean programRunning;
         String  userInput;
 
         scanner = new Scanner(System.in);
@@ -148,9 +148,15 @@ public class Assignment2
 
         while(programRunning)
         {
-            System.out.println("\nWelcome to our Property search.\n" + "Choose one of the following options:\n" + "\t"
-                                       + "\t1" + ".\tGeneral Queries\n" + "\t\t2.\tResidence Queries\n" + "\t\t3" +
-                                       ".\tCommercial " + "Queries\n" + "\t\t4.\tRetail Queries\n" + "\t\t5.\tExit");
+            System.out.println("""
+
+                               Welcome to our Property search.
+                               Choose one of the following options:
+                               \t\t1.\tGeneral Queries
+                               \t\t2.\tResidence Queries
+                               \t\t3.\tCommercial Queries
+                               \t\t4.\tRetail Queries
+                               \t\t5.\tExit""");
 
             userInput = scanner.next();
 
@@ -182,46 +188,64 @@ public class Assignment2
     private void retailQueries(final Scanner scanner)
     {
         String userInput;
-        System.out.println("Commercial Queries\n\t\t1.\tBy Square Footage\n" + "\t\t2.\tBy Customer Parking\n" + "\t" + "\t3" + ".\tBack\n");
+        System.out.println("""
+                           Commercial Queries
+                           \t\t1.\tBy Square Footage
+                           \t\t2.\tBy Customer Parking
+                           \t\t3.\tBack
+                           """);
 
         userInput = scanner.next();
         valid1To3(userInput);
 
-        queryRetail1(scanner);
-        queryRetail2(scanner);
+        queryRetail1(scanner, userInput);
+        queryRetail2(userInput);
     }
 
-    private void queryRetail2(final Scanner scanner)
+    private void queryRetail2(final String userInput)
     {
         ArrayList<Retail> retailsWithCustomerParking;
 
-        retailsWithCustomerParking = agency.getPropertiesWithCustomerParking();
-
-        for(Retail retail : retailsWithCustomerParking)
+        if(userInput.equals("2"))
         {
-            System.out.println(retail);
+            retailsWithCustomerParking = agency.getPropertiesWithCustomerParking();
+
+            for(Retail retail : retailsWithCustomerParking)
+            {
+                System.out.println(retail);
+            }
         }
+
     }
 
-    private void queryRetail1(final Scanner scanner)
+    private void queryRetail1(final Scanner scanner, final String userInput)
     {
         int               minSquareFootage;
         ArrayList<Retail> retailsAboveMinSquareFootage;
 
-        System.out.println("Enter the minimum desired square footage: ");
-        minSquareFootage = scanner.nextInt();
-        retailsAboveMinSquareFootage = agency.getPropertiesWithSquareFootage(minSquareFootage);
-
-        for(Retail retail : retailsAboveMinSquareFootage)
+        if(userInput.equals("1"))
         {
-            System.out.println(retail);
+            System.out.println("Enter the minimum desired square footage: ");
+            minSquareFootage = scanner.nextInt();
+            retailsAboveMinSquareFootage = agency.getPropertiesWithSquareFootage(minSquareFootage);
+
+            for(Retail retail : retailsAboveMinSquareFootage)
+            {
+                System.out.println(retail);
+            }
         }
+
     }
 
     private void commercialQueries(final Scanner scanner)
     {
         String userInput;
-        System.out.println("Commercial Queries\n\t\t1.\tBy Loading Dock\n" + "\t\t2.\tBy Highway Access\n" + "\t\t3" + ".\tBack\n");
+        System.out.println("""
+                           Commercial Queries
+                           \t\t1.\tBy Loading Dock
+                           \t\t2.\tBy Highway Access
+                           \t\t3.\tBack
+                           """);
 
         userInput = scanner.next();
         valid1To3(userInput);
@@ -263,10 +287,14 @@ public class Assignment2
     private void residenceQueries(final Scanner scanner)
     {
         String      userInput;
-        Set<String> keys;
 
-        System.out.println("General Queries\n\t\t1.\tBy Bedroom\n" + "\t\t2.\tBy Pool\n" + "\t\t3.\tBy Strata\n" +
-                                   "\t\t4.\tBack\n");
+        System.out.println("""
+                           General Queries
+                           \t\t1.\tBy Bedroom
+                           \t\t2.\tBy Pool
+                           \t\t3.\tBy Strata
+                           \t\t4.\tBack
+                           """);
 
         userInput = scanner.next();
         valid1To4(userInput);
@@ -333,14 +361,11 @@ public class Assignment2
                 throw new IllegalArgumentException("Invalid HashMap: null ");
             }
 
-            if(keys != null)
+            for(String key : keys)
             {
-                for(String key : keys)
+                if(residences.get(key) != null)
                 {
-                    if(residences.get(key) != null)
-                    {
-                        System.out.println(residences.get(key));
-                    }
+                    System.out.println(residences.get(key));
                 }
             }
         }
@@ -350,12 +375,14 @@ public class Assignment2
     {
         String              userInput;
 
-        System.out.println("\nGeneral Queries" +
-                                   "\n1.By Property ID" +
-                                   "\n2.By Price" +
-                                   "\n3.By Street" +
-                                   "\n4.By Type" +
-                                   "\n5.Back");
+        System.out.println("""
+
+                           General Queries
+                           1.By Property ID
+                           2.By Price
+                           3.By Street
+                           4.By Type
+                           5.Back""");
 
         userInput = scanner.next();
 
@@ -437,9 +464,9 @@ public class Assignment2
 
             matchingProperties = agency.getPropertiesBetween(minPrice, maxPrice);
 
-            for(int i = 0; i < matchingProperties.length; i++)
+            for(Property matchingProperty : matchingProperties)
             {
-                System.out.println(matchingProperties[i]);
+                System.out.println(matchingProperty);
             }
         }
     }
@@ -460,7 +487,11 @@ public class Assignment2
 
     private void valid1To5(final String userInput)
     {
-        if(! userInput.equals("1") || ! userInput.equals("2") || ! userInput.equals("3") || ! userInput.equals("4") || ! userInput.equals("5"))
+        if(! userInput.equals("1") &&
+                ! userInput.equals("2") &&
+                ! userInput.equals("3") &&
+                ! userInput.equals("4") &&
+                ! userInput.equals("5"))
         {
             throw new IllegalArgumentException("Invalid input");
         }
@@ -468,7 +499,10 @@ public class Assignment2
 
     private void valid1To4(final String userInput)
     {
-        if(! userInput.equals("1") || ! userInput.equals("2") || ! userInput.equals("3") || ! userInput.equals("4"))
+        if(! userInput.equals("1") &&
+                ! userInput.equals("2") &&
+                ! userInput.equals("3") &&
+                ! userInput.equals("4"))
         {
             throw new IllegalArgumentException("Invalid input");
         }
@@ -476,7 +510,9 @@ public class Assignment2
 
     private void valid1To3(final String userInput)
     {
-        if(! userInput.equals("1") || ! userInput.equals("2") || ! userInput.equals("3"))
+        if(! userInput.equals("1") &&
+                ! userInput.equals("2") &&
+                ! userInput.equals("3"))
         {
             throw new IllegalArgumentException("Invalid input");
         }
