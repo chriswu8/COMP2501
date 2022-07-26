@@ -148,7 +148,9 @@ public class Assignment2
 
         while(programRunning)
         {
-            System.out.println("\nWelcome to our Property search.\n" + "Choose one of the following options:\n" + "\t" + "\t1" + ".\tGeneral Queries\n" + "\t\t2.\tResidence Queries\n" + "\t\t3" + ".\tCommercial " + "Queries\n" + "\t\t4.\tRetail Queries\n" + "\t\t5.\tExit");
+            System.out.println("\nWelcome to our Property search.\n" + "Choose one of the following options:\n" + "\t"
+                                       + "\t1" + ".\tGeneral Queries\n" + "\t\t2.\tResidence Queries\n" + "\t\t3" +
+                                       ".\tCommercial " + "Queries\n" + "\t\t4.\tRetail Queries\n" + "\t\t5.\tExit");
 
             userInput = scanner.next();
 
@@ -182,7 +184,7 @@ public class Assignment2
         String userInput;
         System.out.println("Commercial Queries\n\t\t1.\tBy Square Footage\n" + "\t\t2.\tBy Customer Parking\n" + "\t" + "\t3" + ".\tBack\n");
 
-        userInput = scanner.nextLine();
+        userInput = scanner.next();
         valid1To3(userInput);
 
         queryRetail1(scanner);
@@ -346,18 +348,16 @@ public class Assignment2
 
     private void generalQueries(final Scanner scanner)
     {
-        Property[]          matchingProperties;
-        ArrayList<Property> properties;
         String              userInput;
-        String              propertyId;
-        String              street;
-        String              propertyType;
-        int                 minPrice;
-        int                 maxPrice;
 
-        System.out.println("\nGeneral Queries\n1.By Property ID\n" + "2.By Price\n" + "3.By Street\n" + "4.By Type\n" + "5.Back");
+        System.out.println("\nGeneral Queries" +
+                                   "\n1.By Property ID" +
+                                   "\n2.By Price" +
+                                   "\n3.By Street" +
+                                   "\n4.By Type" +
+                                   "\n5.Back");
 
-        userInput = scanner.nextLine();
+        userInput = scanner.next();
 
         valid1To5(userInput);
 
@@ -379,7 +379,7 @@ public class Assignment2
         {
             System.out.println("Enter the property type (residence, commercial, retail): ");
 
-            propertyType = scanner.nextLine();
+            propertyType = scanner.next();
             properties = agency.getPropertiesOfType(propertyType);
 
             for(Property property : properties)
@@ -412,7 +412,7 @@ public class Assignment2
         if(userInput.equalsIgnoreCase("3"))
         {
             System.out.println("Enter the street name: ");
-            street = scanner.nextLine();
+            street = scanner.next();
 
             for(Address address : agency.getPropertiesOn(street))
             {
@@ -452,31 +452,31 @@ public class Assignment2
         {
             System.out.println("Enter the Property ID: ");
 
-            propertyId = scanner.nextLine();
+            propertyId = scanner.next();
             System.out.println(agency.getProperty(propertyId));
 
         }
     }
 
-    private void valid1To5(String userInput)
+    private void valid1To5(final String userInput)
     {
-        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3") && ! userInput.equals("4") && ! userInput.equals("5"))
+        if(! userInput.equals("1") || ! userInput.equals("2") || ! userInput.equals("3") || ! userInput.equals("4") || ! userInput.equals("5"))
         {
             throw new IllegalArgumentException("Invalid input");
         }
     }
 
-    private void valid1To4(String userInput)
+    private void valid1To4(final String userInput)
     {
-        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3") && ! userInput.equals("4"))
+        if(! userInput.equals("1") || ! userInput.equals("2") || ! userInput.equals("3") || ! userInput.equals("4"))
         {
             throw new IllegalArgumentException("Invalid input");
         }
     }
 
-    private void valid1To3(String userInput)
+    private void valid1To3(final String userInput)
     {
-        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3"))
+        if(! userInput.equals("1") || ! userInput.equals("2") || ! userInput.equals("3"))
         {
             throw new IllegalArgumentException("Invalid input");
         }
