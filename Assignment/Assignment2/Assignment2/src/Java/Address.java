@@ -196,6 +196,14 @@ public class Address
     @Override
     public String toString()
     {
-        return unitNumber + "-" + streetNumber + " " + streetName + " " + postalCode + " " + city;
+        if(unitNumber == null || unitNumber.isBlank())
+        {
+            return streetNumber + " " + streetName + " " + postalCode + " " + city;
+
+        }
+        else
+        {
+            return unitNumber + "-" + streetNumber + " " + streetName + " " + postalCode + " " + city;
+        }
     }
 }

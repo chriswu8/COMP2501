@@ -20,7 +20,7 @@ public class Agency
      * The constructor
      * @param agency is the agency's name
      */
-    public Agency(String agency)
+    public Agency(final String agency)
     {
         name = checkName(agency);
         properties = new HashMap<>();
@@ -32,7 +32,7 @@ public class Agency
         {
             throw new IllegalArgumentException("Invalid agency");
         }
-        else if(agency.length() < MIN_NAME_LENGTH || agency.length() < MAX_NAME_LENGTH)
+        else if(agency.length() < MIN_NAME_LENGTH || agency.length() > MAX_NAME_LENGTH)
         {
             throw new IllegalArgumentException("Agency name must be between 1-30 characters long.");
         }

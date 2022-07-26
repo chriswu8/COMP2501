@@ -101,7 +101,7 @@ public class Property
         }
         else if(propertyId.length() < MIN_ID_LENGTH || propertyId.length() > MAX_ID_LENGTH)
         {
-            throw new IllegalArgumentException("Invalid property id: 1234567");
+            throw new IllegalArgumentException("Invalid property id: must be 1-6 characters long.");
         }
         else
         {

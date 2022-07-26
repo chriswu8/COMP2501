@@ -1,9 +1,9 @@
-import java.awt.print.Book;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * The Assignment2 class is the driver class for assignment 2.
@@ -16,8 +16,8 @@ public class Assignment2
     private Retail     aRetail;
     private Commercial aCommercial;
 
-    private final Agency    agency;
     private       String[]  tokens;
+    private final Agency    agency;
     private final Address[] allAddresses;
 
     private static final String DELIMITER                    = "\\|";
@@ -42,7 +42,7 @@ public class Assignment2
      */
     public Assignment2()
     {
-        agency = new Agency("Rumpelstiltskin");
+        agency = new Agency("Agency1");
         tokens = new String[ARRAY_SIZE];
         allAddresses = new Address[ARRAY_SIZE2];
     }
@@ -98,7 +98,7 @@ public class Assignment2
 
     private void dealWithCommercial(final int i)
     {
-        if(tokens[COMMERCIAL_ID_INDEX].equalsIgnoreCase("commercial"))
+        if(tokens[RETAIL_COMMERCIAL_TYPE_INDEX].equalsIgnoreCase("commercial"))
         {
             aCommercial = new Commercial(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
                                          tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[COMMERCIAL_ID_INDEX],
@@ -110,7 +110,7 @@ public class Assignment2
 
     private void dealWithResidence(final int i)
     {
-        if(tokens[RESIDENCE_ID_INDEX].equalsIgnoreCase("residence"))
+        if(tokens[RESIDENCE_TYPE_INDEX].equalsIgnoreCase("residence"))
         {
             aResidence = new Residence(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
                                        tokens[RESIDENCE_TYPE_INDEX], tokens[RESIDENCE_ID_INDEX],
@@ -123,7 +123,7 @@ public class Assignment2
 
     private void dealWithRetail(final int i)
     {
-        if(tokens[RETAIL_ID_INDEX].equalsIgnoreCase("retail"))
+        if(tokens[RETAIL_COMMERCIAL_TYPE_INDEX].equalsIgnoreCase("retail"))
         {
             aRetail = new Retail(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
                                  tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[RETAIL_ID_INDEX],
@@ -146,103 +146,287 @@ public class Assignment2
         scanner = new Scanner(System.in);
         programRunning = true;
 
-        System.out.println("Welcome to our Property search.\n" + "Choose one of the following options\n:" + "\t\t1" + ".\tGeneral Queries\n" + "\t\t2.\tResidence Queries\n" + "\t\t3.\tCommercial " + "Queries\n" + "\t\t4.\tRetail Queries\n" + "\t\t5.\tExit");
-        userInput = scanner.next();
-
         while(programRunning)
         {
+            System.out.println("Welcome to our Property search.\n" + "Choose one of the following options:\n" + "\t" + "\t1" + ".\tGeneral Queries\n" + "\t\t2.\tResidence Queries\n" + "\t\t3" + ".\tCommercial " + "Queries\n" + "\t\t4.\tRetail Queries\n" + "\t\t5.\tExit");
+
+            userInput = scanner.next();
+
             if(userInput.equalsIgnoreCase("1"))
             {
-                generalQueries();
+                generalQueries(scanner);
             }
             if(userInput.equalsIgnoreCase("2"))
             {
-                residenceQueries();
+                residenceQueries(scanner);
             }
             if(userInput.equalsIgnoreCase("3"))
             {
-                commercialQueries();
+                commercialQueries(scanner);
             }
             if(userInput.equalsIgnoreCase("4"))
             {
-                retailQueries();
+                retailQueries(scanner);
             }
             if(userInput.equalsIgnoreCase("5"))
             {
                 System.out.println("Goodbye for now!");
+                programRunning = false;
+            }
+        }
+        scanner.close();
+    }
+
+    private void retailQueries(final Scanner scanner)
+    {
+        String userInput;
+        System.out.println("Commercial Queries\n\t\t1.\tBy Square Footage\n" + "\t\t2.\tBy Customer Parking\n" + "\t" + "\t3" + ".\tBack\n");
+
+        userInput = scanner.nextLine();
+        valid1To3(userInput);
+
+        queryRetail1(scanner);
+        queryRetail2(scanner);
+    }
+
+    private void queryRetail2(final Scanner scanner)
+    {
+        ArrayList<Retail> retailsWithCustomerParking;
+
+        retailsWithCustomerParking = agency.getPropertiesWithCustomerParking();
+
+        for(Retail retail : retailsWithCustomerParking)
+        {
+            System.out.println(retail);
+        }
+    }
+
+    private void queryRetail1(final Scanner scanner)
+    {
+        int               minSquareFootage;
+        ArrayList<Retail> retailsAboveMinSquareFootage;
+
+        System.out.println("Enter the minimum desired square footage: ");
+        minSquareFootage = scanner.nextInt();
+        retailsAboveMinSquareFootage = agency.getPropertiesWithSquareFootage(minSquareFootage);
+
+        for(Retail retail : retailsAboveMinSquareFootage)
+        {
+            System.out.println(retail);
+        }
+    }
+
+    private void commercialQueries(final Scanner scanner)
+    {
+        String userInput;
+        System.out.println("Commercial Queries\n\t\t1.\tBy Loading Dock\n" + "\t\t2.\tBy Highway Access\n" + "\t\t3" + ".\tBack\n");
+
+        userInput = scanner.next();
+        valid1To3(userInput);
+
+        queryCommercial1(userInput);
+        queryCommercial2(userInput);
+    }
+
+    private void queryCommercial2(final String userInput)
+    {
+        ArrayList<Commercial> comWithHighwayAccess;
+
+        if(userInput.equals("1"))
+        {
+            comWithHighwayAccess = agency.getPropertiesWithHighwayAccess();
+
+            for(Commercial commercial : comWithHighwayAccess)
+            {
+                System.out.println(commercial);
             }
         }
     }
 
-    private void retailQueries()
+    private void queryCommercial1(final String userInput)
     {
+        ArrayList<Commercial> comWIthLoadingDock;
 
+        if(userInput.equals("1"))
+        {
+            comWIthLoadingDock = agency.getPropertiesWithLoadingDock();
+
+            for(Commercial commercial : comWIthLoadingDock)
+            {
+                System.out.println(commercial);
+            }
+        }
     }
 
-    private void commercialQueries()
+    private void residenceQueries(final Scanner scanner)
     {
+        String      userInput;
+        Set<String> keys;
 
-    }
-
-    private void residenceQueries()
-    {
-        Scanner scanner;
-        String  userInput;
-
-        scanner = new Scanner(System.in);
-
-        System.out.println("General Queries\n1.By Pool\n" + "2.By Bedroom\n" + "3.By Strata\n" + "4.Back\n");
+        System.out.println("General Queries\n\t\t1.\tBy Bedroom\n" + "\t\t2.\tBy Pool\n" + "\t\t3.\tBy Strata\n" +
+                                   "\t\t4.\tBack\n");
 
         userInput = scanner.next();
+        valid1To4(userInput);
 
-        if(userInput.equalsIgnoreCase("1"))
-        {
-            generalQueries();
-        }
-        if(userInput.equalsIgnoreCase("2"))
-        {
-            residenceQueries();
-        }
+        queryResidence1(scanner, userInput);
+        queryResidence2(userInput);
+        queryResidence3(userInput);
+    }
+
+    private void queryResidence3(final String userInput)
+    {
+        ArrayList<Residence> resWithStrata;
+
         if(userInput.equalsIgnoreCase("3"))
         {
-            commercialQueries();
-        }
-        if(userInput.equalsIgnoreCase("4"))
-        {
-            retailQueries();
-        }
+            resWithStrata = agency.getPropertiesWithStrata();
 
+            for(Residence res : resWithStrata)
+            {
+                System.out.println(res);
+            }
+        }
     }
 
-    private void generalQueries()
+    private void queryResidence2(final String userInput)
     {
-        Property[] matchingProperties;
-        Scanner scanner;
-        String  userInput;
-        String  propertyId;
-        String  street;
-        int  minPrice;
-        int  maxPrice;
+        ArrayList<Residence> resWithPool;
 
-        scanner = new Scanner(System.in);
+        if(userInput.equalsIgnoreCase("2"))
+        {
+            resWithPool = agency.getPropertiesWithPools();
 
-        System.out.println("General Queries\n1.By Property ID\n" +
-                                   "2.By Price\n" +
-                                   "3.By Street\n" +
-                                   "4.By Type\n" +
-                                   "5.Back");
+            for(Residence res : resWithPool)
+            {
+                System.out.println(res);
+            }
+        }
+    }
 
-        userInput = scanner.next();
+    private void queryResidence1(final Scanner scanner,
+                                 final String userInput)
+    {
+        HashMap<String, Residence> residences;
+        int                        minBedroom;
+        Set<String>                keys;
+        int                        maxBedroom;
 
         if(userInput.equalsIgnoreCase("1"))
         {
-            System.out.println("Enter the Property ID: ");
+            System.out.println("Enter the minimum number of bedrooms: ");
+            minBedroom = scanner.nextInt();
 
-            propertyId = scanner.nextLine();
-            System.out.println(agency.getProperty(propertyId));
+            System.out.println("Enter the maximum number of bedrooms: ");
+            maxBedroom = scanner.nextInt();
 
+            residences = agency.getPropertiesWithBedrooms(minBedroom, maxBedroom);
+
+            if(residences != null)
+            {
+                keys = residences.keySet();
+            }
+            else
+            {
+                throw new IllegalArgumentException("Invalid HashMap: null ");
+            }
+
+            if(keys != null)
+            {
+                for(String key : keys)
+                {
+                    if(residences.get(key) != null)
+                    {
+                        System.out.println(residences.get(key));
+                    }
+                }
+            }
         }
+    }
 
+    private void generalQueries(final Scanner scanner)
+    {
+        Property[]          matchingProperties;
+        ArrayList<Property> properties;
+        String              userInput;
+        String              propertyId;
+        String              street;
+        String              propertyType;
+        int                 minPrice;
+        int                 maxPrice;
+
+        System.out.println("General Queries\n1.By Property ID\n" + "2.By Price\n" + "3.By Street\n" + "4.By Type\n" + "5.Back");
+
+        userInput = scanner.nextLine();
+
+        valid1To5(userInput);
+
+        query1(scanner, userInput);
+
+        query2(scanner, userInput);
+
+        query3(scanner, userInput);
+
+        query4(scanner, userInput);
+    }
+
+    private void query4(final Scanner scanner,
+                        final String userInput)
+    {
+        ArrayList<Property> properties;
+        String              propertyType;
+        if(userInput.equalsIgnoreCase("4"))
+        {
+            System.out.println("Enter the property type (residence, commercial, retail): ");
+
+            propertyType = scanner.nextLine();
+            properties = agency.getPropertiesOfType(propertyType);
+
+            for(Property property : properties)
+            {
+                if(property instanceof Residence)
+                {
+                    aResidence = (Residence) property;
+                    System.out.println(aResidence);
+                }
+
+                if(property instanceof Retail)
+                {
+                    aRetail = (Retail) property;
+                    System.out.println(aRetail);
+                }
+
+                if(property instanceof Commercial)
+                {
+                    aCommercial = (Commercial) property;
+                    System.out.println(aCommercial);
+                }
+            }
+        }
+    }
+
+    private void query3(final Scanner scanner,
+                        final String userInput)
+    {
+        String street;
+        if(userInput.equalsIgnoreCase("3"))
+        {
+            System.out.println("Enter the street name: ");
+            street = scanner.nextLine();
+
+            for(Address address : agency.getPropertiesOn(street))
+            {
+                System.out.println(address);
+            }
+        }
+    }
+
+    private void query2(final Scanner scanner,
+                        final String userInput)
+    {
+        int        maxPrice;
+        int        minPrice;
+        Property[] matchingProperties;
         if(userInput.equalsIgnoreCase("2"))
         {
             System.out.println("Enter the minimum price: ");
@@ -258,23 +442,43 @@ public class Assignment2
                 System.out.println(matchingProperties[i]);
             }
         }
+    }
 
-        if(userInput.equalsIgnoreCase("3"))
+    private void query1(final Scanner scanner,
+                        final String userInput)
+    {
+        String propertyId;
+        if(userInput.equalsIgnoreCase("1"))
         {
-            System.out.println("Enter the street name: ");
-            street = scanner.nextLine();
+            System.out.println("Enter the Property ID: ");
 
+            propertyId = scanner.nextLine();
+            System.out.println(agency.getProperty(propertyId));
 
         }
+    }
 
-        if(userInput.equalsIgnoreCase("4"))
+    private void valid1To5(String userInput)
+    {
+        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3") && ! userInput.equals("4") && ! userInput.equals("5"))
         {
-            retailQueries();
+            throw new IllegalArgumentException("Invalid input");
         }
+    }
 
-        if(userInput.equalsIgnoreCase("5"))
+    private void valid1To4(String userInput)
+    {
+        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3") && ! userInput.equals("4"))
         {
-            retailQueries();
+            throw new IllegalArgumentException("Invalid input");
+        }
+    }
+
+    private void valid1To3(String userInput)
+    {
+        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3"))
+        {
+            throw new IllegalArgumentException("Invalid input");
         }
     }
 
@@ -284,10 +488,11 @@ public class Assignment2
      */
     public static void main(final String[] args) throws FileNotFoundException
     {
-        Assignment2 obj;
+        Assignment2 assignment2;
+        assignment2 = new Assignment2();
 
-        obj = new Assignment2();
+        assignment2.init();
+        //        assignment2.doSearches();
 
-        obj.init();
     }
 }
