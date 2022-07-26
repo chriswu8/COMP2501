@@ -198,12 +198,19 @@ public class Address
     {
         if(unitNumber == null || unitNumber.isBlank())
         {
-            return streetNumber + " " + streetName + " " + postalCode + " " + city;
-
+            return "address=Address [unitNumber= "
+                    +  ", streetNumber=" + streetNumber
+                    + ", streetName=" + streetName
+                    + ", postalCode=" + postalCode
+                    + ", city=" + city + "]";
         }
         else
         {
-            return unitNumber + "-" + streetNumber + " " + streetName + " " + postalCode + " " + city;
+            return "address=Address [unitNumber=" + unitNumber
+                    + ", streetNumber=" + streetNumber
+                    + ", streetName=" + streetName
+                    + ", postalCode=" + postalCode
+                    + ", city=" + city + "]";
         }
     }
 }

@@ -76,9 +76,9 @@ public class Residence extends Property
     @Override
     public String toString()
     {
-        return super.toString()
-                + "\nBedrooms: " + numberOfBedrooms
-                + "\nSwimming pool present: " + swimmingPool
-                + "\nStrata property: " + strata;
+        return "\nResidence [numberOfBedrooms=" + numberOfBedrooms
+                + ", swimmingPool=" + swimmingPool
+                + ", strata=" + strata
+                + ", " + super.toString();
     }
 }

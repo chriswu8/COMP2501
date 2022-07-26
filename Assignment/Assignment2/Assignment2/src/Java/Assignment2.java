@@ -148,7 +148,7 @@ public class Assignment2
 
         while(programRunning)
         {
-            System.out.println("Welcome to our Property search.\n" + "Choose one of the following options:\n" + "\t" + "\t1" + ".\tGeneral Queries\n" + "\t\t2.\tResidence Queries\n" + "\t\t3" + ".\tCommercial " + "Queries\n" + "\t\t4.\tRetail Queries\n" + "\t\t5.\tExit");
+            System.out.println("\nWelcome to our Property search.\n" + "Choose one of the following options:\n" + "\t" + "\t1" + ".\tGeneral Queries\n" + "\t\t2.\tResidence Queries\n" + "\t\t3" + ".\tCommercial " + "Queries\n" + "\t\t4.\tRetail Queries\n" + "\t\t5.\tExit");
 
             userInput = scanner.next();
 
@@ -355,7 +355,7 @@ public class Assignment2
         int                 minPrice;
         int                 maxPrice;
 
-        System.out.println("General Queries\n1.By Property ID\n" + "2.By Price\n" + "3.By Street\n" + "4.By Type\n" + "5.Back");
+        System.out.println("\nGeneral Queries\n1.By Property ID\n" + "2.By Price\n" + "3.By Street\n" + "4.By Type\n" + "5.Back");
 
         userInput = scanner.nextLine();
 
@@ -492,7 +492,7 @@ public class Assignment2
         assignment2 = new Assignment2();
 
         assignment2.init();
-        //        assignment2.doSearches();
+        assignment2.doSearches();
 
     }
 }

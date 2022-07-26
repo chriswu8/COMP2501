@@ -159,6 +159,6 @@ public class Property
     @Override
     public String toString()
     {
-        return address + " (id: " + propertyId + ", type: " + type + ", price: $" + priceUsd + ")";
+        return "toString()=Property [priceUsd=" + priceUsd + ", " + getAddress() + ", type=" + getType() + ", propertyId=" + getPropertyId() +"]]";
     }
 }
