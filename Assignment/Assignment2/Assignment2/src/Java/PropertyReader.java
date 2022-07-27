@@ -13,14 +13,6 @@ public class PropertyReader
     private static ArrayList<String> linesInFile;
 
     /**
-     * The PropertyReader constructor.
-     */
-    public PropertyReader()
-    {
-        linesInFile = new ArrayList<>();
-    }
-
-    /**
      * Reads “property_data.txt” and adds Strings (for each line) to an ArrayList<String> and returns it.
      * @param file is a file containing properties
      * @return the strings of each line in the file
@@ -32,6 +24,7 @@ public class PropertyReader
         String  line;
 
         scanner = new Scanner(file);
+        linesInFile = new ArrayList<>();
 
         while(scanner.hasNextLine())
         {

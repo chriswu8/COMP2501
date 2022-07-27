@@ -56,19 +56,14 @@ public class Assignment2
     {
         File               addressData;
         File               propertyData;
-        AddressReader      addressReader;
-        PropertyReader     propertyReader;
         ArrayList<Address> addresses;
         ArrayList<String>  properties;
 
         addressData = new File("address_data.txt");
         propertyData = new File("property_data.txt");
-        addressReader = new AddressReader();
-        propertyReader = new PropertyReader();
 
-        addresses = addressReader.readAddressData(addressData);
-
-        properties = propertyReader.readPropertyData(propertyData);
+        addresses = AddressReader.readAddressData(addressData);
+        properties = PropertyReader.readPropertyData(propertyData);
 
         createSubtypes(addresses, properties);
     }
@@ -137,7 +132,7 @@ public class Assignment2
      * Provides the primary user interface through command prompts that will allow the user to
      * choose which search operations to perform. Each search will display results to the console.
      */
-    public void doSearches()
+    public void doSearches() throws FileNotFoundException
     {
         Scanner scanner;
         boolean programRunning;
@@ -227,7 +222,7 @@ public class Assignment2
         {
             System.out.println("Enter the minimum desired square footage: ");
             minSquareFootage = scanner.nextInt();
-            retailsAboveMinSquareFootage = agency.getPropertiesWithSquareFootage(minSquareFootage);
+            retailsAboveMinSquareFootage = agency.getPropertiesSquareFootage(minSquareFootage);
 
             for(Retail retail : retailsAboveMinSquareFootage)
             {
@@ -275,7 +270,7 @@ public class Assignment2
 
         if(userInput.equals("1"))
         {
-            comWIthLoadingDock = agency.getPropertiesWithLoadingDock();
+            comWIthLoadingDock = agency.getPropertiesWithLoadingDocks();
 
             for(Commercial commercial : comWIthLoadingDock)
             {
@@ -371,7 +366,7 @@ public class Assignment2
         }
     }
 
-    private void generalQueries(final Scanner scanner)
+    private void generalQueries(final Scanner scanner) throws FileNotFoundException
     {
         String              userInput;
 
@@ -398,7 +393,7 @@ public class Assignment2
     }
 
     private void query4(final Scanner scanner,
-                        final String userInput)
+                        final String userInput) throws FileNotFoundException
     {
         ArrayList<Property> properties;
         String              propertyType;

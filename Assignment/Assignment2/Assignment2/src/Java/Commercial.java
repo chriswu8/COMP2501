@@ -42,7 +42,7 @@ public class Commercial extends Property
      */
     public boolean hasHighwayAccess()
     {
-        return loadingDock;
+        return highwayAccess;
     }
 
     /**

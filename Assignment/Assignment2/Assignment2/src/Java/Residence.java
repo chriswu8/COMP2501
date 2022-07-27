@@ -36,6 +36,32 @@ public class Residence extends Property
     }
 
     /**
+     * The second Residence constructor
+     * @param price            is the residence's price
+     * @param address          is the residence's address
+     * @param numberOfBedrooms is the residence's number of bedrooms
+     * @param swimmingPool     is whether the residence has a pool
+     * @param type             is the residence's type (ie. residence, commercial, or retail)
+     * @param propertyId       is the residence's identification string
+     * @param strata           is whether the residence is a strata property
+     */
+    public Residence(final double price,
+                     final Address address,
+                     final int numberOfBedrooms,
+                     final boolean swimmingPool,
+                     final String type,
+                     final String propertyId,
+                     final boolean strata)
+    {
+        super(price, address, type, propertyId);
+        checkNumberOfBedrooms(numberOfBedrooms);
+        this.numberOfBedrooms = numberOfBedrooms;
+        this.swimmingPool = swimmingPool;
+        this.strata = strata;
+    }
+
+
+    /**
      * @param numberOfBedrooms is the number of bedrooms
      */
     public void checkNumberOfBedrooms(final int numberOfBedrooms)

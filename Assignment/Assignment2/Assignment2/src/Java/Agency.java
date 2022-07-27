@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
@@ -10,11 +12,31 @@ import java.util.ArrayList;
  */
 public class Agency
 {
-    private final String                name;
+    private final String name;
+
+    private       String[]              tokens;
+    private final Address[]             allAddresses;
     private final Map<String, Property> properties;
 
-    private static final int MIN_NAME_LENGTH = 1;
-    private static final int MAX_NAME_LENGTH = 30;
+    private static final int    MIN_NAME_LENGTH              = 1;
+    private static final int    MAX_NAME_LENGTH              = 30;
+    private static final int    ARRAY_SIZE                   = 12;
+    private static final String DELIMITER                    = "\\|";
+    private static final int    ARRAY_SIZE2                  = 12;
+    private static final int    PRICE_USD_INDEX              = 0;
+    private static final int    BEDROOM_INDEX                = 1;
+    private static final int    POOL_INDEX                   = 2;
+    private static final int    RESIDENCE_TYPE_INDEX         = 3;
+    private static final int    RESIDENCE_ID_INDEX           = 4;
+    private static final int    STRATA_INDEX                 = 5;
+    private static final int    RETAIL_COMMERCIAL_TYPE_INDEX = 1;
+    private static final int    RETAIL_ID_INDEX              = 2;
+    private static final int    SQUARE_FOOTAGE_INDEX         = 3;
+    private static final int    CUSTOMER_PARKING_INDEX       = 4;
+    private static final int    COMMERCIAL_ID_INDEX          = 2;
+    private static final int    LOADING_DOCK_INDEX           = 3;
+    private static final int    HIGHWAY_ACCESS_INDEX         = 4;
+
 
     /**
      * The constructor
@@ -24,6 +46,8 @@ public class Agency
     {
         name = checkName(agency);
         properties = new HashMap<>();
+        tokens = new String[ARRAY_SIZE];
+        allAddresses = new Address[ARRAY_SIZE2];
     }
 
     private String checkName(final String agency)
@@ -125,8 +149,8 @@ public class Agency
      * @param maxUsd is the upper bound price point of the property
      * @return an array of properties whose price falls in the range specified by the parameter, or null if none
      */
-    public Property[] getPropertiesBetween(final int minUsd,
-                                           final int maxUsd)
+    public Property[] getPropertiesBetween(final double minUsd,
+                                           final double maxUsd)
     {
         int size;
         size = properties.size();
@@ -183,8 +207,8 @@ public class Agency
      * @param upperBoundPrice is the upper bound price point of the property
      * @param matches         is the array with properties but without null values
      */
-    private void populateArray(final int lowerBoundPrice,
-                               final int upperBoundPrice,
+    private void populateArray(final double lowerBoundPrice,
+                               final double upperBoundPrice,
                                final Property[] matches)
     {
         int         index;
@@ -223,14 +247,9 @@ public class Agency
             }
         }
 
-        if(propertiesOn.size() > 0)
-        {
-            return propertiesOn;
-        }
-        else
-        {
-            return null;
-        }
+
+        return propertiesOn;
+
     }
 
     /**
@@ -274,27 +293,128 @@ public class Agency
     /**
      * @param propertyType is a subtype of property (commercial, residence, or retail)
      * @return an ArrayList<Property> that holds the subtype specified in the parameter
+     * @throws FileNotFoundException if file is not found
      */
-    public ArrayList<Property> getPropertiesOfType(final String propertyType)
+    public ArrayList<Property> getPropertiesOfType(final String propertyType) throws FileNotFoundException
     {
-        ArrayList<Property> propertyList;
+        File                addressData;
+        File                propertyData;
+        ArrayList<Address>  addresses;
+        ArrayList<String>   properties;
+        ArrayList<Property> returnList;
+        Set<String>         keys;
 
-        propertyList = new ArrayList<>();
+        addressData = new File("address_data.txt");
+        propertyData = new File("property_data.txt");
 
-        if(propertyType.equalsIgnoreCase("Residence") || propertyType.equalsIgnoreCase("Retail") || propertyType.equalsIgnoreCase("Commercial"))
+        returnList = new ArrayList<>();
+        keys = this.properties.keySet();
+
+        addresses = AddressReader.readAddressData(addressData);
+        properties = PropertyReader.readPropertyData(propertyData);
+
+        createSubtypes(addresses, properties);
+
+
+        if(propertyType.equalsIgnoreCase("residence"))
         {
-            return propertyList;
+            for(String key : keys)
+            {
+                if(key != null && this.properties.get(key) instanceof Residence)
+                {
+                    returnList.add(this.properties.get(key));
+                }
+            }
         }
-        else
+
+        if(propertyType.equalsIgnoreCase("retail"))
         {
-            throw new IllegalArgumentException("Invalid Property");
+            for(String key : keys)
+            {
+                if(key != null && this.properties.get(key) instanceof Retail)
+                {
+                    returnList.add(this.properties.get(key));
+                }
+            }
+        }
+
+        if(propertyType.equalsIgnoreCase("commercial"))
+        {
+            for(String key : keys)
+            {
+                if(key != null && this.properties.get(key) instanceof Commercial)
+                {
+                    returnList.add(this.properties.get(key));
+                }
+            }
+        }
+        return returnList;
+    }
+
+    private void createSubtypes(final ArrayList<Address> addresses,
+                                final ArrayList<String> properties)
+    {
+        for(int i = 0; i < addresses.size(); i++)
+        {
+            allAddresses[i] = addresses.get(i);
+        }
+
+        for(int i = 0; i < properties.size(); i++)
+        {
+            if(properties.get(i) != null)
+            {
+                tokens = properties.get(i).split(DELIMITER);
+
+                dealWithRetail(i);
+
+                dealWithResidence(i);
+
+                dealWithCommercial(i);
+            }
+        }
+    }
+
+    private void dealWithCommercial(final int i)
+    {
+        if(tokens[RETAIL_COMMERCIAL_TYPE_INDEX].equalsIgnoreCase("commercial"))
+        {
+            Commercial aCommercial = new Commercial(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
+                                                    tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[COMMERCIAL_ID_INDEX]
+                    , Boolean.parseBoolean(tokens[LOADING_DOCK_INDEX]),
+                                                    Boolean.parseBoolean(tokens[HIGHWAY_ACCESS_INDEX]));
+            this.addProperty(aCommercial);
+        }
+    }
+
+    private void dealWithResidence(final int i)
+    {
+        if(tokens[RESIDENCE_TYPE_INDEX].equalsIgnoreCase("residence"))
+        {
+            Residence aResidence = new Residence(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
+                                                 tokens[RESIDENCE_TYPE_INDEX], tokens[RESIDENCE_ID_INDEX],
+                                                 Integer.parseInt(tokens[BEDROOM_INDEX]),
+                                                 Boolean.parseBoolean(tokens[POOL_INDEX]),
+                                                 Boolean.parseBoolean(tokens[STRATA_INDEX]));
+            this.addProperty(aResidence);
+        }
+    }
+
+    private void dealWithRetail(final int i)
+    {
+        if(tokens[RETAIL_COMMERCIAL_TYPE_INDEX].equalsIgnoreCase("retail"))
+        {
+            Retail aRetail = new Retail(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
+                                        tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[RETAIL_ID_INDEX],
+                                        Integer.parseInt(tokens[SQUARE_FOOTAGE_INDEX]),
+                                        Boolean.parseBoolean(tokens[CUSTOMER_PARKING_INDEX]));
+            this.addProperty(aRetail);
         }
     }
 
     /**
      * @return an ArrayList<Commercial> that holds only Commercial properties that have a loading dock available
      */
-    public ArrayList<Commercial> getPropertiesWithLoadingDock()
+    public ArrayList<Commercial> getPropertiesWithLoadingDocks()
     {
         ArrayList<Commercial> commercialWithLoadingDock;
         Set<String>           keys;
@@ -368,7 +488,7 @@ public class Agency
     /**
      * @return an ArrayList<Retail> that holds properties where square footage is at least the parameter value.
      */
-    public ArrayList<Retail> getPropertiesWithSquareFootage(final int squareFootage)
+    public ArrayList<Retail> getPropertiesSquareFootage(final int squareFootage)
     {
         ArrayList<Retail> retailWithRequiredSquareFootage;
         Set<String>       keys;
@@ -420,7 +540,8 @@ public class Agency
             {
                 addToArrayListIfItHasCustomerParking(retailWithCustomerParking, key);
             }
-        } return retailWithCustomerParking;
+        }
+        return retailWithCustomerParking;
     }
 
     private void addToArrayListIfItHasCustomerParking(ArrayList<Retail> retailWithCustomerParking,
@@ -456,7 +577,8 @@ public class Agency
             {
                 addToArrayListIfInStrata(residencesInStrata, key);
             }
-        } return residencesInStrata;
+        }
+        return residencesInStrata;
     }
 
     private void addToArrayListIfInStrata(ArrayList<Residence> residencesInStrata,

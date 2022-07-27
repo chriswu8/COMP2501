@@ -14,13 +14,6 @@ public class AddressReader
     private static final long               EMPTY     = 0;
     private static final String             DELIMITER = "\\|";
 
-    /**
-     * The AddressReader constructor.
-     */
-    public AddressReader()
-    {
-        addresses = new ArrayList<>();
-    }
 
     /**
      * Reads “address_data.txt” and adds Address objects to an ArrayList<Address> and returns it.
@@ -33,13 +26,20 @@ public class AddressReader
         Scanner   scanner;
         Address   address;
         String[]  arr;
-        final int unitNumberIndex   = 0;
-        final int streetNumberIndex = 1;
-        final int streetNameIndex   = 2;
-        final int postalCodeIndex   = 3;
-        final int cityIndex         = 4;
+
+        final int unitNumberIndex;
+        final int streetNumberIndex;
+        final int streetNameIndex;
+        final int postalCodeIndex;
+        final int cityIndex;
 
         scanner = new Scanner(file);
+        addresses = new ArrayList<>();
+        unitNumberIndex = 0;
+        streetNumberIndex = 1;
+        streetNameIndex = 2;
+        postalCodeIndex = 3;
+        cityIndex = 4;
 
         if(file.length() == EMPTY)
         {
@@ -51,11 +51,8 @@ public class AddressReader
             {
                 arr = scanner.nextLine().split(DELIMITER);
 
-                address = new Address(arr[unitNumberIndex],
-                                      Integer.parseInt(arr[streetNumberIndex]),
-                                      arr[streetNameIndex],
-                                      arr[postalCodeIndex],
-                                      arr[cityIndex]);
+                address = new Address(arr[unitNumberIndex], Integer.parseInt(arr[streetNumberIndex]),
+                                      arr[streetNameIndex], arr[postalCodeIndex], arr[cityIndex]);
 
                 addresses.add(address);
             }
