@@ -10,22 +10,22 @@ public class Commercial extends Property
 
     /**
      * The Commercial constructor
-     * @param price         is the commercial property's price
+     * @param priceUsd      is the commercial property's price in USD
      * @param address       is the commercial property's address
      * @param type          is the commercial property's type (ie. residence, commercial, or retail)
      * @param propertyId    is the commercial property's identification string
      * @param loadingDock   is whether the commercial property's has a loading dock
      * @param highwayAccess is whether the commercial property's has highway access
      */
-    public Commercial(final double price,
+    public Commercial(final double priceUsd,
                       final Address address,
                       final String type,
                       final String propertyId,
                       final boolean loadingDock,
                       final boolean highwayAccess)
     {
-        super(price, address, type, propertyId);
-        this.loadingDock = loadingDock;
+        super(priceUsd, address, type, propertyId);
+        this.loadingDock   = loadingDock;
         this.highwayAccess = highwayAccess;
     }
 

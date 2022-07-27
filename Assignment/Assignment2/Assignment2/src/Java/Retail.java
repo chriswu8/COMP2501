@@ -10,21 +10,21 @@ public class Retail extends Property
 
     /**
      * The property constructor
-     * @param price           is the property's price
+     * @param priceUsd        is the property's price in USD
      * @param address         is the property's address
      * @param type            is the property's type (ie. residence, commercial, or retail)
      * @param propertyId      is the property's identification string
      * @param squareFootage   is the property's size in square foot
      * @param customerParking is whether the property has customer parking space
      */
-    public Retail(final double price,
+    public Retail(final double priceUsd,
                   final Address address,
                   final String type,
                   final String propertyId,
                   final int squareFootage,
                   final boolean customerParking)
     {
-        super(price, address, type, propertyId);
+        super(priceUsd, address, type, propertyId);
         this.squareFootage = squareFootage;
         this.customerParking = customerParking;
     }

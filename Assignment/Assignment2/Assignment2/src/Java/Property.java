@@ -9,32 +9,32 @@ public class Property
     private              Address address;
     private              String  type;
     private              String  propertyId;
+
     private static final int     MIN_ID_LENGTH = 1;
     private static final int     MAX_ID_LENGTH = 6;
 
-
     /**
      * The property constructor
-     * @param price      is the property's price
+     * @param priceUsd   is the property's price in USD
      * @param address    is the property's address
      * @param type       is the property's type (ie. residence, commercial, or retail)
      * @param propertyId is the property's identification string
      */
-    public Property(final double price,
+    public Property(final double priceUsd,
                     final Address address,
                     final String type,
                     final String propertyId)
     {
-        checkPrice(price);
+        checkPriceUsd(priceUsd);
         checkAddress(address);
         checkType(type);
-        checkPropertyId(price, address, type, propertyId);
+        checkPropertyId(priceUsd, address, type, propertyId);
     }
 
     /**
      * @param price is the property's price
      */
-    private void checkPrice(final double price)
+    private void checkPriceUsd(final double price)
     {
         if(price < 0)
         {
@@ -55,17 +55,6 @@ public class Property
     }
 
     /**
-     * @param numberOfBedrooms is the number of bedrooms that the property has
-     */
-    private void checkNumberOfBedrooms(final int numberOfBedrooms)
-    {
-        if(numberOfBedrooms == 0 || numberOfBedrooms >= 21)
-        {
-            throw new IllegalArgumentException("Invalid number of bedrooms: " + numberOfBedrooms);
-        }
-    }
-
-    /**
      * @param type is the property's type (ie. residence, commercial, or retail)
      */
     private void checkType(final String type)
@@ -74,19 +63,21 @@ public class Property
         {
             throw new NullPointerException("Invalid property type: null");
         }
-        else if(!type.equalsIgnoreCase("residence") && !type.equalsIgnoreCase("commercial") && !type.equalsIgnoreCase("retail"))
+        else if(!type.equalsIgnoreCase("residence") &&
+                !type.equalsIgnoreCase("commercial") &&
+                !type.equalsIgnoreCase("retail"))
         {
             throw new IllegalArgumentException("Invalid property type: " + type);
         }
     }
 
     /**
-     * @param price      is the property's price
+     * @param priceUsd   is the property's price in USD
      * @param address    is the property's address
      * @param type       is the property's type (ie. residence, commercial, or retail)
      * @param propertyId is the property's identification string
      */
-    private void checkPropertyId(final double price,
+    private void checkPropertyId(final double priceUsd,
                                  final Address address,
                                  final String type,
                                  final String propertyId)
@@ -105,7 +96,7 @@ public class Property
         }
         else
         {
-            this.priceUsd = price;
+            this.priceUsd = priceUsd;
             this.address = address;
             this.type = type;
             this.propertyId = propertyId;
@@ -159,6 +150,7 @@ public class Property
     @Override
     public String toString()
     {
-        return "toString()=Property [priceUsd=" + priceUsd + ", " + getAddress() + ", type=" + getType() + ", propertyId=" + getPropertyId() +"]]";
+        return "toString()=Property [priceUsd=" + priceUsd + ", " + getAddress() + ", type=" + getType()
+                + ", propertyId=" + getPropertyId() +"]]";
     }
 }

@@ -12,7 +12,7 @@ public class Residence extends Property
 
     /**
      * The Residence constructor
-     * @param price            is the residence's price
+     * @param priceUsd         is the residence's price in USD
      * @param address          is the residence's address
      * @param type             is the residence's type (ie. residence, commercial, or retail)
      * @param propertyId       is the residence's identification string
@@ -20,7 +20,7 @@ public class Residence extends Property
      * @param swimmingPool     is whether the residence has a pool
      * @param strata           is whether the residence is a strata property
      */
-    public Residence(final double price,
+    public Residence(final double priceUsd,
                      final Address address,
                      final String type,
                      final String propertyId,
@@ -28,7 +28,7 @@ public class Residence extends Property
                      final boolean swimmingPool,
                      final boolean strata)
     {
-        super(price, address, type, propertyId);
+        super(priceUsd, address, type, propertyId);
         checkNumberOfBedrooms(numberOfBedrooms);
         this.numberOfBedrooms = numberOfBedrooms;
         this.swimmingPool = swimmingPool;
