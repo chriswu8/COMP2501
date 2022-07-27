@@ -34,8 +34,8 @@ public class Assignment2
     private static final int    SQUARE_FOOTAGE_INDEX         = 3;
     private static final int    CUSTOMER_PARKING_INDEX       = 4;
     private static final int    COMMERCIAL_ID_INDEX          = 2;
-    private static final int    LOADING_DOCK_INDEX           = 3;
-    private static final int    HIGHWAY_ACCESS_INDEX         = 4;
+    private static final int    LOADING_DOCK_INDEX           = 4;
+    private static final int    HIGHWAY_ACCESS_INDEX         = 3;
 
     /**
      * The Assignment2 constructor
@@ -255,7 +255,7 @@ public class Assignment2
     {
         ArrayList<Commercial> comWithHighwayAccess;
 
-        if(userInput.equals("1"))
+        if(userInput.equals("2"))
         {
             comWithHighwayAccess = agency.getPropertiesWithHighwayAccess();
 
