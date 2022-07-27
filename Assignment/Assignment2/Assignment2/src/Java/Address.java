@@ -5,18 +5,16 @@
  */
 public class Address
 {
-    private              String unitNumber;
-    private              int    streetNumber;
-    private              String streetName;
-    private              String postalCode;
-    private              String city;
-    private static final int    MIN_STREET_NUM_LENGTH  = 1;
-    private static final int    MAX_STREET_NUM_LENGTH  = 20;
-    private static final int    MIN_POSTAL_CODE_LENGTH = 5;
-    private static final int    MAX_POSTAL_CODE_LENGTH = 6;
-    private static final int    MIN_CITY_LENGTH        = 1;
-    private static final int    MAX_CITY_LENGTH        = 30;
+    private int    streetNumber;
+    private String unitNumber;
+    private String streetName;
+    private String postalCode;
+    private String city;
 
+    private static final int MAX_STREET_NUM_LENGTH  = 20;
+    private static final int MIN_POSTAL_CODE_LENGTH = 5;
+    private static final int MAX_POSTAL_CODE_LENGTH = 6;
+    private static final int MAX_CITY_LENGTH        = 30;
 
     /**
      * The constructor
@@ -37,7 +35,6 @@ public class Address
         getExpectedExceptionsStreetName(streetName);
         getExpectedExceptionsPostalCode(postalCode);
         getExpectedExceptionsCity(unitNumber, streetNumber, streetName, postalCode, city);
-
     }
 
     /**
@@ -111,7 +108,7 @@ public class Address
             initialize(null, streetNumber, streetName, postalCode, city);
         }
 
-        if(unitNumber != null && unitNumber.equals(" ") || unitNumber.equals("|"))
+        if(unitNumber != null && unitNumber.equals(" "))
         {
             initialize("", streetNumber, streetName, postalCode, city);
         }
@@ -122,7 +119,12 @@ public class Address
      */
     private void getExpectedExceptionsStreetNumber(final int streetNumber)
     {
-        if(streetNumber < 0 || streetNumber > 999999)
+        final int minStreetNum;
+        final int maxStreetNum;
+        minStreetNum = 0;
+        maxStreetNum = 999999;
+
+        if(streetNumber < minStreetNum || streetNumber > maxStreetNum)
         {
             throw new IllegalArgumentException("Invalid street number: " + streetNumber);
         }
@@ -141,9 +143,9 @@ public class Address
         {
             throw new IllegalArgumentException("Invalid street name: ");
         }
-        else if(streetName.length() < MIN_STREET_NUM_LENGTH || streetName.length() > MAX_STREET_NUM_LENGTH)
+        else if(streetName.length() > MAX_STREET_NUM_LENGTH)
         {
-            throw new IllegalArgumentException("Invalid street name length: must be between one to twenty characters");
+            throw new IllegalArgumentException("Invalid street name length: must be between 1-20 characters");
         }
     }
 
@@ -183,7 +185,7 @@ public class Address
         {
             throw new IllegalArgumentException("Invalid city: ");
         }
-        else if(city.length() < MIN_CITY_LENGTH || city.length() > MAX_CITY_LENGTH)
+        else if(city.length() > MAX_CITY_LENGTH)
         {
             throw new IllegalArgumentException("Invalid city length: must be between 1-30 characters ");
         }
@@ -198,19 +200,14 @@ public class Address
     {
         if(unitNumber == null || unitNumber.isBlank())
         {
-            return "address=Address [unitNumber= "
-                    +  ", streetNumber=" + streetNumber
-                    + ", streetName=" + streetName
-                    + ", postalCode=" + postalCode
-                    + ", city=" + city + "]";
+            return "address=Address [unitNumber= " + ", streetNumber=" + streetNumber + ", streetName="
+                    + streetName + ", postalCode=" + postalCode + ", city=" + city + "]";
         }
         else
         {
-            return "address=Address [unitNumber=" + unitNumber
-                    + ", streetNumber=" + streetNumber
-                    + ", streetName=" + streetName
-                    + ", postalCode=" + postalCode
-                    + ", city=" + city + "]";
+            return "address=Address [unitNumber=" + getUnitNumber() + ", streetNumber=" + getStreetNumber()
+                    + ", streetName=" + getStreetName() + ", postalCode=" + getPostalCode()
+                    + ", city=" + getCity() + "]";
         }
     }
 }

@@ -12,9 +12,9 @@ import java.util.ArrayList;
  */
 public class Agency
 {
-    private final String name;
+    private String[] tokens;
 
-    private       String[]              tokens;
+    private final String                name;
     private final Address[]             allAddresses;
     private final Map<String, Property> properties;
 
@@ -91,11 +91,11 @@ public class Agency
     }
 
     /**
-     * @param key is a key (property ID)
+     * @param propertyId is a key to the property HashMap
      */
-    public void removeProperty(final String key)
+    public void removeProperty(final String propertyId)
     {
-        properties.remove(key);
+        properties.remove(propertyId);
     }
 
     /**
@@ -113,7 +113,6 @@ public class Agency
         {
             totalPropertyValue += properties.get(key).getPriceUsd();
         }
-
         return totalPropertyValue.intValue();
     }
 
@@ -177,9 +176,9 @@ public class Agency
                                       final Property[] matches,
                                       final int size)
     {
-        for(int i = 0; i < size; i++)
+        if(size >= 0)
         {
-            matches[i] = arr[i];
+            System.arraycopy(arr, 0, matches, 0, size);
         }
     }
 
@@ -219,7 +218,8 @@ public class Agency
 
         for(String key : keys)
         {
-            if(properties.get(key).getPriceUsd() >= lowerBoundPrice && properties.get(key).getPriceUsd() <= upperBoundPrice)
+            if(properties.get(key).getPriceUsd() >= lowerBoundPrice &&
+                    properties.get(key).getPriceUsd() <= upperBoundPrice)
             {
                 matches[index] = properties.get(key);
                 index++;
@@ -241,15 +241,12 @@ public class Agency
 
         for(String key : keys)
         {
-            if(properties.get(key).getAddress().getStreetName().equals(streetName))
+            if(properties.get(key).getAddress().getStreetName().equalsIgnoreCase(streetName))
             {
                 propertiesOn.add(properties.get(key).getAddress());
             }
         }
-
-
         return propertiesOn;
-
     }
 
     /**
@@ -315,29 +312,19 @@ public class Agency
 
         createSubtypes(addresses, properties);
 
+        addAllResidences(propertyType, returnList, keys);
 
-        if(propertyType.equalsIgnoreCase("residence"))
-        {
-            for(String key : keys)
-            {
-                if(key != null && this.properties.get(key) instanceof Residence)
-                {
-                    returnList.add(this.properties.get(key));
-                }
-            }
-        }
+        addAllRetails(propertyType, returnList, keys);
 
-        if(propertyType.equalsIgnoreCase("retail"))
-        {
-            for(String key : keys)
-            {
-                if(key != null && this.properties.get(key) instanceof Retail)
-                {
-                    returnList.add(this.properties.get(key));
-                }
-            }
-        }
+        addAllCommercials(propertyType, returnList, keys);
 
+        return returnList;
+    }
+
+    private void addAllCommercials(final String propertyType,
+                                   final ArrayList<Property> returnList,
+                                   final Set<String> keys)
+    {
         if(propertyType.equalsIgnoreCase("commercial"))
         {
             for(String key : keys)
@@ -348,7 +335,38 @@ public class Agency
                 }
             }
         }
-        return returnList;
+    }
+
+    private void addAllRetails(final String propertyType,
+                               final ArrayList<Property> returnList,
+                               final Set<String> keys)
+    {
+        if(propertyType.equalsIgnoreCase("retail"))
+        {
+            for(String key : keys)
+            {
+                if(key != null && this.properties.get(key) instanceof Retail)
+                {
+                    returnList.add(this.properties.get(key));
+                }
+            }
+        }
+    }
+
+    private void addAllResidences(final String propertyType,
+                                  final ArrayList<Property> returnList,
+                                  final Set<String> keys)
+    {
+        if(propertyType.equalsIgnoreCase("residence"))
+        {
+            for(String key : keys)
+            {
+                if(key != null && this.properties.get(key) instanceof Residence)
+                {
+                    returnList.add(this.properties.get(key));
+                }
+            }
+        }
     }
 
     private void createSubtypes(final ArrayList<Address> addresses,
@@ -378,10 +396,13 @@ public class Agency
     {
         if(tokens[RETAIL_COMMERCIAL_TYPE_INDEX].equalsIgnoreCase("commercial"))
         {
-            Commercial aCommercial = new Commercial(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
-                                                    tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[COMMERCIAL_ID_INDEX]
-                    , Boolean.parseBoolean(tokens[LOADING_DOCK_INDEX]),
-                                                    Boolean.parseBoolean(tokens[HIGHWAY_ACCESS_INDEX]));
+            Commercial aCommercial;
+
+            aCommercial = new Commercial(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
+                                         tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[COMMERCIAL_ID_INDEX],
+                                         Boolean.parseBoolean(tokens[LOADING_DOCK_INDEX]),
+                                         Boolean.parseBoolean(tokens[HIGHWAY_ACCESS_INDEX]));
+
             this.addProperty(aCommercial);
         }
     }
@@ -390,11 +411,14 @@ public class Agency
     {
         if(tokens[RESIDENCE_TYPE_INDEX].equalsIgnoreCase("residence"))
         {
-            Residence aResidence = new Residence(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
-                                                 tokens[RESIDENCE_TYPE_INDEX], tokens[RESIDENCE_ID_INDEX],
-                                                 Integer.parseInt(tokens[BEDROOM_INDEX]),
-                                                 Boolean.parseBoolean(tokens[POOL_INDEX]),
-                                                 Boolean.parseBoolean(tokens[STRATA_INDEX]));
+            Residence aResidence;
+
+            aResidence = new Residence(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
+                                       tokens[RESIDENCE_TYPE_INDEX], tokens[RESIDENCE_ID_INDEX],
+                                       Integer.parseInt(tokens[BEDROOM_INDEX]),
+                                       Boolean.parseBoolean(tokens[POOL_INDEX]),
+                                       Boolean.parseBoolean(tokens[STRATA_INDEX]));
+
             this.addProperty(aResidence);
         }
     }
@@ -403,10 +427,13 @@ public class Agency
     {
         if(tokens[RETAIL_COMMERCIAL_TYPE_INDEX].equalsIgnoreCase("retail"))
         {
-            Retail aRetail = new Retail(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
-                                        tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[RETAIL_ID_INDEX],
-                                        Integer.parseInt(tokens[SQUARE_FOOTAGE_INDEX]),
-                                        Boolean.parseBoolean(tokens[CUSTOMER_PARKING_INDEX]));
+            Retail aRetail;
+
+            aRetail = new Retail(Double.parseDouble(tokens[PRICE_USD_INDEX]), allAddresses[i],
+                                 tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[RETAIL_ID_INDEX],
+                                 Integer.parseInt(tokens[SQUARE_FOOTAGE_INDEX]),
+                                 Boolean.parseBoolean(tokens[CUSTOMER_PARKING_INDEX]));
+
             this.addProperty(aRetail);
         }
     }
@@ -506,7 +533,7 @@ public class Agency
         return retailWithRequiredSquareFootage;
     }
 
-    private void addToArrayListIfItMeetsRequiredSquareFootage(ArrayList<Retail> retailWithRequiredSquareFootage,
+    private void addToArrayListIfItMeetsRequiredSquareFootage(final ArrayList<Retail> retailWithRequiredSquareFootage,
                                                               final String key,
                                                               final int squareFootage)
     {
@@ -544,7 +571,7 @@ public class Agency
         return retailWithCustomerParking;
     }
 
-    private void addToArrayListIfItHasCustomerParking(ArrayList<Retail> retailWithCustomerParking,
+    private void addToArrayListIfItHasCustomerParking(final ArrayList<Retail> retailWithCustomerParking,
                                                       final String key)
     {
         Retail aRetail;
@@ -581,7 +608,7 @@ public class Agency
         return residencesInStrata;
     }
 
-    private void addToArrayListIfInStrata(ArrayList<Residence> residencesInStrata,
+    private void addToArrayListIfInStrata(final ArrayList<Residence> residencesInStrata,
                                           final String key)
     {
         Residence aResidence;

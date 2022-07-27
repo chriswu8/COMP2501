@@ -15,8 +15,8 @@ public class Assignment2
     private Residence  aResidence;
     private Retail     aRetail;
     private Commercial aCommercial;
+    private String[]   tokens;
 
-    private       String[]  tokens;
     private final Agency    agency;
     private final Address[] allAddresses;
 
@@ -99,6 +99,7 @@ public class Assignment2
                                          tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[COMMERCIAL_ID_INDEX],
                                          Boolean.parseBoolean(tokens[LOADING_DOCK_INDEX]),
                                          Boolean.parseBoolean(tokens[HIGHWAY_ACCESS_INDEX]));
+
             agency.addProperty(aCommercial);
         }
     }
@@ -112,6 +113,7 @@ public class Assignment2
                                        Integer.parseInt(tokens[BEDROOM_INDEX]),
                                        Boolean.parseBoolean(tokens[POOL_INDEX]),
                                        Boolean.parseBoolean(tokens[STRATA_INDEX]));
+
             agency.addProperty(aResidence);
         }
     }
@@ -124,6 +126,7 @@ public class Assignment2
                                  tokens[RETAIL_COMMERCIAL_TYPE_INDEX], tokens[RETAIL_ID_INDEX],
                                  Integer.parseInt(tokens[SQUARE_FOOTAGE_INDEX]),
                                  Boolean.parseBoolean(tokens[CUSTOMER_PARKING_INDEX]));
+
             agency.addProperty(aRetail);
         }
     }
@@ -210,10 +213,10 @@ public class Assignment2
                 System.out.println(retail);
             }
         }
-
     }
 
-    private void queryRetail1(final Scanner scanner, final String userInput)
+    private void queryRetail1(final Scanner scanner,
+                              final String userInput)
     {
         int               minSquareFootage;
         ArrayList<Retail> retailsAboveMinSquareFootage;
@@ -229,7 +232,6 @@ public class Assignment2
                 System.out.println(retail);
             }
         }
-
     }
 
     private void commercialQueries(final Scanner scanner)
@@ -281,7 +283,7 @@ public class Assignment2
 
     private void residenceQueries(final Scanner scanner)
     {
-        String      userInput;
+        String userInput;
 
         System.out.println("""
                            General Queries
@@ -368,7 +370,7 @@ public class Assignment2
 
     private void generalQueries(final Scanner scanner) throws FileNotFoundException
     {
-        String              userInput;
+        String userInput;
 
         System.out.println("""
 
@@ -430,17 +432,58 @@ public class Assignment2
     private void query3(final Scanner scanner,
                         final String userInput)
     {
-        String street;
+        String              street;
+        ArrayList<Property> listOfMatches;
+        ArrayList<Address>  matchingAddress;
+
         if(userInput.equalsIgnoreCase("3"))
         {
             System.out.println("Enter the street name: ");
-            street = scanner.next();
 
-            for(Address address : agency.getPropertiesOn(street))
+            street = getStreetName(scanner);
+
+            matchingAddress = agency.getPropertiesOn(street);
+
+            if(matchingAddress.size() > 0)
             {
-                System.out.println(address);
+                for(Address address : matchingAddress)
+                {
+                    System.out.println("\n" + address);
+                }
+            }
+            else
+            {
+                System.out.println("\nNo property is available for the entered street." + "\nPlease ensure correct " +
+                                           "spacing and spelling.");
             }
         }
+    }
+
+    private String getStreetName(final Scanner scanner)
+    {
+        final String        street;
+        final String[]      words;
+        final int           size;
+        final StringBuilder builder;
+
+        size = 2;
+        words = new String[size];
+        builder = new StringBuilder();
+
+        for(int i = 0; i < words.length; i++)
+        {
+            words[i] = scanner.next();
+        }
+
+        for(int i = 0; i < words.length; i++)
+        {
+            builder.append(words[i]);
+            builder.append(" ");
+        }
+
+        street = builder.toString().trim();
+
+        return street;
     }
 
     private void query2(final Scanner scanner,
@@ -482,11 +525,7 @@ public class Assignment2
 
     private void valid1To5(final String userInput)
     {
-        if(! userInput.equals("1") &&
-                ! userInput.equals("2") &&
-                ! userInput.equals("3") &&
-                ! userInput.equals("4") &&
-                ! userInput.equals("5"))
+        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3") && ! userInput.equals("4") && ! userInput.equals("5"))
         {
             throw new IllegalArgumentException("Invalid input");
         }
@@ -494,10 +533,7 @@ public class Assignment2
 
     private void valid1To4(final String userInput)
     {
-        if(! userInput.equals("1") &&
-                ! userInput.equals("2") &&
-                ! userInput.equals("3") &&
-                ! userInput.equals("4"))
+        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3") && ! userInput.equals("4"))
         {
             throw new IllegalArgumentException("Invalid input");
         }
@@ -505,9 +541,7 @@ public class Assignment2
 
     private void valid1To3(final String userInput)
     {
-        if(! userInput.equals("1") &&
-                ! userInput.equals("2") &&
-                ! userInput.equals("3"))
+        if(! userInput.equals("1") && ! userInput.equals("2") && ! userInput.equals("3"))
         {
             throw new IllegalArgumentException("Invalid input");
         }

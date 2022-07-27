@@ -10,9 +10,8 @@ import java.util.Scanner;
  */
 public class AddressReader
 {
-    private static       ArrayList<Address> addresses;
-    private static final long               EMPTY     = 0;
-    private static final String             DELIMITER = "\\|";
+    private static final long   EMPTY     = 0;
+    private static final String DELIMITER = "\\|";
 
 
     /**
@@ -23,9 +22,8 @@ public class AddressReader
      */
     public static ArrayList<Address> readAddressData(final File file) throws FileNotFoundException
     {
-        Scanner   scanner;
-        Address   address;
-        String[]  arr;
+        ArrayList<Address> addresses;
+        Scanner            scanner;
 
         final int unitNumberIndex;
         final int streetNumberIndex;
@@ -35,6 +33,7 @@ public class AddressReader
 
         scanner = new Scanner(file);
         addresses = new ArrayList<>();
+
         unitNumberIndex = 0;
         streetNumberIndex = 1;
         streetNameIndex = 2;
@@ -47,17 +46,33 @@ public class AddressReader
         }
         else
         {
-            while(scanner.hasNextLine())
-            {
-                arr = scanner.nextLine().split(DELIMITER);
-
-                address = new Address(arr[unitNumberIndex], Integer.parseInt(arr[streetNumberIndex]),
-                                      arr[streetNameIndex], arr[postalCodeIndex], arr[cityIndex]);
-
-                addresses.add(address);
-            }
+            addAllAddresses(addresses, scanner, unitNumberIndex,
+                            streetNumberIndex, streetNameIndex,
+                            postalCodeIndex, cityIndex);
         }
         scanner.close();
         return addresses;
+    }
+
+    private static void addAllAddresses(final ArrayList<Address> addresses,
+                                        final Scanner scanner,
+                                        final int unitNumberIndex,
+                                        final int streetNumberIndex,
+                                        final int streetNameIndex,
+                                        final int postalCodeIndex,
+                                        final int cityIndex)
+    {
+        Address  address;
+        String[] arr;
+
+        while(scanner.hasNextLine())
+        {
+            arr = scanner.nextLine().split(DELIMITER);
+
+            address = new Address(arr[unitNumberIndex], Integer.parseInt(arr[streetNumberIndex]),
+                                  arr[streetNameIndex], arr[postalCodeIndex], arr[cityIndex]);
+
+            addresses.add(address);
+        }
     }
 }
