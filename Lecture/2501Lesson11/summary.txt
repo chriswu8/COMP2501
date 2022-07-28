@@ -1,0 +1,156 @@
+class Chess
+{
+	private ChessPiece[] pieces;
+	public static final int PIECES_IN_GAME = 32;
+
+	Chess()
+	{
+		pieces = new ChessPiece[PIECES_IN_GAME];
+		pieces[0] = new Pawn(true); // substitution; all Pawns are ChessPieces
+	}
+}
+
+
+ChessPiece p = new Rook(); // substitution
+
+
+class ChessPiece
+{
+	private final boolean black;
+	ChessPiece(final boolean black)
+	{
+		this.black = black;
+	}
+	protected boolean isBlack()
+	{
+		return black;
+	}
+}
+
+class Pawn extends ChessPiece
+{
+	private boolean promoted;
+	Pawn(final boolean black)
+	{
+		super(black);
+		promoted = false;
+	}
+
+	/**
+		@param newPieceType the new type of ChessPiece to which the pawn was promoted
+		@throws IllegalPromotionException if pawn's new type is illegal (king, pawn)
+	*/
+	void promote(final ChessPiece newPieceType) throws IllegalPromotionException
+	{
+		if(newPieceType instanceof King)
+		{
+			throw new IllegalPromotionException("cannot change to king");
+		}
+		promoted = true;
+	}
+}
+
+class IllegalPromotionException extends Exception
+{
+	IllegalPromotionException(final String m)
+	{
+		super(m);
+	}
+}
+
+class Rook extends ChessPiece
+{
+	Rook(){}
+}
+
+
+String s = "hello";
+String s2 = new String("bye");
+
+if(s.contains(...
+if(s.startsWith("
+if(s.equals
+
+but not "if s == s2"
+
+
+class Person
+{
+	Person(final double weightLb)
+	{
+		if(weightLb <= 0.0)
+		{
+			throw new IllegalArgumentException("bad weight: " + weightLb);
+		}
+	}
+}
+
+
+public static void main(final String[] args)
+{
+	Person p;
+	try
+	{
+		p = new Person(190.0);
+	}
+	catch(final IllegalArgumentException e)
+	{
+		System.out.println("oops");
+	}
+	finally
+	{
+		// close files, etc
+	}
+}
+
+
+
+
+
+class BankAccount
+{
+	void withdraw(final double amountCad){}
+	void withdraw(final double amountCad, final int pin){}
+	void withdraw(final int x){}
+}
+
+b.withdraw(20.0);
+
+
+File text = new File("D:/whatever.txt");
+Scanner s = new Scanner(text);
+
+int lines = 1;
+while(s.hasNextLine())
+{
+	String line = s.nextLine();
+	System.out.println("line #" + lines + " is: " + line;
+}
+s.close();
+
+
+
+
+
+class Animal
+{
+	void speak(){sout("speaking");}
+}
+class Lion extends Animal
+{
+	@Override
+	public void speak(sout("roar");}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
